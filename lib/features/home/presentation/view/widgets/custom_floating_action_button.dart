@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/strings_manager.dart';
+import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/features/home/presentation/view/widgets/add_task_action_buttons.dart';
 import 'package:taska/features/home/presentation/view/widgets/add_task_form.dart';
 
@@ -30,7 +30,7 @@ class _CustomFloatingActionButtonState
       },
       shape: CircleBorder(),
       backgroundColor: ColorManager.primaryColor,
-      child: Icon(FontAwesomeIcons.plus, color: Colors.white),
+      child: Icon(CustomIcons.add_icon, color: Colors.white),
     );
   }
 

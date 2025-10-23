@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/strings_manager.dart';
-import 'package:taska/core/widgets/flag_icon/my_flutter_app_icons.dart';
+import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/features/home/presentation/view/widgets/task_priority_action_buttons.dart';
 import 'package:taska/features/home/presentation/view/widgets/task_priority_item.dart';
 
@@ -27,7 +27,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
             await _showCalendarAndTime(context);
           },
           icon: Icon(
-            Icons.watch_later_outlined,
+            CustomIcons.clock_icon,
             size: 27.sp,
             color: selectedTimeOfDay != null ? ColorManager.primaryColor : null,
           ),
@@ -35,7 +35,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
         SizedBox(width: 10.w),
         IconButton(
           onPressed: () {},
-          icon: Icon(Icons.category_outlined, size: 27.sp),
+          icon: Icon(CustomIcons.tag_icon, size: 27.sp),
         ),
         SizedBox(width: 10.w),
         IconButton(
@@ -43,7 +43,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
             _buildTaskPriorityDialog(context);
           },
           icon: Icon(
-            MyFlutterApp.flag_icon,
+            CustomIcons.flag_icon,
             size: 27.sp,
             color: selectedTaskPriority != null
                 ? ColorManager.primaryColor
@@ -54,7 +54,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
         IconButton(
           onPressed: () {},
           icon: Icon(
-            Icons.send_rounded,
+            CustomIcons.send_icon,
             size: 27.sp,
             color: ColorManager.primaryColor,
           ),
@@ -141,7 +141,15 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
       );
       if (selectedTimeOfDay != null) {
         setState(() {});
+      } else {
+        selectedDate = null;
+        selectedTimeOfDay = null;
+        setState(() {});
       }
+    } else {
+      selectedDate = null;
+      selectedTimeOfDay = null;
+      setState(() {});
     }
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/features/on_boarding/presentation/view/widgets/on_boarding_action_buttons.dart';
 import 'package:taska/features/on_boarding/presentation/view/widgets/page_index_indicator.dart';
@@ -34,7 +36,12 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
       child: Column(
         children: [
           SizedBox(height: 58.h),
-          SkipButton(text: StringsManager.skip, onPressed: () {}),
+          SkipButton(
+            text: StringsManager.skip,
+            onPressed: () {
+              GoRouter.of(context).go(AppRouter.kAuthView);
+            },
+          ),
           PageViewBody(controller: controller),
           PageIndexIndicator(controller: controller),
           SizedBox(height: 50.h),

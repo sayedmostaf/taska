@@ -23,6 +23,10 @@ class CustomLoginButton extends StatelessWidget {
             BorderSide(color: ColorManager.primaryColor),
           ),
           backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+          elevation: MaterialStatePropertyAll(0),
+          overlayColor: MaterialStatePropertyAll(
+            ColorManager.primaryColor.withAlpha(40),
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -8,4 +8,5 @@ abstract class ColorManager {
   static const fillColor = Color(0xff1D1D1D);
   static const hintColor = Color(0xFF525252);
   static const greyColor = Color(0xFF363636);
+  static const disabledColor = Color(0xFF272727);
 }

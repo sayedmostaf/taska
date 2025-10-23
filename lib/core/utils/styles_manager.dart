@@ -54,4 +54,14 @@ abstract class StylesManager {
     fontSize: 20.sp,
     fontWeight: FontWeight.w700,
   );
+  static TextStyle get displaySmallDark => GoogleFonts.lato(
+    color: Colors.white.withOpacity(0.87),
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle get displaySmallLight => GoogleFonts.lato(
+    color: Colors.black.withOpacity(0.87),
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w700,
+  );
 }

@@ -10,6 +10,9 @@ abstract class ThemeManager {
       displayMedium: StylesManager.displayMediumLight,
       headlineSmall: StylesManager.headlineSmallLight,
       labelSmall: StylesManager.labelSmallLight,
+      headlineMedium: StylesManager.headlineMediumLight,
+      bodySmall: TextStyle(color: Colors.black),
+      bodyMedium: TextStyle(color: Colors.black),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -35,6 +38,7 @@ abstract class ThemeManager {
       displayMedium: StylesManager.displayMediumDark,
       headlineSmall: StylesManager.headlineSmallDark,
       labelSmall: StylesManager.labelSmallDark,
+      headlineMedium: StylesManager.headlineMediumDark,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

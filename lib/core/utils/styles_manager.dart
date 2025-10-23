@@ -44,4 +44,14 @@ abstract class StylesManager {
     fontSize: 12.sp,
     fontWeight: FontWeight.w400,
   );
+  static TextStyle get headlineMediumDark => GoogleFonts.lato(
+    color: Colors.white.withOpacity(0.87),
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle get headlineMediumLight => GoogleFonts.lato(
+    color: Colors.black.withOpacity(0.87),
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w700,
+  );
 }

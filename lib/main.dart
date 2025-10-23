@@ -4,6 +4,7 @@ import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/theme_manager.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

@@ -74,4 +74,27 @@ abstract class StylesManager {
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
   );
+
+  static TextStyle get titleMediumDark => GoogleFonts.lato(
+    color: Colors.white.withOpacity(0.87),
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w400,
+  );
+
+  static TextStyle get labelMediumDark => GoogleFonts.lato(
+    color: const Color(0xFFAFAFAF),
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+  );
+
+  static TextStyle get labelMediumLight => GoogleFonts.lato(
+    color: const Color(0xFFAFAFAF),
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+  );
+  static TextStyle get titleMediumLight => GoogleFonts.lato(
+    color: Colors.black.withOpacity(0.87),
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w400,
+  );
 }

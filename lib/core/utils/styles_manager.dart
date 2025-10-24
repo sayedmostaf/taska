@@ -64,4 +64,14 @@ abstract class StylesManager {
     fontSize: 16.sp,
     fontWeight: FontWeight.w700,
   );
+  static TextStyle get titleSmallDark => GoogleFonts.lato(
+    color: Colors.white.withOpacity(0.87),
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle get titleSmallLight => GoogleFonts.lato(
+    color: Colors.black.withOpacity(0.87),
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+  );
 }

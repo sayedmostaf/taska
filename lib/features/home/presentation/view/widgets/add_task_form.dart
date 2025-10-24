@@ -16,6 +16,7 @@ class AddTaskForm extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
               decoration: InputDecoration(
                 label: Text(StringsManager.taskTitle),
+                hintText: StringsManager.taskTitle,
               ),
             ),
           ),
@@ -26,6 +27,7 @@ class AddTaskForm extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
               decoration: InputDecoration(
                 label: Text(StringsManager.taskDescription),
+                hintText: StringsManager.taskDescription,
               ),
             ),
           ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:taska/core/utils/assets_manager.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 

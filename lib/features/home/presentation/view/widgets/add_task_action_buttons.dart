@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
+import 'package:taska/core/widgets/save_cancel_action_buttons.dart';
 import 'package:taska/features/home/presentation/view/widgets/add_category_button.dart';
 import 'package:taska/features/home/presentation/view/widgets/task_category_item.dart';
-import 'package:taska/features/home/presentation/view/widgets/task_priority_action_buttons.dart';
 import 'package:taska/features/home/presentation/view/widgets/task_priority_item.dart';
 
 class AddTaskActionButtons extends StatefulWidget {
@@ -94,7 +94,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
                   SizedBox(height: 5.h),
                   _buildChooseCategoryGridView(setState),
                   SizedBox(height: 16.h),
-                  TaskPriorityActionButtons(
+                  SaveCancelActionButtons(
                     cancelOnPressed: () {
                       selectedCategoryIndex = null;
                       GoRouter.of(context).pop();
@@ -169,7 +169,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
                   SizedBox(height: 5.h),
                   _buildTaskPriorityGridView(setState),
                   SizedBox(height: 16.h),
-                  TaskPriorityActionButtons(
+                  SaveCancelActionButtons(
                     cancelOnPressed: () {
                       selectedTaskPriority = null;
                       GoRouter.of(context).pop();

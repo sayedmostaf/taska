@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:taska/features/auth/presentation/view/auth_view.dart';
 import 'package:taska/features/home/presentation/view/create_category_view.dart';
 import 'package:taska/features/home/presentation/view/home_view.dart';
+import 'package:taska/features/index/presentation/view/edit_task_view/edit_task_view.dart';
 import 'package:taska/features/on_boarding/presentation/view/on_boarding_view.dart';
 import 'package:taska/features/splash/presentation/view/splash_view.dart';
 
@@ -12,6 +13,7 @@ abstract class AppRouter {
   static const kAuthView = '/auth';
   static const kHomeView = '/home';
   static const kCreateCategoryView = '/create_category';
+  static const kEditTaskView = '/edit_task';
 
   static final router = GoRouter(
     routes: [
@@ -38,6 +40,11 @@ abstract class AppRouter {
         path: kCreateCategoryView,
         pageBuilder: (context, state) =>
             screenTransition(state, const CreateCategoryView()),
+      ),
+      GoRoute(
+        path: kEditTaskView,
+        pageBuilder: (context, state) =>
+            screenTransition(state, const EditTaskView()),
       ),
     ],
   );

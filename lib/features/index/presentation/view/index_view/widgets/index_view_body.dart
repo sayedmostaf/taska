@@ -1,15 +1,14 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
+import 'package:taska/core/widgets/custom_clickable_container.dart';
 import 'package:taska/core/widgets/custom_sliver_sized_box.dart';
-import 'package:taska/features/index/presentation/view/index_view.dart';
-import 'package:taska/features/index/presentation/view/widgets/completed_label.dart';
-import 'package:taska/features/index/presentation/view/widgets/custom_drop_down.dart';
-import 'package:taska/features/index/presentation/view/widgets/custom_index_app_bar.dart';
-import 'package:taska/features/index/presentation/view/widgets/custom_search_field.dart';
-import 'package:taska/features/index/presentation/view/widgets/task_item.dart';
+import 'package:taska/features/index/presentation/view/index_view/index_view.dart';
+import 'package:taska/features/index/presentation/view/index_view/widgets/custom_drop_down.dart';
+import 'package:taska/features/index/presentation/view/index_view/widgets/custom_index_app_bar.dart';
+import 'package:taska/features/index/presentation/view/index_view/widgets/custom_search_field.dart';
+import 'package:taska/features/index/presentation/view/index_view/widgets/task_item.dart';
 
 class IndexViewBody extends StatelessWidget {
   const IndexViewBody({super.key});
@@ -50,7 +49,9 @@ class IndexViewBody extends StatelessWidget {
             ),
           ),
           CustomSliverSizedBox(height: 20.h),
-          SliverToBoxAdapter(child: CompletedLabel()),
+          SliverToBoxAdapter(
+            child: CustomClickableContainer(text: StringsManager.completed),
+          ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) => Padding(

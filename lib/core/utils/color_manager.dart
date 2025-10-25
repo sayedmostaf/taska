@@ -10,4 +10,5 @@ abstract class ColorManager {
   static const greyColor = Color(0xFF363636);
   static const disabledColor = Color(0xFF272727);
   static const addCategoryColor = Color(0xff80FFD1);
+  static const graphColor = Color(0xffA5A5A5);
 }

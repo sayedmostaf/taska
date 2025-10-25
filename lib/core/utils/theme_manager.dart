@@ -11,8 +11,7 @@ abstract class ThemeManager {
       headlineSmall: StylesManager.headlineSmallLight,
       labelSmall: StylesManager.labelSmallLight,
       headlineMedium: StylesManager.headlineMediumLight,
-      bodySmall: const TextStyle(color: Colors.black),
-      bodyMedium: const TextStyle(color: Colors.black),
+      bodySmall: StylesManager.bodySmallLight,
       bodyLarge: const TextStyle(color: Colors.black),
       titleMedium: StylesManager.titleMediumLight,
       displaySmall: StylesManager.displaySmallLight,
@@ -47,6 +46,8 @@ abstract class ThemeManager {
       titleSmall: StylesManager.titleSmallDark,
       titleMedium: StylesManager.titleMediumDark,
       labelMedium: StylesManager.labelMediumDark,
+      bodySmall: StylesManager.bodySmallDark,
+      bodyMedium: StylesManager.bodyMediumDark,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

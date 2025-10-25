@@ -97,4 +97,24 @@ abstract class StylesManager {
     fontSize: 20.sp,
     fontWeight: FontWeight.w400,
   );
+  static TextStyle get bodySmallDark => GoogleFonts.lato(
+    color: Colors.white.withOpacity(0.87),
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w800,
+  );
+  static TextStyle get bodyMediumDark => GoogleFonts.lato(
+    color: Colors.white.withOpacity(0.87),
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w800,
+  );
+  static TextStyle get bodySmallLight => GoogleFonts.lato(
+    color: Colors.black.withOpacity(0.87),
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w800,
+  );
+  static TextStyle get bodyMediumLight => GoogleFonts.lato(
+    color: Colors.black.withOpacity(0.87),
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w800,
+  );
 }

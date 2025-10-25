@@ -61,6 +61,7 @@ class IndexViewBody extends StatelessWidget {
               childCount: 2,
             ),
           ),
+          CustomSliverSizedBox(height: 03.h),
         ],
       ),
     );

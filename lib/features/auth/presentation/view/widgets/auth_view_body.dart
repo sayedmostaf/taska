@@ -22,6 +22,7 @@ class _AuthViewBodyState extends State<AuthViewBody> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      physics: BouncingScrollPhysics(),
       slivers: [
         CustomSliverSizedBox(height: 80.h),
         SliverToBoxAdapter(child: isLogin ? LoginView() : RegisterView()),

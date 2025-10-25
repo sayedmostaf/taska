@@ -117,6 +117,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.6,
       child: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: [
           SliverGrid(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

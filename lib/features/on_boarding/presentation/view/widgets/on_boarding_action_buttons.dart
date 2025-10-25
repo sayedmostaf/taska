@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taska/core/cache/cache_helper.dart';
+import 'package:taska/core/cache/cache_keys_values.dart';
 import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/features/on_boarding/presentation/view/widgets/skip_button.dart';
@@ -21,6 +23,10 @@ class _OnBoardingActionButtonsState extends State<OnBoardingActionButtons> {
   Widget build(BuildContext context) {
     widget.controller.addListener(() {
       if (widget.controller.page! >= 1.5) {
+        CacheData.setData(
+          key: CacheKeys.kONBOARDING,
+          value: CacheValues.ONBOARDING,
+        );
         setState(() {
           text = StringsManager.getStarted.tr();
         });

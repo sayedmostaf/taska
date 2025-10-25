@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -32,7 +33,7 @@ class ApplicationItem extends StatelessWidget {
               Text(appName, style: Theme.of(context).textTheme.bodyMedium),
               SizedBox(height: 5.h),
               Text(
-                '${StringsManager.youSpent}$hours${StringsManager.on}$appName ${StringsManager.today}',
+                '${StringsManager.youSpent.tr()}$hours${StringsManager.on.tr()}$appName ${StringsManager.today.tr()}',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,

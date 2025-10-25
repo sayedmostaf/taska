@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -12,7 +13,7 @@ class RegisterView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          StringsManager.register,
+          StringsManager.register.tr(),
           style: Theme.of(context).textTheme.displayMedium,
         ),
         SizedBox(height: 53.h),
@@ -25,7 +26,7 @@ class RegisterView extends StatelessWidget {
             width: double.infinity,
             child: Center(
               child: Text(
-                StringsManager.register,
+                StringsManager.register.tr(),
                 style: Theme.of(
                   context,
                 ).textTheme.headlineSmall!.copyWith(color: Colors.white),

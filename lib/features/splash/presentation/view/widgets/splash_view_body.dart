@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,7 +29,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
       children: [
         SvgPicture.asset(AssetsManager.logo, width: 113.w, height: 113.h),
         Text(
-          StringsManager.appName,
+          StringsManager.appName.tr(),
           style: Theme.of(context).textTheme.displayLarge,
           textAlign: TextAlign.center,
         ),

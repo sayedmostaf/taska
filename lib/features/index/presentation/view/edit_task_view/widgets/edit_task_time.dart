@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -21,7 +22,7 @@ class _EditTaskTimeState extends State<EditTaskTime> {
         Icon(CustomIcons.clock_icon),
         SizedBox(width: 8.w),
         Text(
-          StringsManager.taskTime,
+          StringsManager.taskTime.tr(),
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         Spacer(),
@@ -40,7 +41,7 @@ class _EditTaskTimeState extends State<EditTaskTime> {
       context: context,
       firstDate: DateTime.now(),
       lastDate: DateTime(2223),
-      confirmText: StringsManager.chooseTime,
+      confirmText: StringsManager.chooseTime.tr(),
       initialDate: DateTime.now(),
     );
     if (selectedDate != null && context.mounted) {

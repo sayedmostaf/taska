@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -18,7 +19,7 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            StringsManager.username,
+            StringsManager.username.tr(),
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           SizedBox(height: 10.h),
@@ -28,13 +29,13 @@ class _LoginFormState extends State<LoginForm> {
               style: Theme.of(context).textTheme.headlineSmall,
               textAlignVertical: TextAlignVertical.bottom,
               decoration: InputDecoration(
-                hintText: StringsManager.enterUsername,
+                hintText: StringsManager.enterUsername.tr(),
               ),
             ),
           ),
           SizedBox(height: 25.h),
           Text(
-            StringsManager.password,
+            StringsManager.password.tr(),
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           SizedBox(height: 10.h),
@@ -44,7 +45,7 @@ class _LoginFormState extends State<LoginForm> {
               style: Theme.of(context).textTheme.headlineSmall,
               textAlignVertical: TextAlignVertical.bottom,
               decoration: InputDecoration(
-                hintText: StringsManager.enterPassword,
+                hintText: StringsManager.enterPassword.tr(),
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SaveCancelActionButtons extends StatelessWidget {
   const SaveCancelActionButtons({
@@ -28,7 +29,7 @@ class SaveCancelActionButtons extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                StringsManager.cancel,
+                StringsManager.cancel.tr(),
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   color: ColorManager.primaryColor,
                 ),
@@ -40,7 +41,7 @@ class SaveCancelActionButtons extends StatelessWidget {
         ElevatedButton(
           onPressed: saveOnPressed,
           child: Text(
-            StringsManager.save,
+            StringsManager.save.tr(),
             style: Theme.of(
               context,
             ).textTheme.headlineSmall!.copyWith(color: Colors.white),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -18,7 +19,7 @@ class LogOutButton extends StatelessWidget {
             Icon(CustomIcons.logout_icon, color: Colors.red),
             SizedBox(width: 10.w),
             Text(
-              StringsManager.logOut,
+              StringsManager.logOut.tr(),
               style: Theme.of(
                 context,
               ).textTheme.headlineSmall!.copyWith(color: Colors.red),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +25,7 @@ class _EditTaskCategoryState extends State<EditTaskCategory> {
         Icon(CustomIcons.tag_icon),
         SizedBox(width: 8.w),
         Text(
-          StringsManager.taskCategory,
+          StringsManager.taskCategory.tr(),
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         Spacer(),
@@ -51,7 +52,7 @@ class _EditTaskCategoryState extends State<EditTaskCategory> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    StringsManager.chooseCategory,
+                    StringsManager.chooseCategory.tr(),
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   SizedBox(height: 5.h),

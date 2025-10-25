@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -23,7 +24,7 @@ class _EditTaskPriorityState extends State<EditTaskPriority> {
         Icon(CustomIcons.flag_icon),
         SizedBox(width: 8.w),
         Text(
-          StringsManager.taskPriority,
+          StringsManager.taskPriority.tr(),
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         Spacer(),
@@ -50,7 +51,7 @@ class _EditTaskPriorityState extends State<EditTaskPriority> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    StringsManager.taskPriority,
+                    StringsManager.taskPriority.tr(),
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   SizedBox(height: 5.h),

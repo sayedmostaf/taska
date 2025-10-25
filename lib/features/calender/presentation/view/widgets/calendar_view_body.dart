@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -18,7 +19,7 @@ class CalendarViewBody extends StatelessWidget {
       slivers: [
         CustomSliverSizedBox(height: 56.h),
         SliverToBoxAdapter(
-          child: CustomSimpleAppBar(title: StringsManager.calendar),
+          child: CustomSimpleAppBar(title: StringsManager.calendar.tr()),
         ),
         CustomSliverSizedBox(height: 16.h),
         SliverToBoxAdapter(child: Calendar()),

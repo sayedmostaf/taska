@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/color_manager.dart';
@@ -74,7 +75,7 @@ class _CounterTimerWidgetState extends State<CounterTimerWidget> {
           SizedBox(height: 20.h),
           SizedBox(
             child: Text(
-              StringsManager.notificationSuppress,
+              StringsManager.notificationSuppress.tr(),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineSmall,
               overflow: TextOverflow.ellipsis,
@@ -93,8 +94,8 @@ class _CounterTimerWidgetState extends State<CounterTimerWidget> {
             },
             child: Text(
               isTimerRunning
-                  ? StringsManager.stopFocusing
-                  : StringsManager.startFocusing,
+                  ? StringsManager.stopFocusing.tr()
+                  : StringsManager.startFocusing.tr(),
               style: Theme.of(
                 context,
               ).textTheme.headlineSmall!.copyWith(color: Colors.white),

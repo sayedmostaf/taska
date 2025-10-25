@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +38,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
         children: [
           SizedBox(height: 58.h),
           SkipButton(
-            text: StringsManager.skip,
+            text: StringsManager.skip.tr(),
             onPressed: () {
               GoRouter.of(context).go(AppRouter.kAuthView);
             },

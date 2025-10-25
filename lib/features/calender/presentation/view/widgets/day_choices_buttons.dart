@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/color_manager.dart';
@@ -30,7 +31,7 @@ class _DayChoicesButtonsState extends State<DayChoicesButtons> {
           children: [
             CustomDayChoiceButton(
               isSelected: isFinished,
-              text: StringsManager.finished,
+              text: StringsManager.finished.tr(),
               onTap: () {
                 setState(() {
                   isFinished = !isFinished;
@@ -40,7 +41,7 @@ class _DayChoicesButtonsState extends State<DayChoicesButtons> {
             SizedBox(width: 32.w),
             CustomDayChoiceButton(
               isSelected: !isFinished,
-              text: StringsManager.missed,
+              text: StringsManager.missed.tr(),
               onTap: () {
                 setState(() {
                   isFinished = !isFinished;

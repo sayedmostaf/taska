@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,9 +25,9 @@ class _AccountSectionState extends State<AccountSection> {
   ];
 
   final List<String> names = [
-    StringsManager.changeAccountName,
-    StringsManager.changeAccountPassword,
-    StringsManager.changeAccountImage,
+    StringsManager.changeAccountName.tr(),
+    StringsManager.changeAccountPassword.tr(),
+    StringsManager.changeAccountImage.tr(),
   ];
   late List<void Function(BuildContext context)> functions;
   File? _imageFile;
@@ -46,7 +47,7 @@ class _AccountSectionState extends State<AccountSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomProfileSectionTitle(title: StringsManager.account),
+        CustomProfileSectionTitle(title: StringsManager.account.tr()),
         SizedBox(height: 5.h),
         Column(
           children: List.generate(
@@ -117,7 +118,7 @@ class _AccountSectionState extends State<AccountSection> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                StringsManager.changeAccountPassword,
+                StringsManager.changeAccountPassword.tr(),
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               SizedBox(height: 5.h),
@@ -128,9 +129,9 @@ class _AccountSectionState extends State<AccountSection> {
                 child: TextFormField(
                   textAlignVertical: TextAlignVertical.bottom,
                   style: Theme.of(context).textTheme.headlineSmall,
-                  decoration: const InputDecoration(
-                    label: Text(StringsManager.oldPassword),
-                    hintText: StringsManager.oldPassword,
+                  decoration:  InputDecoration(
+                    label: Text(StringsManager.oldPassword.tr()),
+                    hintText: StringsManager.oldPassword.tr(),
                   ),
                 ),
               ),
@@ -140,9 +141,9 @@ class _AccountSectionState extends State<AccountSection> {
                 child: TextFormField(
                   textAlignVertical: TextAlignVertical.bottom,
                   style: Theme.of(context).textTheme.headlineSmall,
-                  decoration: const InputDecoration(
-                    label: Text(StringsManager.newPassword),
-                    hintText: StringsManager.newPassword,
+                  decoration:  InputDecoration(
+                    label: Text(StringsManager.newPassword.tr()),
+                    hintText: StringsManager.newPassword.tr(),
                   ),
                 ),
               ),
@@ -173,7 +174,7 @@ class _AccountSectionState extends State<AccountSection> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                StringsManager.changeAccountName,
+                StringsManager.changeAccountName.tr(),
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               SizedBox(height: 5.h),
@@ -185,8 +186,8 @@ class _AccountSectionState extends State<AccountSection> {
                   textAlignVertical: TextAlignVertical.bottom,
                   style: Theme.of(context).textTheme.headlineSmall,
                   decoration: InputDecoration(
-                    label: Text(StringsManager.accountName),
-                    hintText: StringsManager.accountName,
+                    label: Text(StringsManager.accountName.tr()),
+                    hintText: StringsManager.accountName.tr(),
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -29,9 +30,9 @@ class IndexViewBody extends StatelessWidget {
             child: CustomDropDown(
               values: ['tody', 'tomorrow', 'yesterday'],
               titles: [
-                StringsManager.today,
-                StringsManager.tomorrow,
-                StringsManager.yesterday,
+                StringsManager.today.tr(),
+                StringsManager.tomorrow.tr(),
+                StringsManager.yesterday.tr(),
               ],
               onSelected: (p0) {
                 log(p0);
@@ -50,7 +51,9 @@ class IndexViewBody extends StatelessWidget {
           ),
           CustomSliverSizedBox(height: 20.h),
           SliverToBoxAdapter(
-            child: CustomClickableContainer(text: StringsManager.completed),
+            child: CustomClickableContainer(
+              text: StringsManager.completed.tr(),
+            ),
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(

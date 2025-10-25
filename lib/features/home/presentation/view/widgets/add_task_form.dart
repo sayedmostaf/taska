@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -15,8 +16,8 @@ class AddTaskForm extends StatelessWidget {
             child: TextFormField(
               style: Theme.of(context).textTheme.headlineSmall,
               decoration: InputDecoration(
-                label: Text(StringsManager.taskTitle),
-                hintText: StringsManager.taskTitle,
+                label: Text(StringsManager.taskTitle.tr()),
+                hintText: StringsManager.taskTitle.tr(),
               ),
             ),
           ),
@@ -26,8 +27,8 @@ class AddTaskForm extends StatelessWidget {
             child: TextFormField(
               style: Theme.of(context).textTheme.headlineSmall,
               decoration: InputDecoration(
-                label: Text(StringsManager.taskDescription),
-                hintText: StringsManager.taskDescription,
+                label: Text(StringsManager.taskDescription.tr()),
+                hintText: StringsManager.taskDescription.tr(),
               ),
             ),
           ),

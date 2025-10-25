@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,14 +16,14 @@ class PageViewBody extends StatelessWidget {
     AssetsManager.onboarding3,
   ];
   final List<String> titles = [
-    StringsManager.onboarding1,
-    StringsManager.onboarding2,
-    StringsManager.onboarding3,
+    StringsManager.onboarding1.tr(),
+    StringsManager.onboarding2.tr(),
+    StringsManager.onboarding3.tr(),
   ];
   final List<String> subTitles = [
-    StringsManager.onboarding1Description,
-    StringsManager.onboarding2Description,
-    StringsManager.onboarding3Description,
+    StringsManager.onboarding1Description.tr(),
+    StringsManager.onboarding2Description.tr(),
+    StringsManager.onboarding3Description.tr(),
   ];
   @override
   Widget build(BuildContext context) {

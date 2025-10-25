@@ -2,31 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
-import 'package:taska/features/profile/presentation/view/widgets/custom_list_tile.dart';
-import 'package:taska/features/profile/presentation/view/widgets/custom_profile_section_title.dart';
+import 'package:taska/features/profile/presentation/view/profile_view/widgets/custom_list_tile.dart';
+import 'package:taska/features/profile/presentation/view/profile_view/widgets/custom_profile_section_title.dart';
 
-class AccountSection extends StatelessWidget {
-  AccountSection({super.key});
+class AppAboutSection extends StatelessWidget {
+  AppAboutSection({super.key});
   final List<IconData> icons = [
-    CustomIcons.inactive_profile_icon,
-    CustomIcons.password_icon,
-    CustomIcons.camera_icon,
+    CustomIcons.about_icon,
+    CustomIcons.info_icon,
+    CustomIcons.help_feedback_icon,
+    CustomIcons.support_icon,
   ];
   final List<String> names = [
-    StringsManager.changeAccountName,
-    StringsManager.changeAccountPassword,
-    StringsManager.changeAccountImage,
+    StringsManager.aboutUs,
+    StringsManager.faq,
+    StringsManager.helpAndFeedback,
+    StringsManager.supportUs,
   ];
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomProfileSectionTitle(title: StringsManager.account),
+        CustomProfileSectionTitle(title: StringsManager.appName),
         SizedBox(height: 5.h),
         Column(
           children: List.generate(
-            3,
+            4,
             (index) => Padding(
               padding: EdgeInsets.symmetric(vertical: 8.h),
               child: CustomListTile(

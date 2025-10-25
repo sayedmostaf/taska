@@ -5,6 +5,7 @@ import 'package:taska/features/home/presentation/view/create_category_view.dart'
 import 'package:taska/features/home/presentation/view/home_view.dart';
 import 'package:taska/features/index/presentation/view/edit_task_view/edit_task_view.dart';
 import 'package:taska/features/on_boarding/presentation/view/on_boarding_view.dart';
+import 'package:taska/features/profile/presentation/view/settings_view/settings_view.dart';
 import 'package:taska/features/splash/presentation/view/splash_view.dart';
 
 abstract class AppRouter {
@@ -14,6 +15,7 @@ abstract class AppRouter {
   static const kHomeView = '/home';
   static const kCreateCategoryView = '/create_category';
   static const kEditTaskView = '/edit_task';
+  static const kSettingsView = '/settings';
 
   static final router = GoRouter(
     routes: [
@@ -45,6 +47,11 @@ abstract class AppRouter {
         path: kEditTaskView,
         pageBuilder: (context, state) =>
             screenTransition(state, const EditTaskView()),
+      ),
+      GoRoute(
+        path: kSettingsView,
+        pageBuilder: (context, state) =>
+            screenTransition(state, const SettingsView()),
       ),
     ],
   );

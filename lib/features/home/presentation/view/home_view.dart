@@ -7,7 +7,7 @@ import 'package:taska/features/focus/presentation/view/focus_view.dart';
 import 'package:taska/features/home/presentation/view/widgets/custom_bottom_navigation_bar_item.dart';
 import 'package:taska/features/home/presentation/view/widgets/custom_floating_action_button.dart';
 import 'package:taska/features/index/presentation/view/index_view/index_view.dart';
-import 'package:taska/features/profile/presentation/view/profile_view.dart';
+import 'package:taska/features/profile/presentation/view/profile_view/profile_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

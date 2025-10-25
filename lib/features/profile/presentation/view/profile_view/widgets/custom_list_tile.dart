@@ -17,7 +17,8 @@ class CustomListTile extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(5),
 
-      child: SizedBox(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
         height: 28.h,
         child: Row(
           children: [

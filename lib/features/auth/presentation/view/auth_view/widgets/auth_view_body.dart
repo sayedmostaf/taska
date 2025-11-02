@@ -48,7 +48,7 @@ class _AuthViewBodyState extends State<AuthViewBody> {
                     );
                   } else if (state is LogInUserWithGoogleSuccess) {
                     GoRouter.of(context).pop();
-                    GoRouter.of(context).push(AppRouter.kHomeView);
+                    GoRouter.of(context).go(AppRouter.kHomeView);
                   }
                 },
                 child: CustomLoginButton(

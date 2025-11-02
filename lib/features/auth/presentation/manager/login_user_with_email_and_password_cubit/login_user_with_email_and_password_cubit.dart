@@ -16,7 +16,7 @@ class LoginUserWithEmailAndPasswordCubit
       (failure) => emit(
         LogInUserWithEmailAndPasswordFailure(errMessage: failure.message),
       ),
-      (r) => emit(LogInUserWithEmailAndPasswordSuccess()),
+      (user) => emit(LogInUserWithEmailAndPasswordSuccess(user:user)),
     );
   }
 }

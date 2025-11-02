@@ -1,6 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:taska/core/utils/app_router.dart';
+import 'package:taska/core/utils/service_locator.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_simple_app_bar.dart';
 import 'package:taska/core/widgets/custom_sliver_sized_box.dart';
@@ -39,7 +43,14 @@ class ProfileViewBody extends StatelessWidget {
           SliverToBoxAdapter(child: AccountSection()),
           CustomSliverSizedBox(height: 8.h),
           SliverToBoxAdapter(child: AppAboutSection()),
-          SliverToBoxAdapter(child: LogOutButton(onTap: () {})),
+          SliverToBoxAdapter(
+            child: LogOutButton(
+              onTap: () {
+                getIt.get<FirebaseAuth>().signOut();
+                GoRouter.of(context).go(AppRouter.kAuthView);
+              },
+            ),
+          ),
           CustomSliverSizedBox(height: 30.h),
         ],
       ),

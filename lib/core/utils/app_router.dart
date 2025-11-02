@@ -6,11 +6,13 @@ import 'package:taska/features/auth/domain/usecases/forget_password_use_case.dar
 import 'package:taska/features/auth/domain/usecases/log_in_user_with_email_and_password_use_case.dart';
 import 'package:taska/features/auth/domain/usecases/log_in_user_with_google_use_case.dart';
 import 'package:taska/features/auth/domain/usecases/register_user_with_email_and_password_use_case.dart';
+import 'package:taska/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:taska/features/auth/domain/usecases/verify_email_use_case.dart';
 import 'package:taska/features/auth/presentation/manager/forgot_password_cubit/forgot_password_cubit.dart';
 import 'package:taska/features/auth/presentation/manager/log_in_user_with_google_cubit/log_in_user_with_google_cubit.dart';
 import 'package:taska/features/auth/presentation/manager/login_user_with_email_and_password_cubit/login_user_with_email_and_password_cubit.dart';
 import 'package:taska/features/auth/presentation/manager/register_user_with_email_and_password/register_user_with_email_and_password_cubit.dart';
+import 'package:taska/features/auth/presentation/manager/sign_out_cubit/sign_out_cubit.dart';
 import 'package:taska/features/auth/presentation/manager/verify_email_cubit/verify_email_cubit.dart';
 import 'package:taska/features/auth/presentation/view/auth_view/auth_view.dart';
 import 'package:taska/features/auth/presentation/view/email_verify_view/email_verify_view.dart';
@@ -105,9 +107,16 @@ abstract class AppRouter {
         path: kEmailVerifyView,
         pageBuilder: (context, state) => screenTransition(
           state,
-          BlocProvider(
-            create: (context) =>
-                VerifyEmailCubit(getIt.get<VerifyEmailUseCase>()),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    VerifyEmailCubit(getIt.get<VerifyEmailUseCase>()),
+              ),
+              BlocProvider(
+                create: (context) => SignOutCubit(getIt.get<SignOutUseCase>()),
+              ),
+            ],
             child: const EmailVerifyView(),
           ),
         ),

@@ -7,9 +7,9 @@ import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/assets_manager.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_sliver_sized_box.dart';
-import 'package:taska/features/auth/presentation/view/widgets/custom_login_button.dart';
-import 'package:taska/features/auth/presentation/view/widgets/login_view.dart';
-import 'package:taska/features/auth/presentation/view/widgets/register_view.dart';
+import 'package:taska/features/auth/presentation/view/auth_view/widgets/custom_login_button.dart';
+import 'package:taska/features/auth/presentation/view/auth_view/widgets/login_view.dart';
+import 'package:taska/features/auth/presentation/view/auth_view/widgets/register_view.dart';
 
 class AuthViewBody extends StatefulWidget {
   const AuthViewBody({super.key});

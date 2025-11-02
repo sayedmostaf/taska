@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:taska/core/use_cases/use_case.dart';
-import 'package:taska/core/utils/failures.dart';
+import 'package:taska/core/errors/failures.dart';
 import 'package:taska/features/auth/domain/repos/auth_repo.dart';
 
 class VerifyEmailUseCase extends UseCase<void, String> {

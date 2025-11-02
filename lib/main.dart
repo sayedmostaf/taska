@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/cache/cache_helper.dart';
 import 'package:taska/core/cache/cache_keys_values.dart';
 import 'package:taska/core/utils/app_router.dart';
+import 'package:taska/core/utils/service_locator.dart';
 import 'package:taska/core/utils/theme_manager.dart';
 import 'package:taska/firebase_options.dart';
 
@@ -22,6 +23,7 @@ void main() async {
     CacheData.cacheIntialization(),
     EasyLocalization.ensureInitialized(),
   ]);
+  setupLocator();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:taska/features/auth/presentation/view/auth_view.dart';
+import 'package:taska/core/utils/service_locator.dart';
+import 'package:taska/features/auth/domain/usecases/register_user_with_email_and_password_use_case.dart';
+import 'package:taska/features/auth/presentation/manager/register_user_with_email_and_password/register_user_with_email_and_password_cubit.dart';
+import 'package:taska/features/auth/presentation/view/auth_view/auth_view.dart';
 import 'package:taska/features/home/presentation/view/create_category_view.dart';
 import 'package:taska/features/home/presentation/view/home_view.dart';
 import 'package:taska/features/index/presentation/view/edit_task_view/edit_task_view.dart';
@@ -30,8 +34,15 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kAuthView,
-        pageBuilder: (context, state) =>
-            screenTransition(state, const AuthView()),
+        pageBuilder: (context, state) => screenTransition(
+          state,
+          BlocProvider(
+            create: (context) => RegisterUserWithEmailAndPasswordCubit(
+              getIt.get<RegisterUserWithEmailAndPasswordUseCase>(),
+            ),
+            child: AuthView(),
+          ),
+        ),
       ),
       GoRoute(
         path: kHomeView,

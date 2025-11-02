@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
-import 'package:taska/features/auth/presentation/view/widgets/login_form.dart';
+import 'package:taska/features/auth/presentation/view/auth_view/widgets/login_form.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});

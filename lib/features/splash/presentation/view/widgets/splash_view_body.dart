@@ -76,7 +76,7 @@ class SplashViewBodyState extends State<SplashViewBody>
   }
 
   void _navigateToOnBoarding() async {
-    if (CacheData.getData(key: CacheKeys.kONBOARDING) == null) {
+    if (CacheData.getData(key: CacheKeys.kONBOARDING) == null || true) {
       await Future.delayed(
         Duration(milliseconds: 2000),
         () => GoRouter.of(context).go(AppRouter.kOnboardingView),

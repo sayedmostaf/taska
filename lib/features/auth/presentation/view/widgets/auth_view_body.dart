@@ -1,3 +1,4 @@
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,6 +44,16 @@ class _AuthViewBodyState extends State<AuthViewBody> {
           child: CustomLoginButton(
             asset: AssetsManager.facebookIcon,
             text: StringsManager.loginWithFacebook.tr(),
+            onPressed: () {
+              GoRouter.of(context).push(AppRouter.kHomeView);
+            },
+          ),
+        ),
+        SliverToBoxAdapter(child: SizedBox(height: 20.h)),
+        SliverToBoxAdapter(
+          child: CustomLoginButton(
+            asset: AssetsManager.twitterIcon,
+            text: StringsManager.loginWithTwitter.tr(),
             onPressed: () {
               GoRouter.of(context).push(AppRouter.kHomeView);
             },

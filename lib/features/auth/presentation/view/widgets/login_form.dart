@@ -19,7 +19,7 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            StringsManager.username.tr(),
+            StringsManager.email.tr(),
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           SizedBox(height: 10.h),
@@ -29,7 +29,7 @@ class _LoginFormState extends State<LoginForm> {
               style: Theme.of(context).textTheme.headlineSmall,
               textAlignVertical: TextAlignVertical.bottom,
               decoration: InputDecoration(
-                hintText: StringsManager.enterUsername.tr(),
+                hintText: StringsManager.enterEmail.tr(),
               ),
             ),
           ),

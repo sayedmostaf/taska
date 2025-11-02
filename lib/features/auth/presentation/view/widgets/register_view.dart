@@ -4,8 +4,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/features/auth/presentation/view/widgets/register_form.dart';
 
-class RegisterView extends StatelessWidget {
+class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
+
+  @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
+  late final GlobalKey<FormState> formKey;
+  @override
+  void initState() {
+    super.initState();
+    formKey = GlobalKey<FormState>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +28,18 @@ class RegisterView extends StatelessWidget {
           StringsManager.register.tr(),
           style: Theme.of(context).textTheme.displayMedium,
         ),
-        SizedBox(height: 53.h),
-        RegisterForm(),
+        SizedBox(height: 30.h),
+        RegisterForm(
+          formKey: formKey,
+          onSavedName: onSavedName,
+          onSavedEmail: onSavedEmail,
+          onSavedPassword: onSavedPassword,
+        ),
         SizedBox(height: 40.h),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            formKey.currentState!.validate();
+          },
           child: SizedBox(
             height: 48.h,
             width: double.infinity,
@@ -38,4 +57,8 @@ class RegisterView extends StatelessWidget {
       ],
     );
   }
+
+  onSavedEmail(email) {}
+  onSavedName(name) {}
+  onSavedPassword(password) {}
 }

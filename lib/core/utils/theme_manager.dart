@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/styles_manager.dart';
 
@@ -25,6 +26,7 @@ abstract class ThemeManager {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
     ),
+    iconTheme: IconThemeData(size: 24.sp, color: Colors.black),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderSide: BorderSide(color: ColorManager.borderColor),
@@ -57,6 +59,7 @@ abstract class ThemeManager {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
     ),
+    iconTheme: IconThemeData(size: 24.sp, color: Colors.white),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderSide: BorderSide(color: ColorManager.borderColor),

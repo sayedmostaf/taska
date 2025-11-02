@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:taska/core/cache/cache_helper.dart';
 import 'package:taska/core/cache/cache_keys_values.dart';
 import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/theme_manager.dart';
+import 'package:taska/firebase_options.dart';
 
 final ValueNotifier<ThemeMode> notifier = ValueNotifier(
   CacheData.getData(key: CacheKeys.kDARKMODE) == CacheValues.LIGHT
@@ -15,8 +17,11 @@ final ValueNotifier<ThemeMode> notifier = ValueNotifier(
 );
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CacheData.cacheIntialization();
-  await EasyLocalization.ensureInitialized();
+  await Future.wait([
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+    CacheData.cacheIntialization(),
+    EasyLocalization.ensureInitialized(),
+  ]);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
@@ -26,7 +31,7 @@ void main() async {
   ]);
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) {
         return EasyLocalization(
           supportedLocales: [

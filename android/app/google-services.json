@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "2162451845",
+    "project_id": "taska-3b887",
+    "storage_bucket": "taska-3b887.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2162451845:android:920a5493beea910b3fd0ec",
+        "android_client_info": {
+          "package_name": "com.example.taska"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDHfRsPG3JkoZ32D_aQ8ISZB4Y5Q9TN9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

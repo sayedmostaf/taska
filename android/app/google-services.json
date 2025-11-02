@@ -12,7 +12,12 @@
           "package_name": "com.example.taska"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "2162451845-9jal4jj2jftn7o8ks3m8hljn9ken2npa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBDHfRsPG3JkoZ32D_aQ8ISZB4Y5Q9TN9E"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2162451845-9jal4jj2jftn7o8ks3m8hljn9ken2npa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "2162451845-befclmkntq0k8l1pa19tlba8n880940o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taska"
+              }
+            }
+          ]
         }
       }
     }

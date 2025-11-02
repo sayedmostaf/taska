@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:taska/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:taska/features/auth/domain/repos/auth_repo.dart';
+import 'package:taska/features/auth/domain/usecases/forget_password_use_case.dart';
+import 'package:taska/features/auth/domain/usecases/log_in_user_with_email_and_password_use_case.dart';
+import 'package:taska/features/auth/domain/usecases/log_in_user_with_google_use_case.dart';
 import 'package:taska/features/auth/domain/usecases/register_user_with_email_and_password_use_case.dart';
 
 final getIt = GetIt.instance;
@@ -13,5 +16,14 @@ void setupLocator() {
   );
   getIt.registerSingleton<RegisterUserWithEmailAndPasswordUseCase>(
     RegisterUserWithEmailAndPasswordUseCase(authRepo: getIt.get<AuthRepo>()),
+  );
+  getIt.registerSingleton<LogInUserWithEmailAndPasswordUseCase>(
+    LogInUserWithEmailAndPasswordUseCase(authRepo: getIt.get<AuthRepo>()),
+  );
+  getIt.registerSingleton<LogInUserWithGoogleUseCase>(
+    LogInUserWithGoogleUseCase(authRepo: getIt.get<AuthRepo>()),
+  );
+  getIt.registerSingleton<ForgetPasswordUseCase>(
+    ForgetPasswordUseCase(authRepo: getIt.get<AuthRepo>()),
   );
 }

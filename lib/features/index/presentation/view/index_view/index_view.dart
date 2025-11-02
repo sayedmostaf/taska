@@ -9,5 +9,3 @@ class IndexView extends StatelessWidget {
     return IndexViewBody();
   }
 }
-
-enum TaskState { completed, uncompleted, active }

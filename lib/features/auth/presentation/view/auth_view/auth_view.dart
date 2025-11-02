@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/features/auth/presentation/view/auth_view/widgets/auth_view_body.dart';
 
 class AuthView extends StatelessWidget {
@@ -9,7 +8,7 @@ class AuthView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.w),
+        padding: EdgeInsets.symmetric(horizontal: 24),
         child: AuthViewBody(),
       ),
     );

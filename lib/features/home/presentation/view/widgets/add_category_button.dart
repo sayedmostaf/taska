@@ -6,7 +6,7 @@ import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
-import 'package:taska/core/widgets/functions/blend_colors.dart';
+import 'package:taska/core/utils/functions/blend_colors.dart';
 
 class AddCategoryButton extends StatelessWidget {
   const AddCategoryButton({super.key});

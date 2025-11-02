@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/color_manager.dart';
-import 'package:taska/core/widgets/functions/enums.dart';
+import 'package:taska/core/utils/functions/enums.dart';
 import 'package:taska/features/index/presentation/view/index_view/widgets/task_item_category.dart';
 import 'package:taska/features/index/presentation/view/index_view/widgets/task_item_priority.dart';
 

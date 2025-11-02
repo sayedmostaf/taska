@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/color_manager.dart';
-import 'package:taska/core/widgets/functions/blend_colors.dart';
+import 'package:taska/core/utils/functions/blend_colors.dart';
 
 class CustomDayWidget extends StatelessWidget {
   const CustomDayWidget({

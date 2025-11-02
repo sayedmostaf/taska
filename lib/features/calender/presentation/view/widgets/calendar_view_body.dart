@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_simple_app_bar.dart';
 import 'package:taska/core/widgets/custom_sliver_sized_box.dart';
-import 'package:taska/core/widgets/functions/enums.dart';
+import 'package:taska/core/utils/functions/enums.dart';
 import 'package:taska/features/calender/presentation/view/widgets/calendar.dart';
 import 'package:taska/features/calender/presentation/view/widgets/day_choices_buttons.dart';
 import 'package:taska/features/index/presentation/view/index_view/widgets/task_item.dart';

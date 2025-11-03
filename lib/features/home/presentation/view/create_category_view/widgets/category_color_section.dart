@@ -4,10 +4,12 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taska/core/utils/color_manager.dart';
+import 'package:taska/core/utils/functions/extensions.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 
 class CategoryColorSection extends StatefulWidget {
-  const CategoryColorSection({super.key});
+  const CategoryColorSection({super.key, required this.onChanged});
+  final Function(String?) onChanged;
 
   @override
   State<CategoryColorSection> createState() => _CategoryColorSectionState();
@@ -76,6 +78,7 @@ class _CategoryColorSectionState extends State<CategoryColorSection> {
           ElevatedButton(
             onPressed: () {
               color ??= ColorManager.primaryColor;
+              widget.onChanged(color?.toHex());
               setState(() {});
               GoRouter.of(context).pop();
             },

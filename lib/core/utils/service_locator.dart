@@ -9,6 +9,14 @@ import 'package:taska/features/auth/domain/usecases/log_in_user_with_google_use_
 import 'package:taska/features/auth/domain/usecases/register_user_with_email_and_password_use_case.dart';
 import 'package:taska/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:taska/features/auth/domain/usecases/verify_email_use_case.dart';
+import 'package:taska/features/home/data/data_source/local_data_source/home_local_data_source.dart';
+import 'package:taska/features/home/data/data_source/local_data_source/home_local_data_source_impl.dart';
+import 'package:taska/features/home/data/data_source/remote_data_source/home_remote_data_source.dart';
+import 'package:taska/features/home/data/data_source/remote_data_source/home_remote_data_source_impl.dart';
+import 'package:taska/features/home/data/repos/home_repo_impl.dart';
+import 'package:taska/features/home/domain/repos/home_repo.dart';
+import 'package:taska/features/home/domain/usecases/create_category_use_case.dart';
+import 'package:taska/features/home/domain/usecases/get_all_categories_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -36,4 +44,23 @@ void setupLocator() {
     SignOutUseCase(authRepo: getIt.get<AuthRepo>()),
   );
   getIt.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
+  getIt.registerSingleton<HomeLocalDataSource>(HomeLocalDataSourceImpl());
+  getIt.registerSingleton<HomeRemoteDataSource>(
+    HomeRemoteDataSourceImpl(
+      firebaseAuth: getIt.get<FirebaseAuth>(),
+      firestore: getIt.get<FirebaseFirestore>(),
+    ),
+  );
+  getIt.registerSingleton<HomeRepo>(
+    HomeRepoImpl(
+      homeLocalDataSource: getIt.get<HomeLocalDataSource>(),
+      homeRemoteDataSource: getIt.get<HomeRemoteDataSource>(),
+    ),
+  );
+  getIt.registerSingleton<CreateCategoryUseCase>(
+    CreateCategoryUseCase(homeRepo: getIt.get<HomeRepo>()),
+  );
+  getIt.registerSingleton<GetAllCategoriesUseCase>(
+    GetAllCategoriesUseCase(homeRepo: getIt.get<HomeRepo>()),
+  );
 }

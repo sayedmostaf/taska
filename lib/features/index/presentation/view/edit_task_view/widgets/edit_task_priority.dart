@@ -6,7 +6,7 @@ import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_clickable_container.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/core/widgets/save_cancel_action_buttons.dart';
-import 'package:taska/features/home/presentation/view/widgets/task_priority_item.dart';
+import 'package:taska/features/home/presentation/view/home_view/widgets/task_priority_item.dart';
 
 class EditTaskPriority extends StatefulWidget {
   const EditTaskPriority({super.key});

@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 
 class CategoryIconSection extends StatefulWidget {
-  const CategoryIconSection({super.key});
+  const CategoryIconSection({super.key, required this.onChanged});
+  final Function(int?) onChanged;
 
   @override
   State<CategoryIconSection> createState() => _CategoryIconSectionState();
@@ -19,14 +20,12 @@ class _CategoryIconSectionState extends State<CategoryIconSection> {
     final IconPickerIcon? pickedIcon = await showIconPicker(
       context,
       configuration: SinglePickerConfiguration(
-        iconPackModes: [
-          IconPack.cupertino,
-          IconPack.fontAwesomeIcons,
-          IconPack.lineAwesomeIcons,
-          IconPack.material,
-        ],
+        iconPackModes: [IconPack.material],
       ),
     );
+    if (icon != null) {
+      widget.onChanged(icon!.codePoint);
+    }
 
     if (pickedIcon == null) return;
 

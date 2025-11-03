@@ -2,7 +2,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:taska/features/home/domain/entities/category.dart';
 part 'task.g.dart';
 
-
 @HiveType(typeId: 0)
 class TaskEntity extends HiveObject {
   @HiveField(0)
@@ -14,7 +13,7 @@ class TaskEntity extends HiveObject {
   @HiveField(3)
   final String status;
   @HiveField(4)
-  final CategoryData category;
+  final CategoryEntity category;
   @HiveField(5)
   final int priority;
   @HiveField(6)

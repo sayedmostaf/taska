@@ -5,8 +5,8 @@ import 'package:taska/features/home/domain/entities/task.dart';
 const kTaskBox = 'tasks_box';
 const kCategoryBox = 'categories_box';
 Future<void> setupDatabase() async {
-  Hive.registerAdapter(CategoryDataAdapter());
+  Hive.registerAdapter(CategoryEntityAdapter());
   Hive.registerAdapter(TaskEntityAdapter());
   await Hive.openBox<TaskEntity>(kTaskBox);
-  await Hive.openBox<CategoryData>(kCategoryBox);
+  await Hive.openBox<CategoryEntity>(kCategoryBox);
 }

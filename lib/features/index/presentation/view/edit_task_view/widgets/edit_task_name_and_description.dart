@@ -5,10 +5,19 @@ import 'package:go_router/go_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/core/widgets/save_cancel_action_buttons.dart';
-import 'package:taska/features/home/presentation/view/widgets/add_task_form.dart';
+import 'package:taska/features/home/presentation/view/home_view/widgets/add_task_form.dart';
 
-class EditTaskNameAndDescription extends StatelessWidget {
+class EditTaskNameAndDescription extends StatefulWidget {
   const EditTaskNameAndDescription({super.key});
+
+  @override
+  State<EditTaskNameAndDescription> createState() =>
+      _EditTaskNameAndDescriptionState();
+}
+
+class _EditTaskNameAndDescriptionState
+    extends State<EditTaskNameAndDescription> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +64,7 @@ class EditTaskNameAndDescription extends StatelessWidget {
               SizedBox(height: 5.h),
               Divider(),
               SizedBox(height: 5.h),
-              AddTaskForm(),
+              AddTaskForm(formKey: formKey),
               SizedBox(height: 10.h),
               SaveCancelActionButtons(
                 cancelOnPressed: () => GoRouter.of(context).pop(context),

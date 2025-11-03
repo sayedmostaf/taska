@@ -6,8 +6,9 @@ import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_clickable_container.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/core/widgets/save_cancel_action_buttons.dart';
-import 'package:taska/features/home/presentation/view/widgets/add_category_button.dart';
-import 'package:taska/features/home/presentation/view/widgets/task_category_item.dart';
+import 'package:taska/features/home/domain/entities/category.dart';
+import 'package:taska/features/home/presentation/view/home_view/widgets/add_category_button.dart';
+import 'package:taska/features/home/presentation/view/home_view/widgets/task_category_item.dart';
 
 class EditTaskCategory extends StatefulWidget {
   const EditTaskCategory({super.key});
@@ -97,9 +98,12 @@ class _EditTaskCategoryState extends State<EditTaskCategory> {
             ) {
               if (index < 29) {
                 return TaskCategoryItem(
-                  color: Color(0xff80ffff),
-                  title: 'Grocery',
-                  icon: CustomIcons.grocery_icon,
+                  category: CategoryEntity(
+                    id: 'id',
+                    name: 'Grocery',
+                    iconData: 58389,
+                    color: '#ffff0032',
+                  ),
                   selected: selectedCategoryIndex == index,
                   onTap: () {
                     selectedCategoryIndex = index;

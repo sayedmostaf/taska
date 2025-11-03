@@ -17,7 +17,7 @@ class HomeRepoImpl extends HomeRepo {
   });
   @override
   Future<Either<Failure, void>> createCategory(
-    CategoryData categoryData,
+    CategoryEntity categoryData,
   ) async {
     try {
       await homeRemoteDataSource.createCategory(categoryData);
@@ -40,7 +40,7 @@ class HomeRepoImpl extends HomeRepo {
   }
 
   @override
-  Future<Either<Failure, List<CategoryData>>> getAllCategories() async {
+  Future<Either<Failure, List<CategoryEntity>>> getAllCategories() async {
     try {
       var categories = homeLocalDataSource.getAllCategories();
       if (categories.isNotEmpty) {

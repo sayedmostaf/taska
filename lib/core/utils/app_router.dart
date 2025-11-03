@@ -17,8 +17,12 @@ import 'package:taska/features/auth/presentation/manager/verify_email_cubit/veri
 import 'package:taska/features/auth/presentation/view/auth_view/auth_view.dart';
 import 'package:taska/features/auth/presentation/view/email_verify_view/email_verify_view.dart';
 import 'package:taska/features/auth/presentation/view/forgot_password_view/forgot_password_view.dart';
-import 'package:taska/features/home/presentation/view/create_category_view.dart';
-import 'package:taska/features/home/presentation/view/home_view.dart';
+import 'package:taska/features/home/domain/usecases/create_category_use_case.dart';
+import 'package:taska/features/home/domain/usecases/get_all_categories_use_case.dart';
+import 'package:taska/features/home/presentation/manager/create_category_cubit/create_category_cubit.dart';
+import 'package:taska/features/home/presentation/manager/get_categories_cubit/get_categories_cubit.dart';
+import 'package:taska/features/home/presentation/view/create_category_view/create_category_view.dart';
+import 'package:taska/features/home/presentation/view/home_view/home_view.dart';
 import 'package:taska/features/index/presentation/view/edit_task_view/edit_task_view.dart';
 import 'package:taska/features/on_boarding/presentation/view/on_boarding_view.dart';
 import 'package:taska/features/profile/presentation/view/settings_view/settings_view.dart';
@@ -74,13 +78,31 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kHomeView,
-        pageBuilder: (context, state) =>
-            screenTransition(state, const HomeView()),
+        pageBuilder: (context, state) => screenTransition(
+          state,
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    GetCategoriesCubit(getIt.get<GetAllCategoriesUseCase>())
+                      ..getAllCategories(),
+              ),
+            ],
+            child: const HomeView(),
+          ),
+        ),
       ),
       GoRoute(
         path: kCreateCategoryView,
-        pageBuilder: (context, state) =>
-            screenTransition(state, const CreateCategoryView()),
+        pageBuilder: (context, state) => screenTransition(
+          state,
+          BlocProvider(
+            create: (context) => CreateCategoryCubit(
+              createCategoryUseCase: getIt.get<CreateCategoryUseCase>(),
+            ),
+            child: const CreateCategoryView(),
+          ),
+        ),
       ),
       GoRoute(
         path: kEditTaskView,

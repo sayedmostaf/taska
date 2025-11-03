@@ -1,6 +1,6 @@
 import 'package:taska/features/home/domain/entities/category.dart';
 
-class CategoryModel extends CategoryData {
+class CategoryModel extends CategoryEntity {
   final String categoryId;
   final String name;
   final int icon;
@@ -23,7 +23,7 @@ class CategoryModel extends CategoryData {
     return {'id': categoryId, 'name': name, 'icon': icon, 'color': colorHex};
   }
 
-  factory CategoryModel.fromEntity(CategoryData categoryData) {
+  factory CategoryModel.fromEntity(CategoryEntity categoryData) {
     return CategoryModel(
       categoryId: categoryData.id,
       name: categoryData.name,

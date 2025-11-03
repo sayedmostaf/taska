@@ -6,8 +6,8 @@ import 'package:taska/features/home/domain/entities/task.dart';
 
 class HomeLocalDataSourceImpl implements HomeLocalDataSource {
   @override
-  Future<void> createCategory(CategoryData categoryData) async {
-    var box = Hive.box<CategoryData>(kCategoryBox);
+  Future<void> createCategory(CategoryEntity categoryData) async {
+    var box = Hive.box<CategoryEntity>(kCategoryBox);
     await box.add(categoryData);
   }
 
@@ -18,8 +18,8 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
   }
 
   @override
-  List<CategoryData> getAllCategories() {
-    var box = Hive.box<CategoryData>(kCategoryBox);
+  List<CategoryEntity> getAllCategories() {
+    var box = Hive.box<CategoryEntity>(kCategoryBox);
     return box.values.toList();
   }
 }

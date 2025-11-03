@@ -6,7 +6,8 @@ import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_loading_animation.dart';
 
 class CreateCategoryActionButtons extends StatelessWidget {
-  const CreateCategoryActionButtons({super.key});
+  const CreateCategoryActionButtons({super.key, this.onPressed});
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +48,7 @@ class CreateCategoryActionButtons extends StatelessWidget {
               height: 50.h,
               width: 150.w,
               child: ElevatedButton(
-                onPressed: () {
-                  CustomLoadingAnimation.buildLoadingIndicator(context);
-                },
+                onPressed: onPressed,
                 child: Text(
                   StringsManager.save.tr(),
                   style: Theme.of(

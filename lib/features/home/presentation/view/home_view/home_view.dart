@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/features/calender/presentation/view/calendar_view.dart';
 import 'package:taska/features/focus/presentation/view/focus_view.dart';
-import 'package:taska/features/home/presentation/view/widgets/custom_bottom_navigation_bar_item.dart';
-import 'package:taska/features/home/presentation/view/widgets/custom_floating_action_button.dart';
+import 'package:taska/features/home/presentation/view/home_view/widgets/custom_bottom_navigation_bar_item.dart';
+import 'package:taska/features/home/presentation/view/home_view/widgets/custom_floating_action_button.dart';
 import 'package:taska/features/index/presentation/view/index_view/index_view.dart';
 import 'package:taska/features/profile/presentation/view/profile_view/profile_view.dart';
 

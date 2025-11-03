@@ -58,4 +58,14 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       );
     }
   }
+
+  @override
+  Future<void> deleteCategory(String categoryId) async {
+    await firestore
+        .collection('users')
+        .doc(firebaseAuth.currentUser!.uid)
+        .collection('categories')
+        .doc(categoryId)
+        .delete();
+  }
 }

@@ -13,9 +13,11 @@ class TaskCategoryItem extends StatefulWidget {
     super.key,
     required this.category,
     required this.selected,
-    this.onTap,
+    required this.onTap,
+    required this.onDelete,
   });
   final CategoryEntity category;
+  final Function()? onDelete;
 
   final bool selected;
   final Function()? onTap;
@@ -72,9 +74,7 @@ class _TaskCategoryItemState extends State<TaskCategoryItem> {
                 top: 0,
                 right: 0,
                 child: GestureDetector(
-                  onTap: () {
-                    log('delete');
-                  },
+                  onTap: widget.onDelete,
                   child: Icon(Icons.delete, color: Colors.red, size: 18.sp),
                 ),
               ),

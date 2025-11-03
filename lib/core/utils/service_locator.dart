@@ -17,6 +17,7 @@ import 'package:taska/features/home/data/repos/home_repo_impl.dart';
 import 'package:taska/features/home/domain/repos/home_repo.dart';
 import 'package:taska/features/home/domain/usecases/create_category_use_case.dart';
 import 'package:taska/features/home/domain/usecases/create_task_use_case.dart';
+import 'package:taska/features/home/domain/usecases/delete_category_use_case.dart';
 import 'package:taska/features/home/domain/usecases/get_all_categories_use_case.dart';
 
 final getIt = GetIt.instance;
@@ -66,5 +67,8 @@ void setupLocator() {
   );
   getIt.registerSingleton<CreateTaskUseCase>(
     CreateTaskUseCase(homeRepo: getIt.get<HomeRepo>()),
+  );
+  getIt.registerSingleton<DeleteCategoryUseCase>(
+    DeleteCategoryUseCase(homeRepo: getIt.get<HomeRepo>()),
   );
 }

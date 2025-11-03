@@ -28,9 +28,9 @@ class CreateCategoryViewBody extends StatefulWidget {
 class _CreateCategoryViewBodyState extends State<CreateCategoryViewBody> {
   final GlobalKey<FormFieldState<String>> categoryNameKey =
       GlobalKey<FormFieldState<String>>();
-  late String name;
-  late int? iconCode;
-  late String? colorHex;
+  String name = '';
+  int? iconCode;
+  String? colorHex;
   @override
   Widget build(BuildContext context) {
     return Padding(

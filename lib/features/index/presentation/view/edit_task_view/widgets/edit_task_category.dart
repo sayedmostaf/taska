@@ -111,6 +111,7 @@ class _EditTaskCategoryState extends State<EditTaskCategory> {
                     selectedCategoryIndex = index;
                     setState(() {});
                   },
+                  onDelete: () {},
                 );
               } else {
                 return AddCategoryButton(

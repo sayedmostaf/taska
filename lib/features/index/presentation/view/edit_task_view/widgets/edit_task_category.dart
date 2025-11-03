@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -7,6 +8,7 @@ import 'package:taska/core/widgets/custom_clickable_container.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/core/widgets/save_cancel_action_buttons.dart';
 import 'package:taska/features/home/domain/entities/category.dart';
+import 'package:taska/features/home/presentation/manager/get_categories_cubit/get_categories_cubit.dart';
 import 'package:taska/features/home/presentation/view/home_view/widgets/add_category_button.dart';
 import 'package:taska/features/home/presentation/view/home_view/widgets/task_category_item.dart';
 
@@ -111,7 +113,11 @@ class _EditTaskCategoryState extends State<EditTaskCategory> {
                   },
                 );
               } else {
-                return AddCategoryButton();
+                return AddCategoryButton(
+                  getCategoriesCubit: BlocProvider.of<GetCategoriesCubit>(
+                    context,
+                  ),
+                );
               }
             }, childCount: 30),
           ),

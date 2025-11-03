@@ -16,9 +16,17 @@ import 'package:taska/features/home/presentation/view/home_view/widgets/task_cat
 import 'package:taska/features/home/presentation/view/home_view/widgets/task_priority_item.dart';
 
 class AddTaskActionButtons extends StatefulWidget {
-  const AddTaskActionButtons({super.key, this.onSend});
-  final Function()? onSend;
-
+  const AddTaskActionButtons({
+    super.key,
+    required this.onSend,
+    required this.onSelectDateTime,
+    required this.onSelectCategory,
+    required this.onSelectPriority,
+  });
+  final Function() onSend;
+  final Function(DateTime?) onSelectDateTime;
+  final Function(CategoryEntity?) onSelectCategory;
+  final Function(int?) onSelectPriority;
   @override
   State<AddTaskActionButtons> createState() => _AddTaskActionButtonsState();
 }
@@ -53,7 +61,11 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
             if (state is GetCategoriesSuccess) {
               return IconButton(
                 onPressed: () {
-                  buildChooseCategoryDialog(context, state.categories);
+                  buildChooseCategoryDialog(
+                    context,
+                    state.categories,
+                    BlocProvider.of<GetCategoriesCubit>(context),
+                  );
                 },
                 icon: Icon(
                   CustomIcons.tag_icon,
@@ -105,6 +117,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
   void buildChooseCategoryDialog(
     BuildContext context,
     List<CategoryEntity> categories,
+    GetCategoriesCubit getCategoriesCubit,
   ) async {
     await showDialog(
       context: context,
@@ -123,11 +136,16 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
                   SizedBox(height: 5.h),
                   Divider(),
                   SizedBox(height: 5.h),
-                  _buildChooseCategoryGridView(setState, categories),
+                  _buildChooseCategoryGridView(
+                    setState,
+                    categories,
+                    getCategoriesCubit,
+                  ),
                   SizedBox(height: 16.h),
                   SaveCancelActionButtons(
                     cancelOnPressed: () {
                       selectedCategoryIndex = null;
+                      widget.onSelectCategory(null);
                       GoRouter.of(context).pop();
                     },
                     saveOnPressed: () {
@@ -147,6 +165,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
   Widget _buildChooseCategoryGridView(
     StateSetter setState,
     List<CategoryEntity> categories,
+    GetCategoriesCubit getCategoriesCubit,
   ) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.6,
@@ -170,11 +189,14 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
                   selected: selectedCategoryIndex == index,
                   onTap: () {
                     selectedCategoryIndex = index;
+                    widget.onSelectCategory(categories[index]);
                     setState(() {});
                   },
                 );
               } else {
-                return AddCategoryButton();
+                return AddCategoryButton(
+                  getCategoriesCubit: getCategoriesCubit,
+                );
               }
             }, childCount: categories.length + 1),
           ),
@@ -206,6 +228,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
                   SaveCancelActionButtons(
                     cancelOnPressed: () {
                       selectedTaskPriority = null;
+                      widget.onSelectPriority(null);
                       GoRouter.of(context).pop();
                     },
                     saveOnPressed: () {
@@ -235,6 +258,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
         return TaskPriorityItem(
           onTap: () {
             selectedTaskPriority = index + 1;
+            widget.onSelectPriority(index + 1);
             setState(() {});
           },
           index: (index + 1).toString(),
@@ -258,15 +282,39 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
         initialTime: TimeOfDay.now(),
       );
       if (selectedTimeOfDay != null) {
+        DateTime selectedDateTime = DateTime(
+          selectedDate!.year,
+          selectedDate!.month,
+          selectedDate!.day,
+          selectedTimeOfDay!.hour,
+          selectedTimeOfDay!.minute,
+        );
+        if (selectedDateTime.isAfter(DateTime.now())) {
+          widget.onSelectDateTime(
+            DateTime(
+              selectedDate!.year,
+              selectedDate!.month,
+              selectedDate!.day,
+              selectedTimeOfDay!.hour,
+              selectedTimeOfDay!.minute,
+            ),
+          );
+        } else {
+          selectedDate = null;
+          widget.onSelectDateTime(null);
+          selectedTimeOfDay = null;
+        }
         setState(() {});
       } else {
         selectedDate = null;
         selectedTimeOfDay = null;
+        widget.onSelectDateTime(null);
         setState(() {});
       }
     } else {
       selectedDate = null;
       selectedTimeOfDay = null;
+      widget.onSelectDateTime(null);
       setState(() {});
     }
   }

@@ -10,6 +10,7 @@ import 'package:taska/core/widgets/custom_sliver_sized_box.dart';
 import 'package:taska/features/home/domain/entities/category.dart';
 import 'package:taska/features/home/presentation/manager/create_category_cubit/create_category_cubit.dart';
 import 'package:taska/features/home/presentation/manager/create_category_cubit/create_category_state.dart';
+import 'package:taska/features/home/presentation/manager/get_categories_cubit/get_categories_cubit.dart';
 import 'package:taska/features/home/presentation/view/create_category_view/widgets/category_color_section.dart';
 import 'package:taska/features/home/presentation/view/create_category_view/widgets/category_icon_section.dart';
 import 'package:taska/features/home/presentation/view/create_category_view/widgets/category_name_section.dart';
@@ -84,6 +85,9 @@ class _CreateCategoryViewBodyState extends State<CreateCategoryViewBody> {
                 } else if (state is CreateCategorySuccess) {
                   GoRouter.of(context).pop();
                   GoRouter.of(context).pop();
+                  BlocProvider.of<GetCategoriesCubit>(
+                    context,
+                  ).getAllCategories();
                   Fluttertoast.showToast(
                     msg: StringsManager.categoryCreatedSuccessfully.tr(),
                     toastLength: Toast.LENGTH_SHORT,

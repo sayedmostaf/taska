@@ -6,6 +6,9 @@ class CreateCategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: CreateCategoryViewBody());
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: CreateCategoryViewBody(),
+    );
   }
 }

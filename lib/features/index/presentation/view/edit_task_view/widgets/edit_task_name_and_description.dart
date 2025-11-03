@@ -64,7 +64,11 @@ class _EditTaskNameAndDescriptionState
               SizedBox(height: 5.h),
               Divider(),
               SizedBox(height: 5.h),
-              AddTaskForm(formKey: formKey),
+              AddTaskForm(
+                formKey: formKey,
+                onSavedTaskDescription: (p0) {},
+                onSavedTaskTitle: (p0) {},
+              ),
               SizedBox(height: 10.h),
               SaveCancelActionButtons(
                 cancelOnPressed: () => GoRouter.of(context).pop(context),

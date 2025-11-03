@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:taska/features/auth/data/repos/auth_repo_impl.dart';
@@ -34,4 +35,5 @@ void setupLocator() {
   getIt.registerSingleton<SignOutUseCase>(
     SignOutUseCase(authRepo: getIt.get<AuthRepo>()),
   );
+  getIt.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
 }

@@ -1,11 +1,25 @@
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:taska/features/home/domain/entities/category.dart';
+part 'task.g.dart';
 
-class Task {
-  final String id, name, description, status;
+
+@HiveType(typeId: 0)
+class TaskEntity extends HiveObject {
+  @HiveField(0)
+  final String id;
+  @HiveField(1)
+  final String name;
+  @HiveField(2)
+  final String description;
+  @HiveField(3)
+  final String status;
+  @HiveField(4)
   final CategoryData category;
+  @HiveField(5)
   final int priority;
+  @HiveField(6)
   final DateTime utcTime;
-  Task({
+  TaskEntity({
     required this.id,
     required this.name,
     required this.description,

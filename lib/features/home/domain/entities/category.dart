@@ -1,10 +1,18 @@
-import 'package:flutter/widgets.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+part 'category.g.dart';
 
-class CategoryData {
-  final String name, id;
-  final IconData iconData;
-  final Color color;
-  CategoryData(this.id,{
+@HiveType(typeId: 1)
+class CategoryData extends HiveObject {
+  @HiveField(0)
+  final String name;
+  @HiveField(1)
+  final String id;
+  @HiveField(2)
+  final int iconData;
+  @HiveField(3)
+  final String color;
+  CategoryData({
+    required this.id,
     required this.name,
     required this.iconData,
     required this.color,

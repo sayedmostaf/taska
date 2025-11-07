@@ -14,6 +14,7 @@ import 'package:taska/features/home/presentation/manager/create_task_cubit/creat
 import 'package:taska/features/home/presentation/manager/create_task_cubit/create_task_state.dart';
 import 'package:taska/features/home/presentation/view/home_view/widgets/add_task_action_buttons.dart';
 import 'package:taska/features/home/presentation/view/home_view/widgets/add_task_form.dart';
+import 'package:taska/features/index/presentation/manager/get_task_by_day_cubit/get_task_by_day_cubit.dart';
 import 'package:uuid/uuid.dart';
 
 class CustomFloatingActionButton extends StatefulWidget {
@@ -95,6 +96,9 @@ class _CustomFloatingActionButtonState
                       msg: StringsManager.taskCreatedSuccessfully.tr(),
                       toastLength: Toast.LENGTH_SHORT,
                     );
+                    BlocProvider.of<GetTasksByDayCubit>(
+                      context,
+                    ).getTaskByDay(null);
                   }
                 },
                 child: AddTaskActionButtons(
@@ -123,22 +127,22 @@ class _CustomFloatingActionButtonState
                         TaskEntity(
                           id: Uuid().v4(),
                           name: taskTitle!,
-                          description: taskDescription??"",
+                          description: taskDescription ?? "",
                           status: 'pending',
                           category: categoryEntity!,
                           priority: priority!,
-                          utcTime: time!.toUtc(),
+                          utcTime: time!,
                         ),
                       );
                     }
                   },
-                  onSelectDateTime: (date){
+                  onSelectDateTime: (date) {
                     time = date;
                   },
-                  onSelectCategory: (category){
+                  onSelectCategory: (category) {
                     categoryEntity = category;
                   },
-                  onSelectPriority: (priority){
+                  onSelectPriority: (priority) {
                     this.priority = priority;
                   },
                 ),

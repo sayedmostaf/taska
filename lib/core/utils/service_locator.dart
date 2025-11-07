@@ -19,6 +19,13 @@ import 'package:taska/features/home/domain/usecases/create_category_use_case.dar
 import 'package:taska/features/home/domain/usecases/create_task_use_case.dart';
 import 'package:taska/features/home/domain/usecases/delete_category_use_case.dart';
 import 'package:taska/features/home/domain/usecases/get_all_categories_use_case.dart';
+import 'package:taska/features/index/data/data_sources/index_local_data_source/index_local_data_source.dart';
+import 'package:taska/features/index/data/data_sources/index_local_data_source/index_local_data_source_impl.dart';
+import 'package:taska/features/index/data/data_sources/index_remote_data_source/index_remote_data_source.dart';
+import 'package:taska/features/index/data/data_sources/index_remote_data_source/index_remote_data_source_impl.dart';
+import 'package:taska/features/index/data/repos/index_repo_impl.dart';
+import 'package:taska/features/index/domain/repos/index_repo.dart';
+import 'package:taska/features/index/domain/usecases/get_task_by_day_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -70,5 +77,21 @@ void setupLocator() {
   );
   getIt.registerSingleton<DeleteCategoryUseCase>(
     DeleteCategoryUseCase(homeRepo: getIt.get<HomeRepo>()),
+  );
+  getIt.registerSingleton<IndexLocalDataSource>(IndexLocalDataSourceImpl());
+  getIt.registerSingleton<IndexRemoteDataSource>(
+    IndexRemoteDataSourceImpl(
+      firebaseAuth: getIt.get<FirebaseAuth>(),
+      firestore: getIt.get<FirebaseFirestore>(),
+    ),
+  );
+  getIt.registerSingleton<IndexRepo>(
+    IndexRepoImpl(
+      indexLocalDataSource: getIt.get<IndexLocalDataSource>(),
+      indexRemoteDataSource: getIt.get<IndexRemoteDataSource>(),
+    ),
+  );
+  getIt.registerSingleton<GetTaskByDayUseCase>(
+    GetTaskByDayUseCase(indexRepo: getIt.get<IndexRepo>()),
   );
 }

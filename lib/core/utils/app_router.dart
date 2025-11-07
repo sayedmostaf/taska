@@ -25,6 +25,8 @@ import 'package:taska/features/home/presentation/manager/create_task_cubit/creat
 import 'package:taska/features/home/presentation/manager/get_categories_cubit/get_categories_cubit.dart';
 import 'package:taska/features/home/presentation/view/create_category_view/create_category_view.dart';
 import 'package:taska/features/home/presentation/view/home_view/home_view.dart';
+import 'package:taska/features/index/domain/usecases/get_task_by_day_use_case.dart';
+import 'package:taska/features/index/presentation/manager/get_task_by_day_cubit/get_task_by_day_cubit.dart';
 import 'package:taska/features/index/presentation/view/edit_task_view/edit_task_view.dart';
 import 'package:taska/features/on_boarding/presentation/view/on_boarding_view.dart';
 import 'package:taska/features/profile/presentation/view/settings_view/settings_view.dart';
@@ -92,6 +94,20 @@ abstract class AppRouter {
               BlocProvider(
                 create: (context) =>
                     CreateTaskCubit(getIt.get<CreateTaskUseCase>()),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    GetTasksByDayCubit(getIt.get<GetTaskByDayUseCase>())
+                      ..getTaskByDay(
+                        DateTime(
+                          DateTime.now().year,
+                          DateTime.now().month,
+                          DateTime.now().day,
+                          0,
+                          0,
+                          0,
+                        ),
+                      ),
               ),
             ],
             child: const HomeView(),

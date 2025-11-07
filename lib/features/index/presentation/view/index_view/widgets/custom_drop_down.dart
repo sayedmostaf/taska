@@ -1,26 +1,24 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taska/core/utils/strings_manager.dart';
+import 'package:taska/features/index/presentation/manager/get_task_by_day_cubit/get_task_by_day_cubit.dart';
 
 class CustomDropDown extends StatefulWidget {
-  const CustomDropDown({
-    super.key,
-    required this.values,
-    required this.titles,
-    required this.onSelected,
-  });
-  final List<String> values, titles;
-  final Function(String) onSelected;
+  const CustomDropDown({super.key, required this.selectedValue});
+  final String selectedValue;
   @override
   State<CustomDropDown> createState() => _CustomDropDownState();
 }
 
 class _CustomDropDownState extends State<CustomDropDown> {
-  late String selectedValue;
-  @override
-  void initState() {
-    super.initState();
-    selectedValue = widget.titles[0];
-  }
+  final List<String> values = ['today', 'tomorrow', 'yesterday'];
+  final List<String> titles = [
+    StringsManager.today.tr(),
+    StringsManager.tomorrow.tr(),
+    StringsManager.yesterday.tr(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +34,52 @@ class _CustomDropDownState extends State<CustomDropDown> {
           ),
           child: PopupMenuButton(
             itemBuilder: (context) => List.generate(
-              widget.titles.length,
+              titles.length,
               (int index) => PopupMenuItem<String>(
-                value: widget.values[index],
+                value: values[index],
                 child: Text(
-                  widget.titles[index],
+                  titles[index],
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
             ),
             onSelected: (p0) {
               setState(() {
-                selectedValue = widget.titles[widget.values.indexOf(p0)];
+                if (p0 == 'today') {
+                  BlocProvider.of<GetTasksByDayCubit>(context).getTaskByDay(
+                    DateTime(
+                      DateTime.now().year,
+                      DateTime.now().month,
+                      DateTime.now().day,
+                      0,
+                      0,
+                      0,
+                    ),
+                  );
+                } else if (p0 == 'tomorrow') {
+                  BlocProvider.of<GetTasksByDayCubit>(context).getTaskByDay(
+                    DateTime(
+                      DateTime.now().year,
+                      DateTime.now().month,
+                      DateTime.now().day + 1,
+                      0,
+                      0,
+                      0,
+                    ),
+                  );
+                } else if (p0 == 'yesterday') {
+                  BlocProvider.of<GetTasksByDayCubit>(context).getTaskByDay(
+                    DateTime(
+                      DateTime.now().year,
+                      DateTime.now().month,
+                      DateTime.now().day - 1,
+                      0,
+                      0,
+                      0,
+                    ),
+                  );
+                }
               });
-              widget.onSelected(p0);
             },
             offset: Offset.fromDirection(1.5, 44.h),
             child: Container(
@@ -59,7 +89,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    selectedValue,
+                    widget.selectedValue,
                     style: Theme.of(context).brightness == Brightness.dark
                         ? Theme.of(
                             context,

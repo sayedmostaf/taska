@@ -10,7 +10,8 @@ import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/core/widgets/custom_loading_animation.dart';
 
 class CustomIndexAppBar extends StatelessWidget {
-  const CustomIndexAppBar({super.key});
+  const CustomIndexAppBar({super.key, required this.isFilterActive});
+  final bool isFilterActive;
 
   @override
   Widget build(BuildContext context) {
@@ -27,30 +28,37 @@ class CustomIndexAppBar extends StatelessWidget {
     );
   }
 
-  PopupMenuButton<String> _buildSortDropDown() {
-    return PopupMenuButton(
-      icon: Icon(CustomIcons.sort_icon),
-      offset: Offset.fromDirection(1.25, 35.sp),
-      itemBuilder: (context) => [
-        PopupMenuItem<String>(
-          value: 'name',
-          child: Text(
-            StringsManager.name.tr(),
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-        ),
-        PopupMenuItem<String>(
-          value: 'priority',
-          child: Text(
-            StringsManager.priority.tr(),
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-        ),
-      ],
-      onSelected: (selected) {
-        log(selected);
-      },
-    );
+  Widget _buildSortDropDown() {
+    return isFilterActive
+        ? PopupMenuButton(
+            icon: Icon(CustomIcons.sort_icon),
+            offset: Offset.fromDirection(1.25, 35.sp),
+            itemBuilder: (context) => [
+              PopupMenuItem<String>(
+                value: 'name',
+                child: Text(
+                  StringsManager.name.tr(),
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ),
+              PopupMenuItem<String>(
+                value: 'priority',
+                child: Text(
+                  StringsManager.priority.tr(),
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ),
+            ],
+            onSelected: (selected) {
+              log(selected);
+            },
+          )
+        : PopupMenuButton(
+            icon: Icon(CustomIcons.sort_icon),
+            itemBuilder: (context) => [],
+            offset: Offset.fromDirection(1.25,35.sp),
+            onSelected: null,
+          );
   }
 
   Container _buildProfileImage() {

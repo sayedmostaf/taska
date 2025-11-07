@@ -5,11 +5,11 @@ import 'package:taska/features/home/domain/entities/task.dart';
 import 'package:taska/features/index/domain/repos/index_repo.dart';
 
 class GetTaskByDayUseCase
-    extends UseCase<(List<TaskEntity>, List<TaskEntity>), DateTime> {
+    extends UseCase<List<TaskEntity>, DateTime> {
   final IndexRepo indexRepo;
   GetTaskByDayUseCase({required this.indexRepo});
   @override
-  Future<Either<Failure, (List<TaskEntity>, List<TaskEntity>)>> execute([
+  Future<Either<Failure, List<TaskEntity>>> execute([
     DateTime? inputs,
   ]) async {
     return await indexRepo.getTasksByDay(inputs!);

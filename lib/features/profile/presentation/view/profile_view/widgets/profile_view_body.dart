@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taska/core/database/database.dart';
 import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/service_locator.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -46,6 +47,7 @@ class ProfileViewBody extends StatelessWidget {
           SliverToBoxAdapter(
             child: LogOutButton(
               onTap: () {
+                clearDatabase();
                 getIt.get<FirebaseAuth>().signOut();
                 GoRouter.of(context).go(AppRouter.kAuthView);
               },

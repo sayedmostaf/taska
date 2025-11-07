@@ -2,4 +2,5 @@ import 'package:taska/features/home/domain/entities/task.dart';
 
 abstract class IndexRemoteDataSource {
   Future<List<TaskEntity>> getTasksByDay(DateTime day);
+  Future<void> changeTaskStatus(String status, String taskId);
 }

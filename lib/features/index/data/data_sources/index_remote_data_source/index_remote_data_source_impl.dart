@@ -41,4 +41,14 @@ class IndexRemoteDataSourceImpl implements IndexRemoteDataSource {
       tasks.add(TaskModel.fromJson(task.data() as Map<String, dynamic>));
     }
   }
+
+  @override
+  Future<void> changeTaskStatus(String status, String taskId) async {
+    DocumentReference taskRef = firestore
+        .collection('users')
+        .doc(firebaseAuth.currentUser!.uid)
+        .collection('tasks')
+        .doc(taskId);
+    await taskRef.update({'status': status});
+  }
 }

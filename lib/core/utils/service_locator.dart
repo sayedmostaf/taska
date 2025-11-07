@@ -25,6 +25,7 @@ import 'package:taska/features/index/data/data_sources/index_remote_data_source/
 import 'package:taska/features/index/data/data_sources/index_remote_data_source/index_remote_data_source_impl.dart';
 import 'package:taska/features/index/data/repos/index_repo_impl.dart';
 import 'package:taska/features/index/domain/repos/index_repo.dart';
+import 'package:taska/features/index/domain/usecases/change_task_status_usecase.dart';
 import 'package:taska/features/index/domain/usecases/get_task_by_day_use_case.dart';
 
 final getIt = GetIt.instance;
@@ -93,5 +94,8 @@ void setupLocator() {
   );
   getIt.registerSingleton<GetTaskByDayUseCase>(
     GetTaskByDayUseCase(indexRepo: getIt.get<IndexRepo>()),
+  );
+  getIt.registerSingleton<ChangeTaskStatusUseCase>(
+    ChangeTaskStatusUseCase(getIt.get<IndexRepo>()),
   );
 }

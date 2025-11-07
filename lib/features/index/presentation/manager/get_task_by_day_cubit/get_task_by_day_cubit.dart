@@ -29,6 +29,22 @@ class GetTasksByDayCubit extends Cubit<GetTaskByDayState> {
     );
   }
 
+  void filterByNameAndPriority({
+    required bool byName,
+    required List<TaskEntity> completed,
+    required List<TaskEntity> uncompleted,
+  }) {
+    emit(GetTasksByDayLoading());
+    if (byName) {
+      completed.sort((a, b) => a.name.compareTo(b.name));
+      uncompleted.sort((a, b) => a.name.compareTo(b.name));
+    } else {
+      completed.sort((a, b) => a.priority.compareTo(b.priority));
+      uncompleted.sort((a, b) => a.priority.compareTo(b.priority));
+    }
+    emit(GetTasksByDaySuccess(uncompleted: uncompleted, completed: completed));
+  }
+
   (List<TaskEntity> uncompleted, List<TaskEntity> completed) splitTasks(
     List<TaskEntity> tasks,
   ) {

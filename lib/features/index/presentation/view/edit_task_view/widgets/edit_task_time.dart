@@ -6,15 +6,27 @@ import 'package:taska/core/widgets/custom_clickable_container.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 
 class EditTaskTime extends StatefulWidget {
-  const EditTaskTime({super.key});
-
+  const EditTaskTime({
+    super.key,
+    required this.date,
+    required this.onSavedTime,
+  });
+  final DateTime date;
+  final Function(DateTime) onSavedTime;
   @override
   State<EditTaskTime> createState() => _EditTaskTimeState();
 }
 
 class _EditTaskTimeState extends State<EditTaskTime> {
+  late DateTime initialDate;
   DateTime? selectedDate;
   TimeOfDay? selectedTimeOfDay;
+  @override
+  void initState() {
+    super.initState();
+    initialDate = widget.date;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -27,7 +39,8 @@ class _EditTaskTimeState extends State<EditTaskTime> {
         ),
         Spacer(),
         CustomClickableContainer(
-          text: 'Today At 16:45',
+          text:
+              '${initialDate.year}/${initialDate.month}/${initialDate.day} ${initialDate.hour == 0 ? '00' : initialDate.hour}:${initialDate.minute == 0 ? '00' : initialDate.minute}',
           onTap: () {
             _showCalendarAndTime(context);
           },
@@ -42,24 +55,31 @@ class _EditTaskTimeState extends State<EditTaskTime> {
       firstDate: DateTime.now(),
       lastDate: DateTime(2223),
       confirmText: StringsManager.chooseTime.tr(),
-      initialDate: DateTime.now(),
+      initialDate: initialDate,
     );
     if (selectedDate != null && context.mounted) {
       selectedTimeOfDay = await showTimePicker(
         context: context,
-        initialTime: TimeOfDay.now(),
+        initialTime: TimeOfDay(
+          hour: initialDate.hour,
+          minute: initialDate.minute,
+        ),
       );
       if (selectedTimeOfDay != null) {
-        setState(() {});
-      } else {
-        selectedDate = null;
-        selectedTimeOfDay = null;
-        setState(() {});
+        DateTime selectedDateTime = DateTime(
+          selectedDate!.year,
+          selectedDate!.month,
+          selectedDate!.day,
+          selectedTimeOfDay!.hour,
+          selectedTimeOfDay!.minute,
+        );
+        if (selectedDateTime.isAfter(DateTime.now())) {
+          setState(() {
+            initialDate = selectedDateTime;
+          });
+          widget.onSavedTime(initialDate);
+        }
       }
-    } else {
-      selectedDate = null;
-      selectedTimeOfDay = null;
-      setState(() {});
     }
   }
 }

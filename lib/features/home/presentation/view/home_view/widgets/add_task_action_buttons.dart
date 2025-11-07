@@ -2,8 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taska/core/utils/assets_manager.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/service_locator.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -12,8 +13,8 @@ import 'package:taska/core/widgets/custom_loading_animation.dart';
 import 'package:taska/core/widgets/save_cancel_action_buttons.dart';
 import 'package:taska/features/home/domain/entities/category.dart';
 import 'package:taska/features/home/domain/usecases/delete_category_use_case.dart';
+import 'package:taska/features/home/domain/usecases/get_all_categories_use_case.dart';
 import 'package:taska/features/home/presentation/manager/delete_category_cubit.dart/delete_category_cubit.dart';
-import 'package:taska/features/home/presentation/manager/delete_category_cubit.dart/delete_category_state.dart';
 import 'package:taska/features/home/presentation/manager/get_categories_cubit/get_categories_cubit.dart';
 import 'package:taska/features/home/presentation/manager/get_categories_cubit/get_categories_state.dart';
 import 'package:taska/features/home/presentation/view/home_view/widgets/add_category_button.dart';
@@ -41,6 +42,8 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
   TimeOfDay? selectedTimeOfDay;
   int? selectedTaskPriority;
   int? selectedCategoryIndex;
+  CategoryEntity? categoryEntity;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -56,43 +59,17 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
           ),
         ),
         SizedBox(width: 10.w),
-        BlocConsumer<GetCategoriesCubit, GetCategoriesState>(
-          listener: (context, state) {
-            if (state is GetCategoriesFailure) {
-              Fluttertoast.showToast(msg: state.errMessage);
-            }
+        IconButton(
+          onPressed: () {
+            buildChooseCategoryDialog(context);
           },
-          builder: (context, state) {
-            if (state is GetCategoriesSuccess) {
-              return IconButton(
-                onPressed: () {
-                  buildChooseCategoryDialog(
-                    context,
-                    state.categories,
-                    BlocProvider.of<GetCategoriesCubit>(context),
-                  );
-                },
-                icon: Icon(
-                  CustomIcons.tag_icon,
-                  size: 27.sp,
-                  color: selectedCategoryIndex != null
-                      ? ColorManager.primaryColor
-                      : null,
-                ),
-              );
-            } else {
-              return IconButton(
-                onPressed: null,
-                icon: Icon(
-                  CustomIcons.tag_icon,
-                  size: 27.sp,
-                  color: selectedCategoryIndex != null
-                      ? ColorManager.primaryColor
-                      : null,
-                ),
-              );
-            }
-          },
+          icon: Icon(
+            CustomIcons.tag_icon,
+            size: 27.sp,
+            color: selectedCategoryIndex != null
+                ? ColorManager.primaryColor
+                : null,
+          ),
         ),
         SizedBox(width: 10.w),
         IconButton(
@@ -107,7 +84,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
                 : null,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         IconButton(
           onPressed: widget.onSend,
           icon: Icon(
@@ -120,52 +97,51 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
     );
   }
 
-  void buildChooseCategoryDialog(
-    BuildContext context,
-    List<CategoryEntity> categories,
-    GetCategoriesCubit getCategoriesCubit,
-  ) async {
+  void buildChooseCategoryDialog(BuildContext context) async {
     await showDialog(
       context: context,
       builder: (context) {
-        return Dialog(
-          child: StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) => Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-              child: BlocProvider(
-                create: (context) =>
-                    DeleteCategoryCubit(getIt.get<DeleteCategoryUseCase>()),
-                child: IntrinsicHeight(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        StringsManager.chooseCategory.tr(),
-                        style: Theme.of(context).textTheme.headlineSmall,
+        return BlocProvider(
+          create: (context) =>
+              GetCategoriesCubit(getIt.get<GetAllCategoriesUseCase>())
+                ..getAllCategories(),
+          child: Dialog(
+            child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) =>
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 10.h,
+                    ),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            StringsManager.chooseCategory.tr(),
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          SizedBox(height: 5.h),
+                          const Divider(),
+                          SizedBox(height: 5.h),
+                          _buildChooseCategoryGridView(setState),
+                          SizedBox(height: 16.h),
+                          SaveCancelActionButtons(
+                            cancelOnPressed: () {
+                              selectedCategoryIndex = null;
+                              categoryEntity = null;
+                              widget.onSelectCategory(null);
+                              GoRouter.of(context).pop();
+                            },
+                            saveOnPressed: () {
+                              widget.onSelectCategory(categoryEntity);
+                              GoRouter.of(context).pop();
+                            },
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 5.h),
-                      Divider(),
-                      SizedBox(height: 5.h),
-                      _buildChooseCategoryGridView(
-                        setState,
-                        categories,
-                        getCategoriesCubit,
-                      ),
-                      SizedBox(height: 16.h),
-                      SaveCancelActionButtons(
-                        cancelOnPressed: () {
-                          selectedCategoryIndex = null;
-                          widget.onSelectCategory(null);
-                          GoRouter.of(context).pop();
-                        },
-                        saveOnPressed: () {
-                          GoRouter.of(context).pop();
-                        },
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
             ),
           ),
         );
@@ -174,67 +150,81 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
     setState(() {});
   }
 
-  Widget _buildChooseCategoryGridView(
-    StateSetter setState,
-    List<CategoryEntity> categories,
-    GetCategoriesCubit getCategoriesCubit,
-  ) {
-    return BlocListener<DeleteCategoryCubit, DeleteCategoryState>(
-      listener: (context, state) {
-        if (state is DeleteCategoryLoading) {
-          CustomLoadingAnimation.buildLoadingIndicator(context);
-        } else if (state is DeleteCategoryFailure) {
-          GoRouter.of(context).pop();
-          Fluttertoast.showToast(
-            msg: state.errMessage,
-            toastLength: Toast.LENGTH_SHORT,
-          );
-        } else if (state is DeleteCategorySuccess) {
-          GoRouter.of(context).pop();
-          categories.removeWhere((element) => element.id == state.id);
-          setState(() {});
-        }
-      },
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.6,
-        child: CustomScrollView(
-          physics: BouncingScrollPhysics(),
-          slivers: [
-            SliverGrid(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 20.w,
-                mainAxisSpacing: 20.h,
-              ),
-              delegate: SliverChildBuilderDelegate((
-                BuildContext context,
-                int index,
-              ) {
-                if (index < categories.length) {
-                  return TaskCategoryItem(
-                    category: categories[index],
-
-                    selected: selectedCategoryIndex == index,
-                    onTap: () {
-                      selectedCategoryIndex = index;
-                      widget.onSelectCategory(categories[index]);
-                      setState(() {});
-                    },
-                    onDelete: () {
-                      BlocProvider.of<DeleteCategoryCubit>(
-                        context,
-                      ).deleteCategory(categories[index].id);
-                    },
-                  );
-                } else {
-                  return AddCategoryButton(
-                    getCategoriesCubit: getCategoriesCubit,
-                  );
-                }
-              }, childCount: categories.length + 1),
-            ),
-          ],
-        ),
+  Widget _buildChooseCategoryGridView(StateSetter setState) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.3,
+      child: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
+            builder: (context, state) {
+              if (state is GetCategoriesLoading) {
+                return const SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Center(child: CustomCircularIndicator()),
+                );
+              } else if (state is GetCategoriesFailure) {
+                return SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: SvgPicture.asset(
+                          AssetsManager.error,
+                          width: 150.w,
+                        ),
+                      ),
+                      SizedBox(height: 20.h),
+                      Text(
+                        StringsManager.operationNotAllowed.tr(),
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ],
+                  ),
+                );
+              } else if (state is GetCategoriesSuccess) {
+                return SliverGrid(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 20.w,
+                    mainAxisSpacing: 20.h,
+                  ),
+                  delegate: SliverChildBuilderDelegate((
+                    BuildContext context,
+                    int index,
+                  ) {
+                    if (index < state.categories.length) {
+                      return BlocProvider(
+                        create: (context) => DeleteCategoryCubit(
+                          getIt.get<DeleteCategoryUseCase>(),
+                        ),
+                        child: TaskCategoryItem(
+                          category: state.categories[index],
+                          selected: selectedCategoryIndex == index,
+                          onTap: () {
+                            categoryEntity = state.categories[index];
+                            setState(() {
+                              selectedCategoryIndex = index;
+                            });
+                          },
+                        ),
+                      );
+                    } else {
+                      return AddCategoryButton(
+                        getCategoriesCubit: BlocProvider.of<GetCategoriesCubit>(
+                          context,
+                        ),
+                      );
+                    }
+                  }, childCount: state.categories.length + 1),
+                );
+              }
+              return const SliverToBoxAdapter();
+            },
+          ),
+        ],
       ),
     );
   }
@@ -255,7 +245,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   SizedBox(height: 5.h),
-                  Divider(),
+                  const Divider(),
                   SizedBox(height: 5.h),
                   _buildTaskPriorityGridView(setState),
                   SizedBox(height: 16.h),
@@ -282,10 +272,10 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
   GridView _buildTaskPriorityGridView(StateSetter setState) {
     return GridView.builder(
       shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
+        crossAxisSpacing: 8.0,
+        mainAxisSpacing: 8.0,
       ),
       itemCount: 10,
       itemBuilder: (BuildContext context, int index) {
@@ -313,7 +303,10 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
     if (selectedDate != null && context.mounted) {
       selectedTimeOfDay = await showTimePicker(
         context: context,
-        initialTime: TimeOfDay.now(),
+        initialTime: TimeOfDay(
+          hour: TimeOfDay.now().hour,
+          minute: TimeOfDay.now().minute + 1,
+        ),
       );
       if (selectedTimeOfDay != null) {
         DateTime selectedDateTime = DateTime(
@@ -341,8 +334,8 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
         setState(() {});
       } else {
         selectedDate = null;
-        selectedTimeOfDay = null;
         widget.onSelectDateTime(null);
+        selectedTimeOfDay = null;
         setState(() {});
       }
     } else {

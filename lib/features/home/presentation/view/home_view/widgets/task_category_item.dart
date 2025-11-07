@@ -1,11 +1,16 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/functions/blend_colors.dart';
+import 'package:taska/core/utils/functions/extensions.dart';
+import 'package:taska/core/widgets/custom_loading_animation.dart';
 import 'package:taska/features/home/domain/entities/category.dart';
+import 'package:taska/features/home/presentation/manager/delete_category_cubit.dart/delete_category_cubit.dart';
+import 'package:taska/features/home/presentation/manager/delete_category_cubit.dart/delete_category_state.dart';
+import 'package:taska/features/home/presentation/manager/get_categories_cubit/get_categories_cubit.dart';
 import 'package:vibration/vibration.dart';
 
 class TaskCategoryItem extends StatefulWidget {
@@ -14,10 +19,8 @@ class TaskCategoryItem extends StatefulWidget {
     required this.category,
     required this.selected,
     required this.onTap,
-    required this.onDelete,
   });
   final CategoryEntity category;
-  final Function()? onDelete;
 
   final bool selected;
   final Function()? onTap;
@@ -29,63 +32,82 @@ class _TaskCategoryItemState extends State<TaskCategoryItem> {
   bool isVisibleDelete = false;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Stack(
-          children: [
-            InkWell(
-              onTap: widget.onTap,
-              onLongPress: () async {
-                Vibration.vibrate(duration: 100);
-                setState(() {
-                  isVisibleDelete = !isVisibleDelete;
-                });
-              },
-              borderRadius: BorderRadius.circular(4),
-              child: Container(
-                width: 50.w,
-                height: 50.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: widget.selected
-                        ? ColorManager.primaryColor
-                        : Colors.transparent,
-                    width: 2.w,
+    return BlocListener<DeleteCategoryCubit, DeleteCategoryState>(
+      listener: (context, state) {
+        if (state is DeleteCategoryLoading) {
+          CustomLoadingAnimation.buildLoadingIndicator(context);
+        } else if (state is DeleteCategoryFailure) {
+          GoRouter.of(context).pop();
+          Fluttertoast.showToast(
+            msg: state.errMessage,
+            toastLength: Toast.LENGTH_SHORT,
+          );
+        } else if (state is DeleteCategorySuccess) {
+          GoRouter.of(context).pop();
+          BlocProvider.of<GetCategoriesCubit>(context).getAllCategories();
+        }
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Stack(
+            children: [
+              InkWell(
+                onTap: widget.onTap,
+                onLongPress: () async {
+                  Vibration.vibrate(duration: 100);
+
+                  setState(() {
+                    isVisibleDelete = !isVisibleDelete;
+                  });
+                },
+                borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  width: 50.w,
+                  height: 50.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: widget.selected
+                          ? ColorManager.primaryColor
+                          : Colors.transparent,
+                      width: 2.w,
+                    ),
+                    color: widget.category.color.toColor(),
                   ),
-                  color: widget.category.color.toColor(),
-                ),
-                child: Icon(
-                  IconData(
-                    widget.category.iconData,
-                    fontFamily: 'MaterialIcons',
-                  ),
-                  color: blendColors(
-                    widget.category.color.toColor()!,
-                    Colors.black,
+                  child: Icon(
+                    widget.category.iconData.toIconData(),
+                    color: blendColors(
+                      widget.category.color.toColor(),
+                      Colors.black,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Visibility(
-              visible: isVisibleDelete,
-              child: Positioned(
-                top: 0,
-                right: 0,
-                child: GestureDetector(
-                  onTap: widget.onDelete,
-                  child: Icon(Icons.delete, color: Colors.red, size: 18.sp),
+              Visibility(
+                visible: isVisibleDelete,
+                child: Positioned(
+                  top: 0,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: () {
+                      BlocProvider.of<DeleteCategoryCubit>(
+                        context,
+                      ).deleteCategory(widget.category.id);
+                    },
+                    child: Icon(Icons.delete, color: Colors.red, size: 18.sp),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        Text(
-          widget.category.name,
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
-      ],
+            ],
+          ),
+          Text(
+            widget.category.name,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+        ],
+      ),
     );
   }
 }

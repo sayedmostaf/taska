@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 
 class SaveButton extends StatelessWidget {
-  const SaveButton({super.key});
-
+  const SaveButton({super.key,this.onPressed});
+  final Function()?onPressed;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,9 +16,7 @@ class SaveButton extends StatelessWidget {
           width: double.infinity,
           height: 50.h,
           child: ElevatedButton(
-            onPressed: () {
-              GoRouter.of(context).pop();
-            },
+            onPressed: onPressed,
             child: Text(
               StringsManager.save.tr(),
               style: Theme.of(

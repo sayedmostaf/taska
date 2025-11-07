@@ -5,10 +5,19 @@ import 'package:go_router/go_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/core/widgets/save_cancel_action_buttons.dart';
+import 'package:taska/features/home/domain/entities/task.dart';
 import 'package:taska/features/home/presentation/view/home_view/widgets/add_task_form.dart';
 
 class EditTaskNameAndDescription extends StatefulWidget {
-  const EditTaskNameAndDescription({super.key});
+  const EditTaskNameAndDescription({
+    super.key,
+    required this.task,
+    required this.onSavedTaskDescription,
+    required this.onSavedTaskTitle,
+  });
+  final TaskEntity task;
+  final Function(String?) onSavedTaskDescription;
+  final Function(String?) onSavedTaskTitle;
 
   @override
   State<EditTaskNameAndDescription> createState() =>
@@ -17,7 +26,15 @@ class EditTaskNameAndDescription extends StatefulWidget {
 
 class _EditTaskNameAndDescriptionState
     extends State<EditTaskNameAndDescription> {
+  String? name, description;
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    name = widget.task.name;
+    description = widget.task.description;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +44,7 @@ class _EditTaskNameAndDescriptionState
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Do math', style: Theme.of(context).textTheme.titleMedium),
+            Text(name!, style: Theme.of(context).textTheme.titleMedium),
             IconButton(
               onPressed: () {
                 _buildEditTaskTitleAndDescriptionDialog(context);
@@ -38,7 +55,7 @@ class _EditTaskNameAndDescriptionState
         ),
         SizedBox(height: 15.h),
         Text(
-          'Do chapter 2 to 5 next week',
+          description ?? "",
           overflow: TextOverflow.ellipsis,
           style: Theme.of(
             context,
@@ -66,13 +83,30 @@ class _EditTaskNameAndDescriptionState
               SizedBox(height: 5.h),
               AddTaskForm(
                 formKey: formKey,
-                onSavedTaskDescription: (p0) {},
-                onSavedTaskTitle: (p0) {},
+                initialName: name,
+                initialDescription: description,
+                onSavedTaskDescription: (p0) {
+                  setState(() {
+                    description = p0;
+                  });
+                  widget.onSavedTaskDescription(p0);
+                },
+                onSavedTaskTitle: (p0) {
+                  setState(() {
+                    name = p0;
+                  });
+                  widget.onSavedTaskTitle(p0);
+                },
               ),
               SizedBox(height: 10.h),
               SaveCancelActionButtons(
                 cancelOnPressed: () => GoRouter.of(context).pop(context),
-                saveOnPressed: () => GoRouter.of(context).pop(context),
+                saveOnPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    GoRouter.of(context).pop();
+                  }
+                },
               ),
             ],
           ),

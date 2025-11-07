@@ -49,7 +49,13 @@ class _TaskItemState extends State<TaskItem> {
         onTap: widget.task.status != 'pending'
             ? null
             : () {
-                GoRouter.of(context).push(AppRouter.kEditTaskView);
+                GoRouter.of(context).push(
+                  AppRouter.kEditTaskView,
+                  extra: (
+                    widget.task,
+                    BlocProvider.of<GetTasksByDayCubit>(context),
+                  ),
+                );
               },
         borderRadius: BorderRadius.circular(6),
         child: Container(
@@ -108,7 +114,7 @@ class _TaskItemState extends State<TaskItem> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${widget.task.utcTime.year}/${widget.task.utcTime.month}/${widget.task.utcTime.day} ${widget.task.utcTime.hour}:${widget.task.utcTime.minute}',
+                          '${widget.task.utcTime.year}/${widget.task.utcTime.month}/${widget.task.utcTime.day} ${widget.task.utcTime.hour == 0 ? '00' : widget.task.utcTime.hour}:${widget.task.utcTime.minute == 0 ? '00' : widget.task.utcTime.minute}',
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                         Row(

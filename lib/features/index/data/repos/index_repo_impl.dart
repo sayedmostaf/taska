@@ -41,4 +41,29 @@ class IndexRepoImpl extends IndexRepo {
       return left(Failure(message: StringsManager.operationNotAllowed.tr()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> deleteTask(String taskId) async {
+    try {
+      await indexRemoteDataSource.deleteTask(taskId);
+      await indexLocalDataSource.deleteTask(taskId);
+      return right(null);
+    } catch (e) {
+      return left(Failure(message: StringsManager.operationNotAllowed.tr()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> editTask({
+    required TaskEntity oldTask,
+    required TaskEntity newTask,
+  }) async {
+    try {
+      await indexRemoteDataSource.editTask(oldTask: oldTask, newTask: newTask);
+      await indexLocalDataSource.editTask(oldTask: oldTask, newTask: newTask);
+      return right(null);
+    } catch (e) {
+      return left(Failure(message: StringsManager.operationNotAllowed.tr()));
+    }
+  }
 }

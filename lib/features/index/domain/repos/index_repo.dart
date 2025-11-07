@@ -8,4 +8,9 @@ abstract class IndexRepo {
     required String status,
     required String taskId,
   });
+  Future<Either<Failure, void>> editTask({
+    required TaskEntity oldTask,
+    required TaskEntity newTask,
+  });
+  Future<Either<Failure, void>> deleteTask(String taskId);
 }

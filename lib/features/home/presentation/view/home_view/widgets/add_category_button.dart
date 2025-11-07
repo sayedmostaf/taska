@@ -24,14 +24,10 @@ class _AddCategoryButtonState extends State<AddCategoryButton> {
       children: [
         InkWell(
           onTap: () {
-            GoRouter.of(context)
-                .push(
-                  AppRouter.kCreateCategoryView,
-                  extra: widget.getCategoriesCubit,
-                )
-                .then((value) {
-                  GoRouter.of(context).pop();
-                });
+            GoRouter.of(context).push(
+              AppRouter.kCreateCategoryView,
+              extra: widget.getCategoriesCubit,
+            );
           },
           borderRadius: BorderRadius.circular(4),
           child: Container(

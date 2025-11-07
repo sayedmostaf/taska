@@ -9,10 +9,13 @@ class AddTaskForm extends StatelessWidget {
     required this.formKey,
     this.onSavedTaskTitle,
     this.onSavedTaskDescription,
+    this.initialName,
+    this.initialDescription,
   });
   final GlobalKey<FormState> formKey;
   final Function(String?)? onSavedTaskTitle;
   final Function(String?)? onSavedTaskDescription;
+  final String? initialName, initialDescription;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -20,6 +23,7 @@ class AddTaskForm extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            initialValue: initialName,
             style: Theme.of(context).textTheme.headlineSmall,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(15),
@@ -36,6 +40,7 @@ class AddTaskForm extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           TextFormField(
+            initialValue: initialDescription,
             style: Theme.of(context).textTheme.headlineSmall,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(15),

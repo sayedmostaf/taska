@@ -9,14 +9,25 @@ import 'package:taska/core/widgets/save_cancel_action_buttons.dart';
 import 'package:taska/features/home/presentation/view/home_view/widgets/task_priority_item.dart';
 
 class EditTaskPriority extends StatefulWidget {
-  const EditTaskPriority({super.key});
-
+  const EditTaskPriority({
+    super.key,
+    required this.initialPriority,
+    required this.onSavedPriority,
+  });
+  final int initialPriority;
+  final Function(int) onSavedPriority;
   @override
   State<EditTaskPriority> createState() => _EditTaskPriorityState();
 }
 
 class _EditTaskPriorityState extends State<EditTaskPriority> {
-  int? selectedPriorityIndex;
+  late int selectedPriority;
+  @override
+  void initState() {
+    super.initState();
+    selectedPriority = widget.initialPriority;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -29,7 +40,7 @@ class _EditTaskPriorityState extends State<EditTaskPriority> {
         ),
         Spacer(),
         CustomClickableContainer(
-          text: '1',
+          text: selectedPriority.toString(),
           onTap: () {
             _buildTaskPriorityDialog(context);
           },
@@ -61,10 +72,12 @@ class _EditTaskPriorityState extends State<EditTaskPriority> {
                   SizedBox(height: 16.h),
                   SaveCancelActionButtons(
                     cancelOnPressed: () {
-                      selectedPriorityIndex = null;
+                      selectedPriority = widget.initialPriority;
+                      widget.onSavedPriority(selectedPriority);
                       GoRouter.of(context).pop();
                     },
                     saveOnPressed: () {
+                      widget.onSavedPriority(selectedPriority);
                       GoRouter.of(context).pop();
                     },
                   ),
@@ -90,11 +103,11 @@ class _EditTaskPriorityState extends State<EditTaskPriority> {
       itemBuilder: (BuildContext context, int index) {
         return TaskPriorityItem(
           onTap: () {
-            selectedPriorityIndex = index + 1;
+            selectedPriority = index + 1;
             setState(() {});
           },
           index: (index + 1).toString(),
-          selected: selectedPriorityIndex == index + 1,
+          selected: selectedPriority == index + 1,
         );
       },
     );

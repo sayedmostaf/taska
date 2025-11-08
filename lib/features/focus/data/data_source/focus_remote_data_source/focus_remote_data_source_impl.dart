@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:taska/core/cache/cache_helper.dart';
+import 'package:taska/core/cache/cache_keys_values.dart';
 import 'package:taska/features/focus/data/data_source/focus_remote_data_source/focus_remote_data_source.dart';
 import 'package:taska/features/focus/data/models/focus_model.dart';
 
@@ -45,6 +47,8 @@ class FocusRemoteDataSourceImpl extends FocusRemoteDataSource {
       if (focusModel.dateTime.day == DateTime.now().day &&
           focusModel.dateTime.month == DateTime.now().month &&
           focusModel.dateTime.year == DateTime.now().year) {
+        await saveTimeLocally(focusModel);
+
         return focusModel.seconds;
       } else {
         return 0;
@@ -70,5 +74,13 @@ class FocusRemoteDataSourceImpl extends FocusRemoteDataSource {
             seconds: seconds,
           ).toJson(),
         );
+  }
+
+  Future<void> saveTimeLocally(FocusModel focusModel) async {
+    await CacheData.setData(
+      key: CacheKeys.kDATE,
+      value: focusModel.dateTime.toIso8601String(),
+    );
+    await CacheData.setData(key: CacheKeys.kSECONDS, value: focusModel.seconds);
   }
 }

@@ -16,6 +16,7 @@ import 'package:taska/features/focus/data/data_source/focus_remote_data_source/f
 import 'package:taska/features/focus/data/repos/focus_repo_impl.dart';
 import 'package:taska/features/focus/domain/repos/focus_repo.dart';
 import 'package:taska/features/focus/domain/usecases/add_time_for_today_use_case.dart';
+import 'package:taska/features/focus/domain/usecases/get_apps_usage_list_use_case.dart';
 import 'package:taska/features/focus/domain/usecases/get_focused_time_use_case.dart';
 import 'package:taska/features/home/data/data_source/local_data_source/home_local_data_source.dart';
 import 'package:taska/features/home/data/data_source/local_data_source/home_local_data_source_impl.dart';
@@ -132,5 +133,8 @@ void setupLocator() {
   );
   getIt.registerSingleton<AddTimeForTodayUseCase>(
     AddTimeForTodayUseCase(focusRepo: getIt.get<FocusRepo>()),
+  );
+  getIt.registerSingleton<GetAppsUsageListUseCase>(
+    GetAppsUsageListUseCase(focusRepo: getIt.get<FocusRepo>()),
   );
 }

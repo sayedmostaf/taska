@@ -50,8 +50,8 @@ class ProfileViewBody extends StatelessWidget {
             child: LogOutButton(
               onTap: () async {
                 clearDatabase();
-                await CacheData.setData(key: CacheKeys.kDATE, value: null);
-                await CacheData.setData(key: CacheKeys.kSECONDS, value: null);
+                await CacheData.removeData(key: CacheKeys.kDATE);
+                await CacheData.removeData(key: CacheKeys.kSECONDS);
                 getIt.get<FirebaseAuth>().signOut();
                 if (context.mounted) {
                   GoRouter.of(context).go(AppRouter.kAuthView);

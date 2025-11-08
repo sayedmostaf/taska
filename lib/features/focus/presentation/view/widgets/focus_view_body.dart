@@ -5,9 +5,8 @@ import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_simple_app_bar.dart';
 import 'package:taska/core/widgets/custom_sliver_sized_box.dart';
 import 'package:taska/features/focus/presentation/view/widgets/application_item.dart';
-import 'package:taska/features/focus/presentation/view/widgets/counter_timer_widget.dart'
-    show CounterTimerWidget;
-import 'package:taska/features/focus/presentation/view/widgets/overview_section.dart';
+import 'package:taska/features/focus/presentation/view/widgets/counter_timer_widget.dart';
+import 'package:taska/features/focus/presentation/view/widgets/today_focused.dart';
 
 class FocusViewBody extends StatelessWidget {
   const FocusViewBody({super.key});
@@ -24,10 +23,9 @@ class FocusViewBody extends StatelessWidget {
             child: CustomSimpleAppBar(title: StringsManager.focus.tr()),
           ),
           CustomSliverSizedBox(height: 56.h),
+          SliverToBoxAdapter(child: TodayFocused()),
           SliverToBoxAdapter(child: CounterTimerWidget()),
           CustomSliverSizedBox(height: 50.h),
-          SliverToBoxAdapter(child: OverviewSection()),
-          CustomSliverSizedBox(height: 25.h),
           SliverToBoxAdapter(
             child: Text(
               StringsManager.applications.tr(),

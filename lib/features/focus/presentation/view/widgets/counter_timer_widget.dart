@@ -3,9 +3,14 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/strings_manager.dart';
+import 'package:taska/features/focus/presentation/manager/add_focused_time_cubit/add_focused_time_cubit.dart';
+import 'package:taska/features/focus/presentation/manager/add_focused_time_cubit/add_focused_time_state.dart';
+import 'package:taska/features/focus/presentation/manager/get_focused_time_cubit/get_focused_time_cubit.dart';
 
 class CounterTimerWidget extends StatefulWidget {
   const CounterTimerWidget({super.key});
@@ -83,22 +88,33 @@ class _CounterTimerWidgetState extends State<CounterTimerWidget> {
             ),
           ),
           SizedBox(height: 20.w),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                isTimerRunning = !isTimerRunning;
-                if (!isTimerRunning) {
-                  log(_saveTotalTime().toString());
-                }
-              });
+          BlocListener<AddFocusedTimeCubit, AddFocusedTimeState>(
+            listener: (context, state) {
+              if (state is AddFocusedTimeFailure) {
+                Fluttertoast.showToast(msg: state.errMessage);
+              } else if (state is AddFocusedTimeSuccess) {
+                BlocProvider.of<GetFocusedTimeCubit>(context).getFocusedTime();
+              }
             },
-            child: Text(
-              isTimerRunning
-                  ? StringsManager.stopFocusing.tr()
-                  : StringsManager.startFocusing.tr(),
-              style: Theme.of(
-                context,
-              ).textTheme.headlineSmall!.copyWith(color: Colors.white),
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  isTimerRunning = !isTimerRunning;
+                  if (!isTimerRunning) {
+                    BlocProvider.of<AddFocusedTimeCubit>(
+                      context,
+                    ).addFocusedTime(_saveTotalTime());
+                  }
+                });
+              },
+              child: Text(
+                isTimerRunning
+                    ? StringsManager.stopFocusing.tr()
+                    : StringsManager.startFocusing.tr(),
+                style: Theme.of(
+                  context,
+                ).textTheme.headlineSmall!.copyWith(color: Colors.white),
+              ),
             ),
           ),
         ],

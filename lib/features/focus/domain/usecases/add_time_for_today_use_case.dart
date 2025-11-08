@@ -1,0 +1,14 @@
+import 'package:dartz/dartz.dart';
+import 'package:taska/core/errors/failures.dart';
+import 'package:taska/core/use_cases/use_case.dart';
+import 'package:taska/features/focus/domain/repos/focus_repo.dart';
+
+class AddTimeForTodayUseCase extends UseCase<void, int> {
+  final FocusRepo focusRepo;
+  AddTimeForTodayUseCase({required this.focusRepo});
+
+  @override
+  Future<Either<Failure, void>> execute([int? inputs]) async {
+    return await focusRepo.addTimeForToday(inputs!);
+  }
+}

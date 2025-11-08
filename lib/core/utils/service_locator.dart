@@ -9,6 +9,14 @@ import 'package:taska/features/auth/domain/usecases/log_in_user_with_google_use_
 import 'package:taska/features/auth/domain/usecases/register_user_with_email_and_password_use_case.dart';
 import 'package:taska/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:taska/features/auth/domain/usecases/verify_email_use_case.dart';
+import 'package:taska/features/focus/data/data_source/focus_local_remote_data_source/focus_local_data_source.dart';
+import 'package:taska/features/focus/data/data_source/focus_local_remote_data_source/focus_local_data_source_impl.dart';
+import 'package:taska/features/focus/data/data_source/focus_remote_data_source/focus_remote_data_source.dart';
+import 'package:taska/features/focus/data/data_source/focus_remote_data_source/focus_remote_data_source_impl.dart';
+import 'package:taska/features/focus/data/repos/focus_repo_impl.dart';
+import 'package:taska/features/focus/domain/repos/focus_repo.dart';
+import 'package:taska/features/focus/domain/usecases/add_time_for_today_use_case.dart';
+import 'package:taska/features/focus/domain/usecases/get_focused_time_use_case.dart';
 import 'package:taska/features/home/data/data_source/local_data_source/home_local_data_source.dart';
 import 'package:taska/features/home/data/data_source/local_data_source/home_local_data_source_impl.dart';
 import 'package:taska/features/home/data/data_source/remote_data_source/home_remote_data_source.dart';
@@ -105,5 +113,24 @@ void setupLocator() {
   );
   getIt.registerSingleton<DeleteTaskUseCase>(
     DeleteTaskUseCase(indexRepo: getIt.get<IndexRepo>()),
+  );
+  getIt.registerSingleton<FocusLocalDataSource>(FocusLocalDataSourceImpl());
+  getIt.registerSingleton<FocusRemoteDataSource>(
+    FocusRemoteDataSourceImpl(
+      firebaseAuth: getIt.get<FirebaseAuth>(),
+      firestore: getIt.get<FirebaseFirestore>(),
+    ),
+  );
+  getIt.registerSingleton<FocusRepo>(
+    FocusRepoImpl(
+      focusLocalDataSource: getIt.get<FocusLocalDataSource>(),
+      focusRemoteDataSource: getIt.get<FocusRemoteDataSource>(),
+    ),
+  );
+  getIt.registerSingleton<GetFocusedTimeUseCase>(
+    GetFocusedTimeUseCase(focusRepo: getIt.get<FocusRepo>()),
+  );
+  getIt.registerSingleton<AddTimeForTodayUseCase>(
+    AddTimeForTodayUseCase(focusRepo: getIt.get<FocusRepo>()),
   );
 }

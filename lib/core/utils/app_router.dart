@@ -17,6 +17,7 @@ import 'package:taska/features/auth/presentation/manager/verify_email_cubit/veri
 import 'package:taska/features/auth/presentation/view/auth_view/auth_view.dart';
 import 'package:taska/features/auth/presentation/view/email_verify_view/email_verify_view.dart';
 import 'package:taska/features/auth/presentation/view/forgot_password_view/forgot_password_view.dart';
+import 'package:taska/features/calender/presentation/manager/get_tasks_by_calender_day_cubit/get_tasks_by_calender_day_cubit.dart';
 import 'package:taska/features/home/domain/entities/task.dart';
 import 'package:taska/features/home/domain/usecases/create_category_use_case.dart';
 import 'package:taska/features/home/domain/usecases/create_task_use_case.dart';
@@ -108,6 +109,11 @@ abstract class AppRouter {
                         ),
                       ),
               ),
+              BlocProvider(
+                create: (context) => GetTasksByCalendarDayCubit(
+                  getIt.get<GetTaskByDayUseCase>(),
+                ),
+              ),
             ],
             child: const HomeView(),
           ),
@@ -136,8 +142,13 @@ abstract class AppRouter {
       GoRoute(
         path: kEditTaskView,
         pageBuilder: (context, state) {
-          (TaskEntity, GetTasksByDayCubit) model =
-              state.extra as (TaskEntity, GetTasksByDayCubit);
+          (TaskEntity, GetTasksByDayCubit, GetTasksByCalendarDayCubit) model =
+              state.extra
+                  as (
+                    TaskEntity,
+                    GetTasksByDayCubit,
+                    GetTasksByCalendarDayCubit,
+                  );
           return screenTransition(
             state,
             MultiBlocProvider(
@@ -151,6 +162,7 @@ abstract class AppRouter {
                       DeleteTaskCubit(getIt.get<DeleteTaskUseCase>()),
                 ),
                 BlocProvider.value(value: model.$2),
+                BlocProvider.value(value: model.$3),
               ],
               child: EditTaskView(task: model.$1),
             ),

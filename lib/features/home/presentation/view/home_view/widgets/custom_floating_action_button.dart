@@ -8,6 +8,7 @@ import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/core/widgets/custom_loading_animation.dart';
+import 'package:taska/features/calender/presentation/manager/get_tasks_by_calender_day_cubit/get_tasks_by_calender_day_cubit.dart';
 import 'package:taska/features/home/domain/entities/category.dart';
 import 'package:taska/features/home/domain/entities/task.dart';
 import 'package:taska/features/home/presentation/manager/create_task_cubit/create_task_cubit.dart';
@@ -99,6 +100,9 @@ class _CustomFloatingActionButtonState
                     BlocProvider.of<GetTasksByDayCubit>(
                       context,
                     ).getTaskByDay(null);
+                    BlocProvider.of<GetTasksByCalendarDayCubit>(
+                      context,
+                    ).getTasksByDay(day: null, isCompleted: null);
                   }
                 },
                 child: AddTaskActionButtons(

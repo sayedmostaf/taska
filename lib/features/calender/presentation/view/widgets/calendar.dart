@@ -7,7 +7,8 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:taska/features/calender/presentation/view/widgets/custom_day_widget.dart';
 
 class Calendar extends StatefulWidget {
-  const Calendar({super.key});
+  const Calendar({super.key, required this.onDaySelected});
+  final Function(DateTime) onDaySelected;
 
   @override
   State<Calendar> createState() => _CalendarState();
@@ -34,6 +35,7 @@ class _CalendarState extends State<Calendar> {
           setState(() {
             _focusedDay = selectedDay;
           });
+          widget.onDaySelected(_focusedDay);
         },
         calendarFormat: CalendarFormat.week,
         daysOfWeekVisible: false,
@@ -70,6 +72,7 @@ class _CalendarState extends State<Calendar> {
         setState(() {
           _focusedDay = date;
         });
+        widget.onDaySelected(_focusedDay);
       }
     });
     return null;

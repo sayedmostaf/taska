@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import 'package:taska/core/utils/app_router.dart';
+import 'package:taska/features/calender/presentation/manager/get_tasks_by_calender_day_cubit/get_tasks_by_calender_day_cubit.dart';
 import 'package:taska/features/home/domain/entities/task.dart';
 import 'package:taska/features/index/presentation/manager/change_task_status_cubit/change_task_status_cubit.dart';
 import 'package:taska/features/index/presentation/manager/change_task_status_cubit/change_task_status_state.dart';
@@ -43,6 +44,9 @@ class _TaskItemState extends State<TaskItem> {
           });
         } else if (state is ChangeTaskStatusSuccess) {
           BlocProvider.of<GetTasksByDayCubit>(context).getTaskByDay(null);
+          BlocProvider.of<GetTasksByCalendarDayCubit>(
+            context,
+          ).getTasksByDay(isCompleted: null, day: null);
         }
       },
       child: InkWell(
@@ -90,47 +94,49 @@ class _TaskItemState extends State<TaskItem> {
                     : Colors.red,
               ),
               SizedBox(width: 16.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Spacer(flex: 1),
-                  Text(
-                    widget.task.name,
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  Text(
-                    widget.task.description,
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.labelMedium,
-                  ),
-                  const Spacer(flex: 2),
-                  SizedBox(
-                    width: 250.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${widget.task.utcTime.year}/${widget.task.utcTime.month}/${widget.task.utcTime.day} ${widget.task.utcTime.hour == 0 ? '00' : widget.task.utcTime.hour}:${widget.task.utcTime.minute == 0 ? '00' : widget.task.utcTime.minute}',
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                        Row(
-                          children: [
-                            TaskItemCategory(category: widget.task.category),
-                            SizedBox(width: 13.w),
-                            TaskItemPriority(
-                              priority: '${widget.task.priority}',
-                            ),
-                          ],
-                        ),
-                      ],
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Spacer(flex: 1),
+                    Text(
+                      widget.task.name,
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                  ),
-                  const Spacer(flex: 1),
-                ],
+                    Text(
+                      widget.task.description,
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    const Spacer(flex: 2),
+                    SizedBox(
+                      width: 250.w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${widget.task.utcTime.year}/${widget.task.utcTime.month}/${widget.task.utcTime.day} ${widget.task.utcTime.hour == 0 ? '00' : widget.task.utcTime.hour}:${widget.task.utcTime.minute == 0 ? '00' : widget.task.utcTime.minute}',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          Row(
+                            children: [
+                              TaskItemCategory(category: widget.task.category),
+                              SizedBox(width: 13.w),
+                              TaskItemPriority(
+                                priority: '${widget.task.priority}',
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Spacer(flex: 1),
+                  ],
+                ),
               ),
             ],
           ),

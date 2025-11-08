@@ -44,7 +44,14 @@ class _EditTaskNameAndDescriptionState
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(name!, style: Theme.of(context).textTheme.titleMedium),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                name!,
+                style: Theme.of(context).textTheme.titleMedium,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
             IconButton(
               onPressed: () {
                 _buildEditTaskTitleAndDescriptionDialog(context);

@@ -6,8 +6,8 @@ import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/features/calender/presentation/view/widgets/custom_day_choice_button.dart';
 
 class DayChoicesButtons extends StatefulWidget {
-  const DayChoicesButtons({super.key});
-
+  const DayChoicesButtons({super.key, required this.isCompleted});
+  final Function(bool) isCompleted;
   @override
   State<DayChoicesButtons> createState() => _DayChoicesButtonsState();
 }
@@ -31,7 +31,7 @@ class _DayChoicesButtonsState extends State<DayChoicesButtons> {
           children: [
             CustomDayChoiceButton(
               isSelected: isFinished,
-              text: StringsManager.finished.tr(),
+              text: StringsManager.completed.tr(),
               onTap: () {
                 setState(() {
                   isFinished = !isFinished;
@@ -41,8 +41,9 @@ class _DayChoicesButtonsState extends State<DayChoicesButtons> {
             SizedBox(width: 32.w),
             CustomDayChoiceButton(
               isSelected: !isFinished,
-              text: StringsManager.missed.tr(),
+              text: StringsManager.uncompleted.tr(),
               onTap: () {
+                widget.isCompleted(false);
                 setState(() {
                   isFinished = !isFinished;
                 });

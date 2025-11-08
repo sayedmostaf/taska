@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_loading_animation.dart';
 import 'package:taska/core/widgets/custom_sliver_sized_box.dart';
+import 'package:taska/features/calender/presentation/manager/get_tasks_by_calender_day_cubit/get_tasks_by_calender_day_cubit.dart';
 import 'package:taska/features/home/domain/entities/category.dart';
 import 'package:taska/features/home/domain/entities/task.dart';
 import 'package:taska/features/index/presentation/manager/delete_task_cubit/delete_task_cubit.dart';
@@ -123,6 +124,9 @@ class _EditTaskViewBodyState extends State<EditTaskViewBody> {
                   BlocProvider.of<GetTasksByDayCubit>(
                     context,
                   ).getTaskByDay(null);
+                  BlocProvider.of<GetTasksByCalendarDayCubit>(
+                    context,
+                  ).getTasksByDay(isCompleted: null, day: null);
                   GoRouter.of(context).pop();
                   GoRouter.of(context).pop();
                 }
@@ -156,6 +160,9 @@ class _EditTaskViewBodyState extends State<EditTaskViewBody> {
                   BlocProvider.of<GetTasksByDayCubit>(
                     context,
                   ).getTaskByDay(null);
+                  BlocProvider.of<GetTasksByCalendarDayCubit>(
+                    context,
+                  ).getTasksByDay(isCompleted: null, day: null);
                   GoRouter.of(context).pop();
                   GoRouter.of(context).pop();
                 }

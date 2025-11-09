@@ -142,4 +142,6 @@ abstract class StringsManager {
       "passwordUpdatedSuccessfully";
   static const String profilePhotoUpdatedSuccessfully =
       "profilePhotoUpdatedSuccessfully";
+  static const String deleteAccount = "deleteAccount";
+  static const String accountDeletedSuccessfully = "accountDeletedSuccessfully";
 }

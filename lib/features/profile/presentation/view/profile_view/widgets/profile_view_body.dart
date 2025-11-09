@@ -13,6 +13,7 @@ import 'package:taska/core/widgets/custom_simple_app_bar.dart';
 import 'package:taska/core/widgets/custom_sliver_sized_box.dart';
 import 'package:taska/features/profile/presentation/view/profile_view/widgets/account_section.dart';
 import 'package:taska/features/profile/presentation/view/profile_view/widgets/app_about_section.dart';
+import 'package:taska/features/profile/presentation/view/profile_view/widgets/delete_account_button.dart';
 import 'package:taska/features/profile/presentation/view/profile_view/widgets/log_out_button.dart';
 import 'package:taska/features/profile/presentation/view/profile_view/widgets/profile_card.dart';
 import 'package:taska/features/profile/presentation/view/profile_view/widgets/setting_section.dart';
@@ -58,6 +59,7 @@ class ProfileViewBody extends StatelessWidget {
               },
             ),
           ),
+          SliverToBoxAdapter(child: DeleteAccountButton()),
           CustomSliverSizedBox(height: 30.h),
         ],
       ),

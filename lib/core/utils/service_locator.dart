@@ -38,6 +38,8 @@ import 'package:taska/features/index/domain/usecases/change_task_status_usecase.
 import 'package:taska/features/index/domain/usecases/delete_task_usecase.dart';
 import 'package:taska/features/index/domain/usecases/edit_task_usecase.dart';
 import 'package:taska/features/index/domain/usecases/get_task_by_day_use_case.dart';
+import 'package:taska/features/profile/data/datasources/profile_local_data_source/profile_local_data_source.dart';
+import 'package:taska/features/profile/data/datasources/profile_local_data_source/profile_local_data_source_impl.dart';
 import 'package:taska/features/profile/data/datasources/profile_remote_data_source/profile_remote_data_source.dart';
 import 'package:taska/features/profile/data/datasources/profile_remote_data_source/profile_remote_data_source_impl.dart';
 import 'package:taska/features/profile/data/repos/profile_repo_impl.dart';
@@ -45,6 +47,7 @@ import 'package:taska/features/profile/domain/repos/profile_repo.dart';
 import 'package:taska/features/profile/domain/usecases/change_account_name_usecase.dart';
 import 'package:taska/features/profile/domain/usecases/change_account_password_usecase.dart';
 import 'package:taska/features/profile/domain/usecases/change_account_photo_usecase.dart';
+import 'package:taska/features/profile/domain/usecases/delete_account_usecase.dart';
 
 final getIt = GetIt.instance;
 
@@ -145,11 +148,15 @@ void setupLocator() {
     GetAppsUsageListUseCase(focusRepo: getIt.get<FocusRepo>()),
   );
   getIt.registerSingleton<ProfileRemoteDataSource>(
-    ProfileRemoteDataSourceImpl(firebaseAuth: getIt.get<FirebaseAuth>()),
+    ProfileRemoteDataSourceImpl(
+      firebaseAuth: getIt.get<FirebaseAuth>(),
+      getIt.get<FirebaseFirestore>(),
+    ),
   );
   getIt.registerSingleton<ProfileRepo>(
     ProfileRepoImpl(
       profileRemoteDataSource: getIt.get<ProfileRemoteDataSource>(),
+      profileLocalDataSource: getIt.get<ProfileLocalDataSource>(),
     ),
   );
   getIt.registerSingleton<ChangeAccountNameUseCase>(
@@ -160,5 +167,9 @@ void setupLocator() {
   );
   getIt.registerSingleton<ChangeAccountPhotoUseCase>(
     ChangeAccountPhotoUseCase(profileRepo: getIt.get<ProfileRepo>()),
+  );
+  getIt.registerSingleton<ProfileLocalDataSource>(ProfileLocalDataSourceImpl());
+  getIt.registerSingleton<DeleteAccountUseCase>(
+    DeleteAccountUseCase(profileRepo: getIt.get<ProfileRepo>()),
   );
 }

@@ -6,12 +6,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taska/core/errors/failures.dart';
 import 'package:taska/core/errors/firebase_auth_failure.dart';
 import 'package:taska/core/utils/strings_manager.dart';
+import 'package:taska/features/profile/data/datasources/profile_local_data_source/profile_local_data_source.dart';
 import 'package:taska/features/profile/data/datasources/profile_remote_data_source/profile_remote_data_source.dart';
 import 'package:taska/features/profile/domain/repos/profile_repo.dart';
 
 class ProfileRepoImpl extends ProfileRepo {
   final ProfileRemoteDataSource profileRemoteDataSource;
-  ProfileRepoImpl({required this.profileRemoteDataSource});
+  final ProfileLocalDataSource profileLocalDataSource;
+  ProfileRepoImpl({
+    required this.profileLocalDataSource,
+    required this.profileRemoteDataSource,
+  });
   @override
   Future<Either<Failure, void>> changeAccountImage(File image) {
     // TODO: implement changeAccountImage
@@ -43,6 +48,19 @@ class ProfileRepoImpl extends ProfileRepo {
       return left(FirebaseAuthFailure.fromFirebaseAuthException(e));
     } catch (e) {
       return left(Failure(message: StringsManager.operationNotAllowed.tr()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteAccount(String? password) async {
+    try {
+      await profileLocalDataSource.deleteAccount();
+      await profileRemoteDataSource.deleteAccount(password);
+      return right(null);
+    } on FirebaseAuthException catch (e) {
+      return left(FirebaseAuthFailure.fromFirebaseAuthException(e));
+    } catch (e) {
+      return left(Failure(message: e.toString()));
     }
   }
 }

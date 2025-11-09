@@ -34,7 +34,6 @@ class ProfileViewBody extends StatelessWidget {
           CustomSliverSizedBox(height: 24.h),
           SliverToBoxAdapter(
             child: ProfileCard(
-              imgUrl: 'https://avatars.githubusercontent.com/u/114079138?v=4',
               name: 'Sayed Mostafa',
               tasksDone: '7 Tasks Done',
               tasksMissed: '10 Tasks Missed',

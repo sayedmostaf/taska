@@ -142,7 +142,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
           'utc_time',
           isLessThan: DateTime(
             DateTime.now().year,
-            DateTime.now().month,
+            DateTime.now().month + 2,
             DateTime.now().day,
             0,
             0,

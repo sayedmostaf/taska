@@ -37,6 +37,8 @@ import 'package:taska/features/index/presentation/manager/edit_task_cubit/edit_t
 import 'package:taska/features/index/presentation/manager/get_task_by_day_cubit/get_task_by_day_cubit.dart';
 import 'package:taska/features/index/presentation/view/edit_task_view/edit_task_view.dart';
 import 'package:taska/features/on_boarding/presentation/view/on_boarding_view.dart';
+import 'package:taska/features/profile/presentation/view/about_view/about_view.dart';
+import 'package:taska/features/profile/presentation/view/faq_view/faq_view.dart';
 import 'package:taska/features/profile/presentation/view/settings_view/settings_view.dart';
 import 'package:taska/features/splash/presentation/view/splash_view.dart';
 
@@ -50,6 +52,8 @@ abstract class AppRouter {
   static const kSettingsView = '/settings';
   static const kForgetPasswordView = '/forget_password';
   static const kEmailVerifyView = '/email_verify';
+  static const kFaqView = '/faq';
+  static const kAboutView = '/about';
 
   static final router = GoRouter(
     routes: [
@@ -211,6 +215,16 @@ abstract class AppRouter {
             child: const EmailVerifyView(),
           ),
         ),
+      ),
+      GoRoute(
+        path: kFaqView,
+        pageBuilder: (context, state) =>
+            screenTransition(state, const FaqView()),
+      ),
+      GoRoute(
+        path: kAboutView,
+        pageBuilder: (context, state) =>
+            screenTransition(state, const AboutView()),
       ),
     ],
   );

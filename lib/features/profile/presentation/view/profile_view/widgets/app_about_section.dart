@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/features/profile/presentation/view/profile_view/widgets/custom_list_tile.dart';
@@ -17,19 +19,16 @@ class _AppAboutSectionState extends State<AppAboutSection> {
   @override
   void initState() {
     super.initState();
-    icons = [
-      CustomIcons.about_icon,
-      CustomIcons.info_icon,
-      CustomIcons.help_feedback_icon,
-      CustomIcons.support_icon,
+    icons = [CustomIcons.about_icon, CustomIcons.info_icon];
+    names = [StringsManager.aboutUs.tr(), StringsManager.faq.tr()];
+    onTap = [
+      () {
+        GoRouter.of(context).push(AppRouter.kAboutView);
+      },
+      () {
+        GoRouter.of(context).push(AppRouter.kFaqView);
+      },
     ];
-    names = [
-      StringsManager.aboutUs.tr(),
-      StringsManager.faq.tr(),
-      StringsManager.helpAndFeedback.tr(),
-      StringsManager.supportUs.tr(),
-    ];
-    onTap = [() {}, () {}, () {}, () {}];
   }
 
   late final List<IconData> icons;
@@ -45,7 +44,7 @@ class _AppAboutSectionState extends State<AppAboutSection> {
         SizedBox(height: 5.h),
         Column(
           children: List.generate(
-            4,
+            2,
             (index) => Padding(
               padding: EdgeInsets.symmetric(vertical: 8.h),
               child: CustomListTile(

@@ -1,6 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get_it/get_it.dart';
+// Dart & 3rd party packages
+import 'package:cloud_firestore/cloud_firestore.dart'; // Firestore database
+import 'package:firebase_auth/firebase_auth.dart'; // Firebase Authentication
+import 'package:get_it/get_it.dart'; // Dependency injection
+
+// Auth feature
 import 'package:taska/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:taska/features/auth/domain/repos/auth_repo.dart';
 import 'package:taska/features/auth/domain/usecases/forget_password_use_case.dart';
@@ -9,6 +12,8 @@ import 'package:taska/features/auth/domain/usecases/log_in_user_with_google_use_
 import 'package:taska/features/auth/domain/usecases/register_user_with_email_and_password_use_case.dart';
 import 'package:taska/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:taska/features/auth/domain/usecases/verify_email_use_case.dart';
+
+// Focus feature
 import 'package:taska/features/focus/data/data_source/focus_local_remote_data_source/focus_local_data_source.dart';
 import 'package:taska/features/focus/data/data_source/focus_local_remote_data_source/focus_local_data_source_impl.dart';
 import 'package:taska/features/focus/data/data_source/focus_remote_data_source/focus_remote_data_source.dart';
@@ -18,6 +23,8 @@ import 'package:taska/features/focus/domain/repos/focus_repo.dart';
 import 'package:taska/features/focus/domain/usecases/add_time_for_today_use_case.dart';
 import 'package:taska/features/focus/domain/usecases/get_apps_usage_list_use_case.dart';
 import 'package:taska/features/focus/domain/usecases/get_focused_time_use_case.dart';
+
+// Home feature
 import 'package:taska/features/home/data/data_source/local_data_source/home_local_data_source.dart';
 import 'package:taska/features/home/data/data_source/local_data_source/home_local_data_source_impl.dart';
 import 'package:taska/features/home/data/data_source/remote_data_source/home_remote_data_source.dart';
@@ -28,6 +35,8 @@ import 'package:taska/features/home/domain/usecases/create_category_use_case.dar
 import 'package:taska/features/home/domain/usecases/create_task_use_case.dart';
 import 'package:taska/features/home/domain/usecases/delete_category_use_case.dart';
 import 'package:taska/features/home/domain/usecases/get_all_categories_use_case.dart';
+
+// Index feature
 import 'package:taska/features/index/data/data_sources/index_local_data_source/index_local_data_source.dart';
 import 'package:taska/features/index/data/data_sources/index_local_data_source/index_local_data_source_impl.dart';
 import 'package:taska/features/index/data/data_sources/index_remote_data_source/index_remote_data_source.dart';
@@ -38,6 +47,8 @@ import 'package:taska/features/index/domain/usecases/change_task_status_usecase.
 import 'package:taska/features/index/domain/usecases/delete_task_usecase.dart';
 import 'package:taska/features/index/domain/usecases/edit_task_usecase.dart';
 import 'package:taska/features/index/domain/usecases/get_task_by_day_use_case.dart';
+
+// Profile feature
 import 'package:taska/features/profile/data/datasources/profile_local_data_source/profile_local_data_source.dart';
 import 'package:taska/features/profile/data/datasources/profile_local_data_source/profile_local_data_source_impl.dart';
 import 'package:taska/features/profile/data/datasources/profile_remote_data_source/profile_remote_data_source.dart';
@@ -49,10 +60,15 @@ import 'package:taska/features/profile/domain/usecases/change_account_password_u
 import 'package:taska/features/profile/domain/usecases/change_account_photo_usecase.dart';
 import 'package:taska/features/profile/domain/usecases/delete_account_usecase.dart';
 
+// Dependency Injection
 final getIt = GetIt.instance;
 
 void setupLocator() {
+  // Firebase core
   getIt.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
+  getIt.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
+
+  // Auth DI
   getIt.registerSingleton<AuthRepo>(
     AuthRepoImpl(firebaseAuth: getIt.get<FirebaseAuth>()),
   );
@@ -74,7 +90,8 @@ void setupLocator() {
   getIt.registerSingleton<SignOutUseCase>(
     SignOutUseCase(authRepo: getIt.get<AuthRepo>()),
   );
-  getIt.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
+
+  // Home DI
   getIt.registerSingleton<HomeLocalDataSource>(HomeLocalDataSourceImpl());
   getIt.registerSingleton<HomeRemoteDataSource>(
     HomeRemoteDataSourceImpl(
@@ -100,6 +117,8 @@ void setupLocator() {
   getIt.registerSingleton<DeleteCategoryUseCase>(
     DeleteCategoryUseCase(homeRepo: getIt.get<HomeRepo>()),
   );
+
+  // Index DI
   getIt.registerSingleton<IndexLocalDataSource>(IndexLocalDataSourceImpl());
   getIt.registerSingleton<IndexRemoteDataSource>(
     IndexRemoteDataSourceImpl(
@@ -125,6 +144,8 @@ void setupLocator() {
   getIt.registerSingleton<DeleteTaskUseCase>(
     DeleteTaskUseCase(indexRepo: getIt.get<IndexRepo>()),
   );
+
+  // Focus DI
   getIt.registerSingleton<FocusLocalDataSource>(FocusLocalDataSourceImpl());
   getIt.registerSingleton<FocusRemoteDataSource>(
     FocusRemoteDataSourceImpl(
@@ -147,6 +168,9 @@ void setupLocator() {
   getIt.registerSingleton<GetAppsUsageListUseCase>(
     GetAppsUsageListUseCase(focusRepo: getIt.get<FocusRepo>()),
   );
+
+  // Profile DI
+  getIt.registerSingleton<ProfileLocalDataSource>(ProfileLocalDataSourceImpl());
   getIt.registerSingleton<ProfileRemoteDataSource>(
     ProfileRemoteDataSourceImpl(
       firebaseAuth: getIt.get<FirebaseAuth>(),
@@ -168,7 +192,6 @@ void setupLocator() {
   getIt.registerSingleton<ChangeAccountPhotoUseCase>(
     ChangeAccountPhotoUseCase(profileRepo: getIt.get<ProfileRepo>()),
   );
-  getIt.registerSingleton<ProfileLocalDataSource>(ProfileLocalDataSourceImpl());
   getIt.registerSingleton<DeleteAccountUseCase>(
     DeleteAccountUseCase(profileRepo: getIt.get<ProfileRepo>()),
   );

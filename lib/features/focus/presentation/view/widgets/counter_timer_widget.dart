@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:do_not_disturb/do_not_disturb.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dnd/flutter_dnd.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:taska/core/utils/color_manager.dart';
@@ -20,6 +20,8 @@ class CounterTimerWidget extends StatefulWidget {
 }
 
 class _CounterTimerWidgetState extends State<CounterTimerWidget> {
+  final _dndPlugin = DoNotDisturbPlugin();
+
   static int timerSeconds = 0;
   static int timerMinutes = 0;
   static int timerHours = 0;
@@ -120,33 +122,33 @@ class _CounterTimerWidgetState extends State<CounterTimerWidget> {
 
   void _toggleTimer() async {
     bool hasPermission = await _checkRequestPermission();
+
     if (hasPermission && context.mounted) {
       setState(() {
         isTimerRunning = !isTimerRunning;
       });
+
       if (!isTimerRunning) {
         BlocProvider.of<AddFocusedTimeCubit>(
           context,
         ).addFocusedTime(_saveTotalTime());
 
-        await FlutterDnd.setInterruptionFilter(
-          FlutterDnd.INTERRUPTION_FILTER_ALL,
-        );
+        await _dndPlugin.setInterruptionFilter(InterruptionFilter.all);
       } else {
-        await FlutterDnd.setInterruptionFilter(
-          FlutterDnd.INTERRUPTION_FILTER_NONE,
-        );
+        await _dndPlugin.setInterruptionFilter(InterruptionFilter.none);
       }
     }
   }
 
   Future<bool> _checkRequestPermission() async {
-    bool isPermissionGranted =
-        await FlutterDnd.isNotificationPolicyAccessGranted ?? false;
-    if (!isPermissionGranted) {
-      FlutterDnd.gotoPolicySettings();
+    final bool granted =
+        await _dndPlugin.isNotificationPolicyAccessGranted() ?? false;
+
+    if (!granted) {
+      await _dndPlugin.openNotificationPolicyAccessSettings();
     }
-    return isPermissionGranted;
+
+    return granted;
   }
 
   int _saveTotalTime() {

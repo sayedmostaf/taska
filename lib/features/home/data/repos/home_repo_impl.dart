@@ -39,7 +39,7 @@ class HomeRepoImpl extends HomeRepo {
           id: task.id,
           title: task.name,
           body: task.description,
-          scheduledDate: task.utcTime,
+          scheduledTime: task.utcTime,
         );
       }
       return right(null);

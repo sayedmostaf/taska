@@ -82,7 +82,7 @@ class IndexRemoteDataSourceImpl implements IndexRemoteDataSource {
       if (task.status == 'pending' && task.utcTime.isAfter(DateTime.now())) {
         LocalNotification.scheduleNotifications(
           id: task.id,
-          scheduledDate: task.utcTime,
+          scheduledTime: task.utcTime,
           title: task.name,
           body: task.description,
         );

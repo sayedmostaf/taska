@@ -70,7 +70,7 @@ class IndexRepoImpl extends IndexRepo {
         id: newTask.id,
         title: newTask.name,
         body: newTask.description,
-        scheduledDate: newTask.utcTime,
+        scheduledTime: newTask.utcTime,
       );
       return right(null);
     } catch (e) {

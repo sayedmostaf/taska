@@ -83,6 +83,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   });
                 },
                 icon: Icon(
+                  size: 24.sp,
                   obscure ? Icons.visibility_off : Icons.remove_red_eye,
                 ),
               ),

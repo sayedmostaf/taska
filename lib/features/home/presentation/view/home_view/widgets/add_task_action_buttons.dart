@@ -49,60 +49,80 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        IconButton(
-          onPressed: () async {
-            await _showCalendarAndTime(context);
-          },
-          icon: Icon(
-            CustomIcons.clock_icon,
-            size: 27.sp,
-            color: selectedTimeOfDay != null ? ColorManager.primaryColor : null,
+        Flexible(
+          child: FittedBox(
+            child: IconButton(
+              onPressed: () async {
+                await _showCalendarAndTime(context);
+              },
+              icon: Icon(
+                CustomIcons.clock_icon,
+                size: 27.sp,
+                color: selectedTimeOfDay != null
+                    ? ColorManager.primaryColor
+                    : null,
+              ),
+            ),
           ),
         ),
         SizedBox(width: 10.w),
-        IconButton(
-          onPressed: () {
-            buildChooseCategoryDialog(context);
-          },
-          icon: Icon(
-            CustomIcons.tag_icon,
-            size: 27.sp,
-            color: selectedCategoryIndex != null
-                ? ColorManager.primaryColor
-                : null,
+        Flexible(
+          child: FittedBox(
+            child: IconButton(
+              onPressed: () {
+                buildChooseCategoryDialog(context);
+              },
+              icon: Icon(
+                CustomIcons.tag_icon,
+                size: 27.sp,
+                color: selectedCategoryIndex != null
+                    ? ColorManager.primaryColor
+                    : null,
+              ),
+            ),
           ),
         ),
         SizedBox(width: 10.w),
-        IconButton(
-          onPressed: () {
-            _buildTaskPriorityDialog(context);
-          },
-          icon: Icon(
-            CustomIcons.flag_icon,
-            size: 27.sp,
-            color: selectedTaskPriority != null
-                ? ColorManager.primaryColor
-                : null,
+        Flexible(
+          child: FittedBox(
+            child: IconButton(
+              onPressed: () {
+                _buildTaskPriorityDialog(context);
+              },
+              icon: Icon(
+                CustomIcons.flag_icon,
+                size: 27.sp,
+                color: selectedTaskPriority != null
+                    ? ColorManager.primaryColor
+                    : null,
+              ),
+            ),
           ),
         ),
         const Spacer(),
-        IconButton(
-          onPressed: widget.onSend,
-          icon: Localizations.localeOf(context).languageCode == 'ar'
-              ? Transform(
-                  transform: Matrix4.rotationY(math.pi),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    CustomIcons.send_icon,
-                    size: 27.sp,
-                    color: ColorManager.primaryColor,
-                  ),
-                )
-              : Icon(
-                  CustomIcons.send_icon,
-                  size: 27.sp,
-                  color: ColorManager.primaryColor,
-                ),
+        const Spacer(),
+        const Spacer(),
+        Flexible(
+          child: FittedBox(
+            child: IconButton(
+              onPressed: widget.onSend,
+              icon: Localizations.localeOf(context).languageCode == 'ar'
+                  ? Transform(
+                      transform: Matrix4.rotationY(math.pi),
+                      alignment: Alignment.center,
+                      child: Icon(
+                        CustomIcons.send_icon,
+                        size: 27.sp,
+                        color: ColorManager.primaryColor,
+                      ),
+                    )
+                  : Icon(
+                      CustomIcons.send_icon,
+                      size: 27.sp,
+                      color: ColorManager.primaryColor,
+                    ),
+            ),
+          ),
         ),
       ],
     );

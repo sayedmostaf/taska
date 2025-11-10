@@ -65,11 +65,13 @@ class _CategoryIconSectionState extends State<CategoryIconSection> {
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
               ),
-              child: Text(
-                StringsManager.chooseIcon.tr(),
-                style: Theme.of(
-                  context,
-                ).textTheme.headlineSmall!.copyWith(color: Colors.white),
+              child: FittedBox(
+                child: Text(
+                  StringsManager.chooseIcon.tr(),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.headlineSmall!.copyWith(color: Colors.white),
+                ),
               ),
             ),
           ],

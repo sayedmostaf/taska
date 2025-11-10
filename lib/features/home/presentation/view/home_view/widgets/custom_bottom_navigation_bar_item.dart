@@ -45,52 +45,58 @@ class _CustomBottomNavigationBarItemState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        widget.isActive
-            ? Icon(
-                activeIconList[widget.index],
-                size: 24.sp,
-                color: widget.isActive
-                    ? Theme.of(context).brightness == Brightness.dark
-                          ? ColorManager.primaryColor
-                          : Colors.white
-                    : Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black54,
-              )
-            : Icon(
-                inactiveIconList[widget.index],
-                size: 24.sp,
-                color: widget.isActive
-                    ? Theme.of(context).brightness == Brightness.dark
-                          ? ColorManager.primaryColor
-                          : Colors.white
-                    : Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black54,
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          widget.isActive
+              ? Icon(
+                  activeIconList[widget.index],
+                  size: 24.sp,
+                  color: widget.isActive
+                      ? Theme.of(context).brightness == Brightness.dark
+                            ? ColorManager.primaryColor
+                            : Colors.white
+                      : Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black54,
+                )
+              : Icon(
+                  inactiveIconList[widget.index],
+                  size: 24.sp,
+
+                  color: widget.isActive
+                      ? Theme.of(context).brightness == Brightness.dark
+                            ? ColorManager.primaryColor
+                            : Colors.white
+                      : Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black54,
+                ),
+          SizedBox(height: 4.h),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                labelList[widget.index],
+                maxLines: 1,
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color: widget.isActive
+                      ? Theme.of(context).brightness == Brightness.dark
+                            ? ColorManager.primaryColor
+                            : Colors.white
+                      : Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black54,
+                ),
               ),
-        SizedBox(height: 4.h),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: Text(
-            labelList[widget.index],
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.labelSmall!.copyWith(
-              color: widget.isActive
-                  ? Theme.of(context).brightness == Brightness.dark
-                        ? ColorManager.primaryColor
-                        : Colors.white
-                  : Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black54,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

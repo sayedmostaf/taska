@@ -15,10 +15,12 @@ class SendButton extends StatefulWidget {
 class _SendButtonState extends State<SendButton> {
   bool isButtonDisabled = false;
   int countdown = 120;
-  late Timer countdownTimer;
+  Timer? countdownTimer;
   @override
   void dispose() {
-    countdownTimer.cancel();
+    if (countdownTimer != null) {
+      countdownTimer!.cancel();
+    }
     super.dispose();
   }
 

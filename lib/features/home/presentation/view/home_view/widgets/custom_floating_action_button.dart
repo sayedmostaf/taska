@@ -65,14 +65,17 @@ class _CustomFloatingActionButtonState
             left: 25.w,
             right: 25.w,
             bottom: 10.h,
-            top: 20.h,
+            top: 33.h,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                StringsManager.addTask.tr(),
-                style: Theme.of(context).textTheme.headlineMedium,
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  StringsManager.addTask.tr(),
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
               ),
               SizedBox(height: 15.h),
               AddTaskForm(

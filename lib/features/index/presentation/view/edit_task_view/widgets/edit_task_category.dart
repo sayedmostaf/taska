@@ -61,7 +61,7 @@ class _EditTaskCategoryState extends State<EditTaskCategory> {
         Spacer(),
         CustomClickableContainer(
           text: categoryName,
-          icon: Icon(iconData.toIconData(), size: 15.sp, color: Colors.white),
+          icon: Icon(iconData.toIconData(), size: 15.sp,),
           onTap: () {
             buildChooseCategoryDialog(context);
           },

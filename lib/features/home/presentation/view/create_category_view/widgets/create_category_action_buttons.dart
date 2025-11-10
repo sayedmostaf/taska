@@ -49,11 +49,14 @@ class CreateCategoryActionButtons extends StatelessWidget {
               width: 150.w,
               child: ElevatedButton(
                 onPressed: onPressed,
-                child: Text(
-                  StringsManager.save.tr(),
-                  style: Theme.of(
-                    context,
-                  ).textTheme.headlineSmall!.copyWith(color: Colors.white),
+                child: FittedBox(
+                  child: Text(
+                    StringsManager.save.tr(),
+
+                    style: Theme.of(
+                      context,
+                    ).textTheme.headlineSmall!.copyWith(color: Colors.white),
+                  ),
                 ),
               ),
             ),

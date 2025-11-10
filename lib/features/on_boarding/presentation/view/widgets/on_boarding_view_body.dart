@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taska/core/cache/cache_helper.dart';
+import 'package:taska/core/cache/cache_keys_values.dart';
 import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/features/on_boarding/presentation/view/widgets/on_boarding_action_buttons.dart';
@@ -40,14 +42,18 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
           SkipButton(
             text: StringsManager.skip.tr(),
             onPressed: () {
+              CacheData.setData(
+                key: CacheKeys.kONBOARDING,
+                value: CacheValues.ONBOARDING,
+              );
               GoRouter.of(context).go(AppRouter.kAuthView);
             },
           ),
-          PageViewBody(controller: controller),
+          Flexible(child: PageViewBody(controller: controller)),
           PageIndexIndicator(controller: controller),
           SizedBox(height: 50.h),
           OnBoardingActionButtons(controller: controller),
-          SizedBox(height: 62.h),
+          SizedBox(height: 20.h),
         ],
       ),
     );

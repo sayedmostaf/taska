@@ -20,6 +20,7 @@ class CategoryNameSection extends StatelessWidget {
       children: [
         Text(
           StringsManager.categoryName.tr(),
+          overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         SizedBox(height: 15.h),
@@ -38,7 +39,7 @@ class CategoryNameSection extends StatelessWidget {
           ),
           validator: (value) {
             if (value == null || value.length < 3 || value.length > 10) {
-              return StringsManager.nameValidation.tr();
+              return StringsManager.categoryNameValidation.tr();
             }
             return null;
           },

@@ -107,11 +107,13 @@ class DeleteAccountButton extends StatelessWidget {
                             isObscured
                                 ? Icons.visibility_off
                                 : Icons.remove_red_eye,
+                            size: 24.sp,
                           ),
                         ),
                         contentPadding: const EdgeInsets.all(15),
                         label: Text(
                           StringsManager.password.tr(),
+                          overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                         hintText: StringsManager.password.tr(),

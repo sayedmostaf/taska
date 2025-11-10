@@ -29,6 +29,7 @@ class AddTaskForm extends StatelessWidget {
               contentPadding: const EdgeInsets.all(15),
               label: Text(
                 StringsManager.taskTitle.tr(),
+                overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               hintText: StringsManager.taskTitle.tr(),
@@ -49,6 +50,7 @@ class AddTaskForm extends StatelessWidget {
               contentPadding: const EdgeInsets.all(15),
               label: Text(
                 StringsManager.taskDescription.tr(),
+                overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               hintText: StringsManager.taskDescription.tr(),

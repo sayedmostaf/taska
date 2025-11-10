@@ -20,6 +20,7 @@ abstract class ThemeManager {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         backgroundColor: ColorManager.primaryColor,
         foregroundColor: Colors.white,
         alignment: Alignment.center,
@@ -53,6 +54,7 @@ abstract class ThemeManager {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         backgroundColor: ColorManager.primaryColor,
         foregroundColor: Colors.white,
         alignment: Alignment.center,

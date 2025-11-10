@@ -40,11 +40,14 @@ class SaveCancelActionButtons extends StatelessWidget {
         SizedBox(width: 8.w),
         ElevatedButton(
           onPressed: saveOnPressed,
-          child: Text(
-            StringsManager.save.tr(),
-            style: Theme.of(
-              context,
-            ).textTheme.headlineSmall!.copyWith(color: Colors.white),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              StringsManager.save.tr(),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall!.copyWith(color: Colors.white),
+            ),
           ),
         ),
       ],

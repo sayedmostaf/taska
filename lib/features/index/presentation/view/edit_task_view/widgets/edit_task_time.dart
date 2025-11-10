@@ -40,7 +40,7 @@ class _EditTaskTimeState extends State<EditTaskTime> {
         Spacer(),
         CustomClickableContainer(
           text:
-              '${initialDate.year}/${initialDate.month}/${initialDate.day} ${initialDate.hour == 0 ? '00' : initialDate.hour}:${initialDate.minute == 0 ? '00' : initialDate.minute}',
+              '${initialDate.year}/${initialDate.month}/${initialDate.day} ${initialDate.hour < 10 ? '0${initialDate.hour}' : initialDate.hour}:${initialDate.minute < 10 ? '0${initialDate.minute}' : initialDate.minute}',
           onTap: () {
             _showCalendarAndTime(context);
           },

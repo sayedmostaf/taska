@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taska/core/utils/assets_manager.dart';
@@ -27,63 +26,61 @@ class PageViewBody extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: PageView.builder(
-        physics: ClampingScrollPhysics(),
-        itemCount: 3,
-        controller: controller,
-        itemBuilder: (context, index) {
-          return CustomScrollView(
-            physics: NeverScrollableScrollPhysics(),
-            slivers: [
-              CustomSliverSizedBox(height: 10.h),
-              SliverToBoxAdapter(
-                child: SvgPicture.asset(
-                  images[index],
-                  width: 213.w,
-                  height: 227.h,
+    return PageView.builder(
+      physics: ClampingScrollPhysics(),
+      itemCount: 3,
+      controller: controller,
+      itemBuilder: (context, index) {
+        return CustomScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          slivers: [
+            CustomSliverSizedBox(height: 10.h),
+            SliverToBoxAdapter(
+              child: SvgPicture.asset(
+                images[index],
+                width: 213.w,
+                height: 227.h,
+              ),
+            ),
+            CustomSliverSizedBox(height: 80.h),
+            SliverToBoxAdapter(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  titles[index],
+                  style: Theme.of(context).textTheme.displayMedium,
+                  textAlign: TextAlign.center,
                 ),
               ),
-              CustomSliverSizedBox(height: 80.h),
-              SliverToBoxAdapter(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    titles[index],
-                    style: Theme.of(context).textTheme.displayMedium,
-                    textAlign: TextAlign.center,
+            ),
+            CustomSliverSizedBox(height: 40.h),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      subTitles[index].split('\n')[0],
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                    ),
                   ),
-                ),
-              ),
-              CustomSliverSizedBox(height: 40.h),
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        subTitles[index].split('\n')[0],
-                        style: Theme.of(context).textTheme.headlineSmall,
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                      ),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      subTitles[index].split('\n')[1],
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
                     ),
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        subTitles[index].split('\n')[1],
-                        style: Theme.of(context).textTheme.headlineSmall,
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          );
-        },
-      ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

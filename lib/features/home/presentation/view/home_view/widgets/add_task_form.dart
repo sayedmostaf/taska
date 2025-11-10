@@ -27,7 +27,10 @@ class AddTaskForm extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineSmall,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(15),
-              label: Text(StringsManager.taskTitle.tr()),
+              label: Text(
+                StringsManager.taskTitle.tr(),
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
               hintText: StringsManager.taskTitle.tr(),
             ),
             validator: (value) {
@@ -44,7 +47,10 @@ class AddTaskForm extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineSmall,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(15),
-              label: Text(StringsManager.taskDescription.tr()),
+              label: Text(
+                StringsManager.taskDescription.tr(),
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
               hintText: StringsManager.taskDescription.tr(),
             ),
             onSaved: onSavedTaskDescription,

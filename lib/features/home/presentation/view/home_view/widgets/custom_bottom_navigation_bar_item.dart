@@ -7,7 +7,7 @@ import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 
 class CustomBottomNavigationBarItem extends StatefulWidget {
-  CustomBottomNavigationBarItem({
+  const CustomBottomNavigationBarItem({
     super.key,
     required this.isActive,
     required this.index,
@@ -52,7 +52,7 @@ class _CustomBottomNavigationBarItemState
         widget.isActive
             ? Icon(
                 activeIconList[widget.index],
-                size: 24,
+                size: 24.sp,
                 color: widget.isActive
                     ? Theme.of(context).brightness == Brightness.dark
                           ? ColorManager.primaryColor
@@ -63,7 +63,7 @@ class _CustomBottomNavigationBarItemState
               )
             : Icon(
                 inactiveIconList[widget.index],
-                size: 24,
+                size: 24.sp,
                 color: widget.isActive
                     ? Theme.of(context).brightness == Brightness.dark
                           ? ColorManager.primaryColor

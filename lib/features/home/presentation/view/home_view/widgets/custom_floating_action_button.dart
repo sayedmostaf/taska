@@ -36,17 +36,22 @@ class _CustomFloatingActionButtonState
   int? priority;
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        if (isShowing) {
-          GoRouter.of(context).pop();
-        } else {
-          _showCustomBottomSheet(context);
-        }
-      },
-      shape: CircleBorder(),
-      backgroundColor: ColorManager.primaryColor,
-      child: Icon(CustomIcons.add_icon, color: Colors.white),
+    return SizedBox(
+      width: 56.w,
+      child: FittedBox(
+        child: FloatingActionButton(
+          onPressed: () {
+            if (isShowing) {
+              GoRouter.of(context).pop();
+            } else {
+              _showCustomBottomSheet(context);
+            }
+          },
+          shape: CircleBorder(),
+          backgroundColor: ColorManager.primaryColor,
+          child: Icon(CustomIcons.add_icon, color: Colors.white),
+        ),
+      ),
     );
   }
 

@@ -110,7 +110,10 @@ class DeleteAccountButton extends StatelessWidget {
                           ),
                         ),
                         contentPadding: const EdgeInsets.all(15),
-                        label: Text(StringsManager.password.tr()),
+                        label: Text(
+                          StringsManager.password.tr(),
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
                         hintText: StringsManager.password.tr(),
                       ),
                       obscureText: isObscured,

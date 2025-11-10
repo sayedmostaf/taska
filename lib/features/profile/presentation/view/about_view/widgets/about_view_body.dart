@@ -40,7 +40,8 @@ class AboutViewBody extends StatelessWidget {
           ClipOval(
             child: CachedNetworkImage(
               imageUrl: 'https://avatars.githubusercontent.com/u/114079138?v=4',
-              placeholder: (context, str) => const CustomCircularIndicator(),
+              placeholder: (context, str) =>
+                  Center(child: const CustomCircularIndicator()),
               errorWidget: (context, str, obj) =>
                   Icon(CustomIcons.inactive_profile_icon, size: 50.sp),
               fit: BoxFit.fill,

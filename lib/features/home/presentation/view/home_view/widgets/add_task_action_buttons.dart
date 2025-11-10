@@ -20,6 +20,7 @@ import 'package:taska/features/home/presentation/manager/get_categories_cubit/ge
 import 'package:taska/features/home/presentation/view/home_view/widgets/add_category_button.dart';
 import 'package:taska/features/home/presentation/view/home_view/widgets/task_category_item.dart';
 import 'package:taska/features/home/presentation/view/home_view/widgets/task_priority_item.dart';
+import 'dart:math' as math;
 
 class AddTaskActionButtons extends StatefulWidget {
   const AddTaskActionButtons({
@@ -87,11 +88,21 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
         const Spacer(),
         IconButton(
           onPressed: widget.onSend,
-          icon: Icon(
-            CustomIcons.send_icon,
-            size: 27.sp,
-            color: ColorManager.primaryColor,
-          ),
+          icon: Localizations.localeOf(context).languageCode == 'ar'
+              ? Transform(
+                  transform: Matrix4.rotationY(math.pi),
+                  alignment: Alignment.center,
+                  child: Icon(
+                    CustomIcons.send_icon,
+                    size: 27.sp,
+                    color: ColorManager.primaryColor,
+                  ),
+                )
+              : Icon(
+                  CustomIcons.send_icon,
+                  size: 27.sp,
+                  color: ColorManager.primaryColor,
+                ),
         ),
       ],
     );

@@ -22,7 +22,7 @@ class _CalendarState extends State<Calendar> {
       color: Theme.of(context).brightness == Brightness.dark
           ? ColorManager.greyColor
           : Colors.grey[200],
-      padding: EdgeInsets.only(bottom: 10.h),
+      padding: EdgeInsets.only(bottom: 20.h),
       child: TableCalendar(
         firstDay: DateTime.utc(2000, 1, 1),
         lastDay: DateTime.utc(2124, 1, 1),

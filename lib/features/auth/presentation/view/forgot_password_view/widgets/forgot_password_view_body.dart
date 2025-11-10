@@ -72,7 +72,10 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(15),
                   hintText: StringsManager.enterEmail.tr(),
-                  label: Text(StringsManager.email.tr()),
+                  label: Text(
+                    StringsManager.email.tr(),
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
                 ),
                 validator: _buildEmailValidation,
                 onSaved: (value) {

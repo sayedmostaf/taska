@@ -30,7 +30,10 @@ class CategoryNameSection extends StatelessWidget {
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(15),
 
-            label: Text(StringsManager.categoryName.tr()),
+            label: Text(
+              StringsManager.categoryName.tr(),
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
             hintText: StringsManager.categoryName.tr(),
           ),
           validator: (value) {

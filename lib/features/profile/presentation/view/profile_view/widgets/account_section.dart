@@ -204,7 +204,10 @@ class _AccountSectionState extends State<AccountSection> {
                           ),
                         ),
                         contentPadding: const EdgeInsets.all(15),
-                        label: Text(StringsManager.oldPassword.tr()),
+                        label: Text(
+                          StringsManager.oldPassword.tr(),
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
                         hintText: StringsManager.oldPassword.tr(),
                       ),
                       obscureText: oldPasswordObsecured,
@@ -239,7 +242,10 @@ class _AccountSectionState extends State<AccountSection> {
                           ),
                         ),
                         contentPadding: const EdgeInsets.all(15),
-                        label: Text(StringsManager.newPassword.tr()),
+                        label: Text(
+                          StringsManager.newPassword.tr(),
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
                         hintText: StringsManager.newPassword.tr(),
                       ),
                       obscureText: newPasswordObsecured,
@@ -367,7 +373,10 @@ class _AccountSectionState extends State<AccountSection> {
                       style: Theme.of(context).textTheme.headlineSmall,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.all(15),
-                        label: Text(StringsManager.accountName.tr()),
+                        label: Text(
+                          StringsManager.accountName.tr(),
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
                         hintText: StringsManager.accountName.tr(),
                       ),
                       validator: (value) {

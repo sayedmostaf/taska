@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:taska/core/errors/failures.dart';
+import 'package:taska/core/notifications/local_notification.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/features/home/domain/entities/task.dart';
 import 'package:taska/features/index/data/data_sources/index_local_data_source/index_local_data_source.dart';
@@ -36,6 +37,7 @@ class IndexRepoImpl extends IndexRepo {
     try {
       await indexRemoteDataSource.changeTaskStatus(status, taskId);
       await indexLocalDataSource.changeTaskStatus(status, taskId);
+      LocalNotification.cancelNotification(taskId);
       return right(null);
     } catch (e) {
       return left(Failure(message: StringsManager.operationNotAllowed.tr()));
@@ -47,6 +49,8 @@ class IndexRepoImpl extends IndexRepo {
     try {
       await indexRemoteDataSource.deleteTask(taskId);
       await indexLocalDataSource.deleteTask(taskId);
+      LocalNotification.cancelNotification(taskId);
+
       return right(null);
     } catch (e) {
       return left(Failure(message: StringsManager.operationNotAllowed.tr()));
@@ -61,6 +65,13 @@ class IndexRepoImpl extends IndexRepo {
     try {
       await indexRemoteDataSource.editTask(oldTask: oldTask, newTask: newTask);
       await indexLocalDataSource.editTask(oldTask: oldTask, newTask: newTask);
+      LocalNotification.cancelNotification(oldTask.id);
+      LocalNotification.scheduleNotifications(
+        id: newTask.id,
+        title: newTask.name,
+        body: newTask.description,
+        scheduledDate: newTask.utcTime,
+      );
       return right(null);
     } catch (e) {
       return left(Failure(message: StringsManager.operationNotAllowed.tr()));

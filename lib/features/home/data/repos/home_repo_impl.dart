@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:taska/core/errors/failures.dart';
+import 'package:taska/core/notifications/local_notification.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/features/home/data/data_source/local_data_source/home_local_data_source.dart';
 import 'package:taska/features/home/data/data_source/remote_data_source/home_remote_data_source.dart';
@@ -33,6 +34,12 @@ class HomeRepoImpl extends HomeRepo {
     try {
       await homeRemoteDataSource.createTask(task);
       await homeLocalDataSource.createTask(task);
+      LocalNotification.scheduleNotifications(
+        id: task.id,
+        title: task.name,
+        body: task.description,
+        scheduledDate: task.utcTime,
+      );
       return right(null);
     } catch (e) {
       return left(Failure(message: StringsManager.operationNotAllowed.tr()));

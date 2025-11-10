@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taska/core/database/database.dart';
+import 'package:taska/core/notifications/local_notification.dart';
 import 'package:taska/core/utils/functions/save_data.dart';
 import 'package:taska/features/home/data/models/task_model/task_model.dart';
 import 'package:taska/features/home/domain/entities/task.dart';
@@ -30,6 +31,7 @@ class IndexRemoteDataSourceImpl implements IndexRemoteDataSource {
     List<TaskEntity> tasks = [];
     _parseTasks(querySnapshot, tasks);
     await saveTasks(tasks, kTaskBox);
+    scheduleDayTasksNotifications(tasks);
     return tasks;
   }
 
@@ -73,5 +75,18 @@ class IndexRemoteDataSourceImpl implements IndexRemoteDataSource {
         .collection('tasks')
         .doc(oldTask.id);
     await taskRef.update(TaskModel.fromEntity(newTask).toJson());
+  }
+
+  void scheduleDayTasksNotifications(List<TaskEntity> tasks) {
+    for (TaskEntity task in tasks) {
+      if (task.status == 'pending') {
+        LocalNotification.scheduleNotifications(
+          id: task.id,
+          scheduledDate: task.utcTime,
+          title: task.name,
+          body: task.description,
+        );
+      }
+    }
   }
 }

@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:taska/core/cache/cache_helper.dart';
 import 'package:taska/core/cache/cache_keys_values.dart';
 import 'package:taska/core/database/database.dart';
+import 'package:taska/core/notifications/local_notification.dart';
 import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/service_locator.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -49,10 +50,11 @@ class ProfileViewBody extends StatelessWidget {
           SliverToBoxAdapter(
             child: LogOutButton(
               onTap: () async {
+                getIt.get<FirebaseAuth>().signOut();
                 clearDatabase();
                 await CacheData.removeData(key: CacheKeys.kDATE);
                 await CacheData.removeData(key: CacheKeys.kSECONDS);
-                getIt.get<FirebaseAuth>().signOut();
+                LocalNotification.cancelAllNotifications();
                 if (context.mounted) {
                   GoRouter.of(context).go(AppRouter.kAuthView);
                 }

@@ -8,7 +8,7 @@ class GetTasksByCalendarDayCubit extends Cubit<GetTasksByCalendarDayState> {
     : super(GetTasksByCalendarDayInitial());
   final GetTaskByDayUseCase getTaskByDayUseCase;
   DateTime? storedDay;
-  late bool storedIsCompleted;
+  bool storedIsCompleted = false;
   Future<void> getTasksByDay({
     DateTime? day,
     required bool? isCompleted,
@@ -20,7 +20,9 @@ class GetTasksByCalendarDayCubit extends Cubit<GetTasksByCalendarDayState> {
     if (isCompleted != null) {
       storedIsCompleted = isCompleted;
     }
-    var result = await getTaskByDayUseCase.execute(day ?? storedDay);
+    var result = await getTaskByDayUseCase.execute(
+      day ?? storedDay ?? DateTime.now(),
+    );
     result.fold(
       (failure) {
         return emit(GetTasksByCalendarDayFailure(errMessage: failure.message));

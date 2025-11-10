@@ -79,7 +79,7 @@ class IndexRemoteDataSourceImpl implements IndexRemoteDataSource {
 
   void scheduleDayTasksNotifications(List<TaskEntity> tasks) {
     for (TaskEntity task in tasks) {
-      if (task.status == 'pending') {
+      if (task.status == 'pending' && task.utcTime.isAfter(DateTime.now())) {
         LocalNotification.scheduleNotifications(
           id: task.id,
           scheduledDate: task.utcTime,

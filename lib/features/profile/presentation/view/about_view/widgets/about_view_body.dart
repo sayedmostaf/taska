@@ -51,13 +51,13 @@ class AboutViewBody extends StatelessWidget {
           Text('Sayed Mostafa', style: Theme.of(context).textTheme.titleMedium),
           SizedBox(height: 10.h),
           Text(
-            "Hi, I'm Sayed, a Flutter developer passionate about \ncreating useful and beautiful applications.",
+            StringsManager.about.tr(),
             style: Theme.of(context).textTheme.titleSmall,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 10.h),
           Text(
-            'Connect with me',
+            StringsManager.connectWithMe.tr(),
             style: Theme.of(context).textTheme.titleMedium,
             textAlign: TextAlign.center,
           ),

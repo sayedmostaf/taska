@@ -31,9 +31,11 @@ import 'package:taska/features/home/data/data_source/remote_data_source/home_rem
 import 'package:taska/features/home/data/data_source/remote_data_source/home_remote_data_source_impl.dart';
 import 'package:taska/features/home/data/repos/home_repo_impl.dart';
 import 'package:taska/features/home/domain/repos/home_repo.dart';
+import 'package:taska/features/home/domain/usecases/change_tasks_to_uncompleted_usecase.dart';
 import 'package:taska/features/home/domain/usecases/create_category_use_case.dart';
 import 'package:taska/features/home/domain/usecases/create_task_use_case.dart';
 import 'package:taska/features/home/domain/usecases/delete_category_use_case.dart';
+import 'package:taska/features/home/domain/usecases/delete_old_tasks_use_case.dart';
 import 'package:taska/features/home/domain/usecases/get_all_categories_use_case.dart';
 
 // Index feature
@@ -116,6 +118,12 @@ void setupLocator() {
   );
   getIt.registerSingleton<DeleteCategoryUseCase>(
     DeleteCategoryUseCase(homeRepo: getIt.get<HomeRepo>()),
+  );
+  getIt.registerSingleton<ChangeTasksToUncompletedUseCase>(
+    ChangeTasksToUncompletedUseCase(homeRepo: getIt.get<HomeRepo>()),
+  );
+  getIt.registerSingleton<DeleteOldTasksUseCase>(
+    DeleteOldTasksUseCase(homeRepo: getIt.get<HomeRepo>()),
   );
 
   // Index DI

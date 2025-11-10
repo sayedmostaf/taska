@@ -4,7 +4,11 @@ allprojects {
         mavenCentral()
     }
 }
+buildscript {
 
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.6.0'
+    }}
 val newBuildDir: Directory =
     rootProject.layout.buildDirectory
         .dir("../../build")

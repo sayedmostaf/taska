@@ -45,6 +45,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_colorpicker: ^1.1.0
   flutter_iconpicker: ^4.0.3
+  flutter_local_notifications: ^19.5.0
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.2.1
   fluttertoast: ^9.0.0

@@ -19,8 +19,11 @@ import 'package:taska/features/auth/presentation/view/email_verify_view/email_ve
 import 'package:taska/features/auth/presentation/view/forgot_password_view/forgot_password_view.dart';
 import 'package:taska/features/calender/presentation/manager/get_tasks_by_calender_day_cubit/get_tasks_by_calender_day_cubit.dart';
 import 'package:taska/features/home/domain/entities/task.dart';
+import 'package:taska/features/home/domain/usecases/change_tasks_to_uncompleted_usecase.dart';
 import 'package:taska/features/home/domain/usecases/create_category_use_case.dart';
 import 'package:taska/features/home/domain/usecases/create_task_use_case.dart';
+import 'package:taska/features/home/domain/usecases/delete_old_tasks_use_case.dart';
+import 'package:taska/features/home/presentation/manager/change_tasks_to_un_completed_cubit/change_tasks_to_un_completed_cubit.dart';
 import 'package:taska/features/home/presentation/manager/create_category_cubit/create_category_cubit.dart';
 import 'package:taska/features/home/presentation/manager/create_task_cubit/create_task_cubit.dart';
 import 'package:taska/features/home/presentation/manager/get_categories_cubit/get_categories_cubit.dart';
@@ -113,6 +116,12 @@ abstract class AppRouter {
                 create: (context) => GetTasksByCalendarDayCubit(
                   getIt.get<GetTaskByDayUseCase>(),
                 ),
+              ),
+              BlocProvider(
+                create: (context) => ChangeTasksToUncompletedCubit(
+                  getIt.get<ChangeTasksToUncompletedUseCase>(),
+                  getIt.get<DeleteOldTasksUseCase>(),
+                )..changeTasksToUncompleted(),
               ),
             ],
             child: const HomeView(),

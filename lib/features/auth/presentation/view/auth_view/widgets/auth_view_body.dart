@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/assets_manager.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -42,10 +43,12 @@ class _AuthViewBodyState extends State<AuthViewBody> {
                     CustomLoadingAnimation.buildLoadingIndicator(context);
                   } else if (state is LogInUserWithGoogleFailure) {
                     GoRouter.of(context).pop();
-                    Fluttertoast.showToast(
-                      msg: state.errMessage,
-                      toastLength: Toast.LENGTH_SHORT,
-                    );
+                    MotionToast.error(
+                      title: const Text('Error'),
+                      description: Text(state.errMessage),
+                      animationType: AnimationType.slideInFromTop,
+                      toastAlignment: Alignment.topCenter,
+                    ).show(context);
                   } else if (state is LogInUserWithGoogleSuccess) {
                     GoRouter.of(context).pop();
                     GoRouter.of(context).go(AppRouter.kHomeView);

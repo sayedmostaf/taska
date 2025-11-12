@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/features/focus/presentation/manager/add_focused_time_cubit/add_focused_time_cubit.dart';
@@ -59,7 +60,7 @@ class _CounterTimerWidgetState extends State<CounterTimerWidget> {
               Center(
                 child: Text(
                   '${_twoDigits(timerHours)}:${_twoDigits(timerMinutes)}:${_twoDigits(timerSeconds)}',
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -93,7 +94,12 @@ class _CounterTimerWidgetState extends State<CounterTimerWidget> {
           BlocListener<AddFocusedTimeCubit, AddFocusedTimeState>(
             listener: (context, state) {
               if (state is AddFocusedTimeFailure) {
-                Fluttertoast.showToast(msg: state.errMessage);
+                MotionToast.error(
+                  title: const Text('Error'),
+                  description: Text(state.errMessage),
+                  animationType: AnimationType.slideInFromTop,
+                  toastAlignment: Alignment.topCenter,
+                ).show(context);
               } else if (state is AddFocusedTimeSuccess) {
                 BlocProvider.of<GetFocusedTimeCubit>(context).getFocusedTime();
               }

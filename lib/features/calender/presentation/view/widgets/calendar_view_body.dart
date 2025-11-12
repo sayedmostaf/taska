@@ -29,7 +29,7 @@ class _CalendarViewBodyState extends State<CalendarViewBody> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       slivers: [
         CustomSliverSizedBox(height: 56.h),
         SliverToBoxAdapter(

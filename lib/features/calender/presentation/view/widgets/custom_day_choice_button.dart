@@ -22,8 +22,7 @@ class CustomDayChoiceButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           hoverColor: Colors.red,
           child: Container(
-            padding: EdgeInsets.all(2),
-            height: 50.h,
+            padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: isSelected
@@ -33,15 +32,14 @@ class CustomDayChoiceButton extends StatelessWidget {
                   ? null
                   : Border.all(color: Colors.grey, width: 2),
             ),
-            child: Center(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Center(
-                  child: Text(
-                    text,
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      color: isSelected ? Colors.white : null,
-                    ),
+            height: 50.h,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Center(
+                child: Text(
+                  text,
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    color: isSelected ? Colors.white : null,
                   ),
                 ),
               ),

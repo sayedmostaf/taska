@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/features/calender/presentation/manager/get_tasks_by_calender_day_cubit/get_tasks_by_calender_day_cubit.dart';
@@ -33,10 +34,12 @@ class _TaskItemState extends State<TaskItem> {
       listener: (context, state) {
         if (state is ChangeTaskStatusLoading) {
         } else if (state is ChangeTaskStatusFailure) {
-          Fluttertoast.showToast(
-            msg: state.errMessage,
-            toastLength: Toast.LENGTH_SHORT,
-          );
+          MotionToast.error(
+            title: const Text('Error'),
+            description: Text(state.errMessage),
+            animationType: AnimationType.slideInFromTop,
+            toastAlignment: Alignment.topCenter,
+          ).show(context);
           setState(() {});
         } else if (state is ChangeTaskStatusSuccess) {
           BlocProvider.of<GetTasksByDayCubit>(context).getTaskByDay(null);
@@ -46,7 +49,7 @@ class _TaskItemState extends State<TaskItem> {
         }
       },
       child: InkWell(
-        onTap: widget.task.status != 'pending'
+        onTap: widget.task.status != "pending"
             ? null
             : () {
                 GoRouter.of(context).push(
@@ -54,6 +57,7 @@ class _TaskItemState extends State<TaskItem> {
                   extra: (
                     widget.task,
                     BlocProvider.of<GetTasksByDayCubit>(context),
+                    BlocProvider.of<GetTasksByCalendarDayCubit>(context),
                   ),
                 );
               },
@@ -75,7 +79,13 @@ class _TaskItemState extends State<TaskItem> {
                 checkedWidget: widget.task.status != "uncompleted"
                     ? null
                     : const Icon(Icons.close, color: Colors.white),
-                onTap: widget.task.status != "pending" ? null : (p0) {},
+                onTap: widget.task.status != "pending"
+                    ? null
+                    : (p0) {
+                        BlocProvider.of<ChangeTaskStatusCubit>(
+                          context,
+                        ).changeTaskStatus('completed', widget.task.id);
+                      },
                 isChecked: widget.task.status != "pending",
                 border: Border.all(
                   color: Theme.of(context).brightness == Brightness.dark
@@ -85,7 +95,7 @@ class _TaskItemState extends State<TaskItem> {
                 ),
                 size: 30.w,
                 uncheckedColor: Colors.transparent,
-                disabledColor: widget.task.status == 'completed'
+                disabledColor: widget.task.status == "completed"
                     ? Colors.green
                     : Colors.red,
               ),
@@ -112,11 +122,14 @@ class _TaskItemState extends State<TaskItem> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          '${widget.task.utcTime.year}/${widget.task.utcTime.month}/${widget.task.utcTime.day} ${widget.task.utcTime.hour < 10 ? '0${widget.task.utcTime.hour}' : widget.task.utcTime.hour}:${widget.task.utcTime.minute < 10 ? '0${widget.task.utcTime.minute}' : widget.task.utcTime.minute}',
-                          style: Theme.of(context).textTheme.labelMedium,
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            '${widget.task.utcTime.year}/${widget.task.utcTime.month}/${widget.task.utcTime.day} ${widget.task.utcTime.hour < 10 ? '0${widget.task.utcTime.hour}' : widget.task.utcTime.hour}:${widget.task.utcTime.minute < 10 ? '0${widget.task.utcTime.minute}' : widget.task.utcTime.minute}',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         FittedBox(
                           fit: BoxFit.scaleDown,
                           child: TaskItemCategory(

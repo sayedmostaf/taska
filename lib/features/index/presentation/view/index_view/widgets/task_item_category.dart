@@ -34,7 +34,7 @@ class TaskItemCategory extends StatelessWidget {
                   maxLines: 1,
                   style: Theme.of(
                     context,
-                  ).textTheme.labelSmall!.copyWith(color: Colors.white),
+                  ).textTheme.labelMedium!.copyWith(color: Colors.white),
                 ),
               ),
             ),

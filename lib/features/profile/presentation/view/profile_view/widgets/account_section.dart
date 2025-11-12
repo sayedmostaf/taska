@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:taska/core/utils/service_locator.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
@@ -104,14 +105,23 @@ class _AccountSectionState extends State<AccountSection> {
                       } else if (state is ChangeAccountPhotoFailure) {
                         GoRouter.of(context).pop();
                         GoRouter.of(context).pop();
-                        Fluttertoast.showToast(msg: state.errMessage);
+                        MotionToast.error(
+                          title: const Text('Error'),
+                          description: Text(state.errMessage),
+                          animationType: AnimationType.slideInFromTop,
+                          toastAlignment: Alignment.topCenter,
+                        ).show(context);
                       } else if (state is ChangeAccountPhotoSuccess) {
                         GoRouter.of(context).pop();
                         GoRouter.of(context).pop();
-                        Fluttertoast.showToast(
-                          msg: StringsManager.profilePhotoUpdatedSuccessfully
-                              .tr(),
-                        );
+                        MotionToast.success(
+                          title: const Text('Success'),
+                          description: Text(
+                            StringsManager.profilePhotoUpdatedSuccessfully.tr(),
+                          ),
+                          animationType: AnimationType.slideInFromTop,
+                          toastAlignment: Alignment.topCenter,
+                        ).show(context);
                       }
                     },
                     child: Row(
@@ -280,14 +290,23 @@ class _AccountSectionState extends State<AccountSection> {
                           CustomLoadingAnimation.buildLoadingIndicator(context);
                         } else if (state is ChangeAccountPasswordFailure) {
                           GoRouter.of(context).pop();
-                          Fluttertoast.showToast(msg: state.errMessage);
+                          MotionToast.error(
+                            title: const Text('Error'),
+                            description: Text(state.errMessage),
+                            animationType: AnimationType.slideInFromTop,
+                            toastAlignment: Alignment.topCenter,
+                          ).show(context);
                         } else if (state is ChangeAccountPasswordSuccess) {
                           GoRouter.of(context).pop();
                           GoRouter.of(context).pop();
-                          Fluttertoast.showToast(
-                            msg: StringsManager.passwordUpdatedSuccessfully
-                                .tr(),
-                          );
+                          MotionToast.success(
+                            title: const Text('Success'),
+                            description: Text(
+                              StringsManager.passwordUpdatedSuccessfully.tr(),
+                            ),
+                            animationType: AnimationType.slideInFromTop,
+                            toastAlignment: Alignment.topCenter,
+                          ).show(context);
                         }
                       },
                       child: SaveCancelActionButtons(
@@ -406,13 +425,23 @@ class _AccountSectionState extends State<AccountSection> {
                           CustomLoadingAnimation.buildLoadingIndicator(context);
                         } else if (state is ChangeAccountNameFailure) {
                           GoRouter.of(context).pop();
-                          Fluttertoast.showToast(msg: state.errMessage);
+                          MotionToast.error(
+                            title: const Text('Error'),
+                            description: Text(state.errMessage),
+                            animationType: AnimationType.slideInFromTop,
+                            toastAlignment: Alignment.topCenter,
+                          ).show(context);
                         } else if (state is ChangeAccountNameSuccess) {
                           GoRouter.of(context).pop();
                           GoRouter.of(context).pop();
-                          Fluttertoast.showToast(
-                            msg: StringsManager.nameUpdatedSuccessfully.tr(),
-                          );
+                          MotionToast.success(
+                            title: const Text('Success'),
+                            description: Text(
+                              StringsManager.nameUpdatedSuccessfully.tr(),
+                            ),
+                            animationType: AnimationType.slideInFromTop,
+                            toastAlignment: Alignment.topCenter,
+                          ).show(context);
                         }
                       },
                       child: SaveCancelActionButtons(

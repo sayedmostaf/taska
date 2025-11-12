@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_loading_animation.dart';
 import 'package:taska/core/widgets/custom_sliver_sized_box.dart';
@@ -59,7 +60,9 @@ class _CreateCategoryViewBodyState extends State<CreateCategoryViewBody> {
           SliverToBoxAdapter(
             child: CategoryIconSection(
               onChanged: (code) {
-                iconCode = code;
+                setState(() {
+                  iconCode = code;
+                });
               },
             ),
           ),
@@ -78,34 +81,46 @@ class _CreateCategoryViewBodyState extends State<CreateCategoryViewBody> {
                   CustomLoadingAnimation.buildLoadingIndicator(context);
                 } else if (state is CreateCategoryFailure) {
                   GoRouter.of(context).pop();
-                  Fluttertoast.showToast(
-                    msg: state.errMessage,
-                    toastLength: Toast.LENGTH_SHORT,
-                  );
+                  MotionToast.error(
+                    title: const Text('Error'),
+                    description: Text(state.errMessage),
+                    animationType: AnimationType.slideInFromTop,
+                    toastAlignment: Alignment.topCenter,
+                  ).show(context);
                 } else if (state is CreateCategorySuccess) {
                   GoRouter.of(context).pop();
                   GoRouter.of(context).pop();
                   BlocProvider.of<GetCategoriesCubit>(
                     context,
                   ).getAllCategories();
-                  Fluttertoast.showToast(
-                    msg: StringsManager.categoryCreatedSuccessfully.tr(),
-                    toastLength: Toast.LENGTH_SHORT,
-                  );
+                  MotionToast.success(
+                    title: const Text('Success'),
+                    description: Text(
+                      StringsManager.categoryCreatedSuccessfully.tr(),
+                    ),
+                    animationType: AnimationType.slideInFromTop,
+                    toastAlignment: Alignment.topCenter,
+                  ).show(context);
                 }
               },
               child: CreateCategoryActionButtons(
                 onPressed: () {
                   if (iconCode == null) {
-                    Fluttertoast.showToast(
-                      msg: StringsManager.pleaseChooseAnIcon,
-                    );
+                    MotionToast.warning(
+                      title: const Text('Notice'),
+                      description: Text(StringsManager.pleaseChooseAnIcon.tr()),
+                      animationType: AnimationType.slideInFromTop,
+                      toastAlignment: Alignment.topCenter,
+                    ).show(context);
                     return;
                   }
                   if (colorHex == null) {
-                    Fluttertoast.showToast(
-                      msg: StringsManager.pleasePickAColor,
-                    );
+                    MotionToast.warning(
+                      title: const Text('Notice'),
+                      description: Text(StringsManager.pickAColor.tr()),
+                      animationType: AnimationType.slideInFromTop,
+                      toastAlignment: Alignment.topCenter,
+                    ).show(context);
                     return;
                   }
                   if (categoryNameKey.currentState!.validate() &&

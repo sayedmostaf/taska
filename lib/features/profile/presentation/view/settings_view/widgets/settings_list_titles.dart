@@ -44,7 +44,7 @@ class _SettingsListTitlesState extends State<SettingsListTitles> {
               context: context,
               dialogTitle: StringsManager.changeAppColor.tr(),
               options: themes.keys.toList(),
-              groupValue: Theme.of(context).brightness == Brightness.dark
+              groupValue: notifier.value == ThemeMode.dark
                   ? StringsManager.darkMode.tr()
                   : StringsManager.lightMode.tr(),
               onChanged: (value) {

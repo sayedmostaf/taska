@@ -33,6 +33,7 @@ class _DayChoicesButtonsState extends State<DayChoicesButtons> {
               isSelected: isFinished,
               text: StringsManager.completed.tr(),
               onTap: () {
+                widget.isCompleted(true);
                 setState(() {
                   isFinished = !isFinished;
                 });

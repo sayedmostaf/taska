@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/service_locator.dart';
 import 'package:taska/core/utils/strings_manager.dart';
@@ -26,11 +27,19 @@ class DeleteAccountButton extends StatelessWidget {
           CustomLoadingAnimation.buildLoadingIndicator(context);
         } else if (state is DeleteAccountFailure) {
           GoRouter.of(context).pop();
-          Fluttertoast.showToast(msg: state.errMessage);
+          MotionToast.error(
+            title: const Text('Error'),
+            description: Text(state.errMessage),
+            animationType: AnimationType.slideInFromTop,
+            toastAlignment: Alignment.topCenter,
+          ).show(context);
         } else if (state is DeleteAccountSuccess) {
-          Fluttertoast.showToast(
-            msg: StringsManager.accountDeletedSuccessfully.tr(),
-          );
+          MotionToast.success(
+            title: const Text('Success'),
+            description: Text(StringsManager.accountDeletedSuccessfully.tr()),
+            animationType: AnimationType.slideInFromTop,
+            toastAlignment: Alignment.topCenter,
+          ).show(context);
           GoRouter.of(context).go(AppRouter.kAuthView);
         }
       },
@@ -138,11 +147,21 @@ class DeleteAccountButton extends StatelessWidget {
                           CustomLoadingAnimation.buildLoadingIndicator(context);
                         } else if (state is DeleteAccountFailure) {
                           GoRouter.of(context).pop();
-                          Fluttertoast.showToast(msg: state.errMessage);
+                          MotionToast.error(
+                            title: const Text('Error'),
+                            description: Text(state.errMessage),
+                            animationType: AnimationType.slideInFromTop,
+                            toastAlignment: Alignment.topCenter,
+                          ).show(context);
                         } else if (state is DeleteAccountSuccess) {
-                          Fluttertoast.showToast(
-                            msg: StringsManager.accountDeletedSuccessfully.tr(),
-                          );
+                          MotionToast.success(
+                            title: const Text('Success'),
+                            description: Text(
+                              StringsManager.accountDeletedSuccessfully.tr(),
+                            ),
+                            animationType: AnimationType.slideInFromTop,
+                            toastAlignment: Alignment.topCenter,
+                          ).show(context);
                           GoRouter.of(context).go(AppRouter.kAuthView);
                         }
                       },

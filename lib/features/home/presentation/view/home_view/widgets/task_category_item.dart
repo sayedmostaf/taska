@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/functions/blend_colors.dart';
 import 'package:taska/core/utils/functions/extensions.dart';
@@ -38,10 +39,12 @@ class _TaskCategoryItemState extends State<TaskCategoryItem> {
           CustomLoadingAnimation.buildLoadingIndicator(context);
         } else if (state is DeleteCategoryFailure) {
           GoRouter.of(context).pop();
-          Fluttertoast.showToast(
-            msg: state.errMessage,
-            toastLength: Toast.LENGTH_SHORT,
-          );
+          MotionToast.error(
+            title: const Text('Error'),
+            description: Text(state.errMessage),
+            animationType: AnimationType.slideInFromTop,
+            toastAlignment: Alignment.topCenter,
+          ).show(context);
         } else if (state is DeleteCategorySuccess) {
           GoRouter.of(context).pop();
           BlocProvider.of<GetCategoriesCubit>(context).getAllCategories();

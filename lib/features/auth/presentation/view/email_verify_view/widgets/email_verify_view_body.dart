@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_loading_animation.dart';
@@ -55,10 +56,12 @@ class _EmailVerifyViewBodyState extends State<EmailVerifyViewBody> {
                   CustomLoadingAnimation.buildLoadingIndicator(context);
                 } else if (state is SignOutFailure) {
                   GoRouter.of(context).pop();
-                  Fluttertoast.showToast(
-                    msg: state.errMessage,
-                    toastLength: Toast.LENGTH_SHORT,
-                  );
+                  MotionToast.error(
+                    title: const Text('Error'),
+                    description: Text(state.errMessage),
+                    animationType: AnimationType.slideInFromTop,
+                    toastAlignment: Alignment.topCenter,
+                  ).show(context);
                 } else if (state is SignOutSuccess) {
                   GoRouter.of(context).pop();
                   GoRouter.of(context).go(AppRouter.kAuthView);
@@ -90,16 +93,21 @@ class _EmailVerifyViewBodyState extends State<EmailVerifyViewBody> {
                   CustomLoadingAnimation.buildLoadingIndicator(context);
                 } else if (state is VerifyEmailFailure) {
                   GoRouter.of(context).pop();
-                  Fluttertoast.showToast(
-                    msg: state.errMessage,
-                    toastLength: Toast.LENGTH_SHORT,
-                  );
+                  MotionToast.error(
+                    title: const Text('Error'),
+                    description: Text(state.errMessage),
+                    animationType: AnimationType.slideInFromTop,
+                    toastAlignment: Alignment.topCenter,
+                  ).show(context);
                 } else if (state is VerifyEmailSuccess) {
                   GoRouter.of(context).pop();
-                  Fluttertoast.showToast(
-                    msg: StringsManager.verificationEmail.tr(),
-                    toastLength: Toast.LENGTH_SHORT,
-                  );
+
+                  MotionToast.success(
+                    title: const Text('Success'),
+                    description: Text(StringsManager.verificationEmail.tr()),
+                    animationType: AnimationType.slideInFromTop,
+                    toastAlignment: Alignment.topCenter,
+                  ).show(context);
                 }
               },
               child: const SendEmailVerify(),

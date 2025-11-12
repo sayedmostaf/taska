@@ -23,7 +23,7 @@ class CustomDayWidget extends StatelessWidget {
           color: selected
               ? ColorManager.primaryColor
               : Theme.of(context).brightness == Brightness.dark
-              ? ColorManager.disabledColor
+              ? ColorManager.disabledColorDark
               : blendColors(ColorManager.primaryColor, Colors.grey[300]!),
         ),
         child: Column(

@@ -92,6 +92,7 @@ class _MyAppState extends State<MyApp> {
             routerConfig: AppRouter.router,
             theme: ThemeManager.lightThemeData,
             darkTheme: ThemeManager.darkThemeData,
+            themeMode: value,
           );
         },
       ),

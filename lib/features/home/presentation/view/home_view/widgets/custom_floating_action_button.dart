@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
@@ -94,17 +95,23 @@ class _CustomFloatingActionButtonState
                     CustomLoadingAnimation.buildLoadingIndicator(context);
                   } else if (state is CreateTaskFailure) {
                     GoRouter.of(context).pop();
-                    Fluttertoast.showToast(
-                      msg: state.errMessage,
-                      toastLength: Toast.LENGTH_SHORT,
-                    );
+                    MotionToast.error(
+                      title: const Text('Error'),
+                      description: Text(state.errMessage),
+                      animationType: AnimationType.slideInFromTop,
+                      toastAlignment: Alignment.topCenter,
+                    ).show(context);
                   } else if (state is CreateTaskSuccess) {
                     GoRouter.of(context).pop();
                     GoRouter.of(context).pop();
-                    Fluttertoast.showToast(
-                      msg: StringsManager.taskCreatedSuccessfully.tr(),
-                      toastLength: Toast.LENGTH_SHORT,
-                    );
+                    MotionToast.success(
+                      title: const Text('Success'),
+                      description: Text(
+                        StringsManager.taskCreatedSuccessfully.tr(),
+                      ),
+                      animationType: AnimationType.slideInFromTop,
+                      toastAlignment: Alignment.topCenter,
+                    ).show(context);
                     BlocProvider.of<GetTasksByDayCubit>(
                       context,
                     ).getTaskByDay(null);
@@ -116,21 +123,32 @@ class _CustomFloatingActionButtonState
                 child: AddTaskActionButtons(
                   onSend: () {
                     if (time == null) {
-                      Fluttertoast.showToast(
-                        msg: StringsManager.pleasePickATime.tr(),
-                      );
+                      MotionToast.warning(
+                        title: const Text('Notice'),
+                        description: Text(StringsManager.pleasePickATime.tr()),
+                        animationType: AnimationType.slideInFromTop,
+                        toastAlignment: Alignment.topCenter,
+                      ).show(context);
                       return;
                     }
                     if (categoryEntity == null) {
-                      Fluttertoast.showToast(
-                        msg: StringsManager.pleasePickACategory.tr(),
-                      );
+                      MotionToast.warning(
+                        title: const Text('Notice'),
+                        description: Text(StringsManager.pleasePickACategory),
+                        animationType: AnimationType.slideInFromTop,
+                        toastAlignment: Alignment.topCenter,
+                      ).show(context);
                       return;
                     }
                     if (priority == null) {
-                      Fluttertoast.showToast(
-                        msg: StringsManager.pleaseSelectAPriorityLevel.tr(),
-                      );
+                      MotionToast.warning(
+                        title: const Text('Notice'),
+                        description: Text(
+                          StringsManager.pleaseSelectAPriorityLevel.tr(),
+                        ),
+                        animationType: AnimationType.slideInFromTop,
+                        toastAlignment: Alignment.topCenter,
+                      ).show(context);
                       return;
                     }
                     if (formKey.currentState!.validate()) {

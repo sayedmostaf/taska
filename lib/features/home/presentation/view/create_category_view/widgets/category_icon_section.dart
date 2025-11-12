@@ -23,15 +23,14 @@ class _CategoryIconSectionState extends State<CategoryIconSection> {
         iconPackModes: [IconPack.material],
       ),
     );
-    if (icon != null) {
-      widget.onChanged(icon!.codePoint);
-    }
 
     if (pickedIcon == null) return;
 
     setState(() {
       icon = pickedIcon.data;
     });
+
+    widget.onChanged(icon!.codePoint);
   }
 
   @override

@@ -57,6 +57,7 @@ dependencies:
   intl: ^0.20.2
   lottie: ^3.3.2
   month_picker_dialog: ^6.5.0
+  motion_toast: ^2.14.0
   roundcheckbox: ^2.0.5
   shared_preferences: ^2.5.3
   smooth_page_indicator: ^1.2.1

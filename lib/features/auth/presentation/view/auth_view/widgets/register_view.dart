@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_loading_animation.dart';
 import 'package:taska/features/auth/domain/entities/user.dart';
@@ -53,16 +54,22 @@ class _RegisterViewState extends State<RegisterView> {
               CustomLoadingAnimation.buildLoadingIndicator(context);
             } else if (state is RegisterUserWithEmailAndPasswordFailure) {
               GoRouter.of(context).pop();
-              Fluttertoast.showToast(
-                msg: state.errMessage,
-                toastLength: Toast.LENGTH_SHORT,
-              );
+              MotionToast.error(
+                title: const Text('Error'),
+                description: Text(state.errMessage),
+                animationType: AnimationType.slideInFromTop,
+                toastAlignment: Alignment.topCenter,
+              ).show(context);
             } else if (state is RegisterUserWithEmailAndPasswordSuccess) {
               GoRouter.of(context).pop();
-              Fluttertoast.showToast(
-                msg: StringsManager.userRegisteredSuccessfully.tr(),
-                toastLength: Toast.LENGTH_SHORT,
-              );
+              MotionToast.success(
+                title: const Text('Success'),
+                description: Text(
+                  StringsManager.userRegisteredSuccessfully.tr(),
+                ),
+                animationType: AnimationType.slideInFromTop,
+                toastAlignment: Alignment.topCenter,
+              ).show(context);
             }
           },
           child: ElevatedButton(

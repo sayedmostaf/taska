@@ -25,7 +25,7 @@ class TaskPriorityItem extends StatelessWidget {
           color: selected
               ? ColorManager.primaryColor
               : Theme.of(context).brightness == Brightness.dark
-              ? ColorManager.disabledColor
+              ? ColorManager.disabledColorDark
               : Colors.grey[100],
           borderRadius: BorderRadius.circular(5),
         ),

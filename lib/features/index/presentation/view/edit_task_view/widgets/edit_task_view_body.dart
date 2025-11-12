@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_loading_animation.dart';
 import 'package:taska/core/widgets/custom_sliver_sized_box.dart';
@@ -112,15 +113,21 @@ class _EditTaskViewBodyState extends State<EditTaskViewBody> {
                   CustomLoadingAnimation.buildLoadingIndicator(context);
                 } else if (state is DeleteTaskFailure) {
                   GoRouter.of(context).pop();
-                  Fluttertoast.showToast(
-                    msg: state.errMessage,
-                    toastLength: Toast.LENGTH_SHORT,
-                  );
+                  MotionToast.error(
+                    title: const Text('Error'),
+                    description: Text(state.errMessage),
+                    animationType: AnimationType.slideInFromTop,
+                    toastAlignment: Alignment.topCenter,
+                  ).show(context);
                 } else if (state is DeleteTaskSuccess) {
-                  Fluttertoast.showToast(
-                    msg: StringsManager.taskDeletedSuccessfully.tr(),
-                    toastLength: Toast.LENGTH_SHORT,
-                  );
+                  MotionToast.success(
+                    title: const Text('Success'),
+                    description: Text(
+                      StringsManager.taskDeletedSuccessfully.tr(),
+                    ),
+                    animationType: AnimationType.slideInFromTop,
+                    toastAlignment: Alignment.topCenter,
+                  ).show(context);
                   BlocProvider.of<GetTasksByDayCubit>(
                     context,
                   ).getTaskByDay(null);
@@ -148,15 +155,21 @@ class _EditTaskViewBodyState extends State<EditTaskViewBody> {
                   CustomLoadingAnimation.buildLoadingIndicator(context);
                 } else if (state is EditTaskFailure) {
                   GoRouter.of(context).pop();
-                  Fluttertoast.showToast(
-                    msg: state.errMessage,
-                    toastLength: Toast.LENGTH_SHORT,
-                  );
+                  MotionToast.error(
+                    title: const Text('Error'),
+                    description: Text(state.errMessage),
+                    animationType: AnimationType.slideInFromTop,
+                    toastAlignment: Alignment.topCenter,
+                  ).show(context);
                 } else if (state is EditTaskSuccess) {
-                  Fluttertoast.showToast(
-                    msg: StringsManager.taskEditedSuccessfully.tr(),
-                    toastLength: Toast.LENGTH_SHORT,
-                  );
+                  MotionToast.success(
+                    title: const Text('Success'),
+                    description: Text(
+                      StringsManager.taskEditedSuccessfully.tr(),
+                    ),
+                    animationType: AnimationType.slideInFromTop,
+                    toastAlignment: Alignment.topCenter,
+                  ).show(context);
                   BlocProvider.of<GetTasksByDayCubit>(
                     context,
                   ).getTaskByDay(null);

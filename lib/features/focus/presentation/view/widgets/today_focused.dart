@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/features/focus/presentation/manager/get_focused_time_cubit/get_focused_time_cubit.dart';
 import 'package:taska/features/focus/presentation/manager/get_focused_time_cubit/get_focused_time_state.dart';
@@ -18,7 +19,12 @@ class TodayFocused extends StatelessWidget {
         BlocConsumer<GetFocusedTimeCubit, GetFocusedTimeState>(
           listener: (context, state) {
             if (state is GetFocusedTimeFailure) {
-              Fluttertoast.showToast(msg: state.errMessage);
+              MotionToast.error(
+                title: const Text('Error'),
+                description: Text(state.errMessage),
+                animationType: AnimationType.slideInFromTop,
+                toastAlignment: Alignment.topCenter,
+              ).show(context);
             }
           },
           builder: (context, state) {

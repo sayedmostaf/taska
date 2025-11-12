@@ -47,7 +47,7 @@ class _AddCategoryButtonState extends State<AddCategoryButton> {
           child: FittedBox(
             child: Text(
               StringsManager.createNew.tr(),
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme.of(context).textTheme.displaySmall,
             ),
           ),
         ),

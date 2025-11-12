@@ -104,13 +104,14 @@ class _TaskCategoryItemState extends State<TaskCategoryItem> {
               ),
             ],
           ),
+          SizedBox(width: 10.w),
           Flexible(
             child: FittedBox(
               fit: BoxFit.fitWidth,
               child: Text(
                 widget.category.name,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.titleSmall,
+                style: Theme.of(context).textTheme.displaySmall,
               ),
             ),
           ),

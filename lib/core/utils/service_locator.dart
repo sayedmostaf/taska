@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart'; // Firestore database
 import 'package:firebase_auth/firebase_auth.dart'; // Firebase Authentication
 import 'package:get_it/get_it.dart'; // Dependency injection
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 // Auth feature
 import 'package:taska/features/auth/data/repos/auth_repo_impl.dart';
@@ -176,6 +177,7 @@ void setupLocator() {
   getIt.registerSingleton<GetAppsUsageListUseCase>(
     GetAppsUsageListUseCase(focusRepo: getIt.get<FocusRepo>()),
   );
+  getIt.registerSingleton<SupabaseClient>(Supabase.instance.client);
 
   // Profile DI
   getIt.registerSingleton<ProfileLocalDataSource>(ProfileLocalDataSourceImpl());
@@ -183,6 +185,7 @@ void setupLocator() {
     ProfileRemoteDataSourceImpl(
       firebaseAuth: getIt.get<FirebaseAuth>(),
       getIt.get<FirebaseFirestore>(),
+      getIt.get<SupabaseClient>(),
     ),
   );
   getIt.registerSingleton<ProfileRepo>(

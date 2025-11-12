@@ -2,16 +2,28 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:taska/features/profile/data/datasources/profile_remote_data_source/profile_remote_data_source.dart';
 
 class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
   final FirebaseAuth firebaseAuth;
   final FirebaseFirestore firestore;
-  ProfileRemoteDataSourceImpl(this.firestore, {required this.firebaseAuth});
+  final SupabaseClient supabase;
+  ProfileRemoteDataSourceImpl(
+    this.firestore,
+    this.supabase, {
+    required this.firebaseAuth,
+  });
   @override
-  Future<void> changeAccountImage(File image) {
-    // TODO: implement changeAccountImage
-    throw UnimplementedError();
+  Future<void> changeAccountImage(File image) async {
+    final uid = firebaseAuth.currentUser!.uid;
+    final fileName =
+        'users/$uid/profile_${DateTime.now().millisecondsSinceEpoch}.png';
+    await supabase.storage.from('images').update(fileName, image);
+    final imageUrl = supabase.storage.from('images').getPublicUrl(fileName);
+
+    await firebaseAuth.currentUser!.updatePhotoURL(imageUrl);
+    await firebaseAuth.currentUser!.reload();
   }
 
   @override

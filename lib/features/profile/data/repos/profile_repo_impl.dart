@@ -19,9 +19,13 @@ class ProfileRepoImpl extends ProfileRepo {
     required this.profileRemoteDataSource,
   });
   @override
-  Future<Either<Failure, void>> changeAccountImage(File image) {
-    // TODO: implement changeAccountImage
-    throw UnimplementedError();
+  Future<Either<Failure, void>> changeAccountImage(File image) async {
+    try {
+      await profileRemoteDataSource.changeAccountImage(image);
+      return right(null);
+    } catch (e) {
+      return left(Failure(message: StringsManager.operationNotAllowed.tr()));
+    }
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:taska/core/cache/cache_helper.dart';
 import 'package:taska/core/cache/cache_keys_values.dart';
 import 'package:taska/core/database/database.dart';
@@ -27,6 +28,11 @@ void main() async {
     CacheData.cacheIntialization(),
     EasyLocalization.ensureInitialized(),
     Hive.initFlutter(),
+    Supabase.initialize(
+      url: 'https://xdqqqepegpfszivwokap.supabase.co',
+      anonKey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkcXFxZXBlZ3Bmc3ppdndva2FwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI5NzY1MjIsImV4cCI6MjA3ODU1MjUyMn0.tyxt0pt9Yq-lkDuMoZCGCSJkkAYvt9dVqTPMdtT9X38',
+    ),
   ]);
   await setupDatabase();
   setupLocator();

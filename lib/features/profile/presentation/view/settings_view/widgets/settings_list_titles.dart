@@ -7,6 +7,7 @@ import 'package:taska/core/cache/cache_keys_values.dart';
 import 'package:taska/core/utils/app_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
+import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/features/profile/presentation/view/profile_view/widgets/custom_list_tile.dart';
 import 'package:taska/main.dart';
 
@@ -101,32 +102,100 @@ class _SettingsListTitlesState extends State<SettingsListTitles> {
   }) {
     showDialog(
       context: context,
+      barrierColor: Colors.black54,
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (context, setState) {
-            return AlertDialog(
-              title: Text(
-                dialogTitle,
-                style: Theme.of(context).textTheme.titleMedium,
+            final isDark = Theme.of(context).brightness == Brightness.dark;
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.r),
               ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: options.map((option) {
-                  return RadioListTile(
-                    title: Text(
-                      option,
-                      style: Theme.of(context).textTheme.bodySmall,
+              elevation: 8,
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.9,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Header
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 18.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isDark
+                            ? ColorManager.surfaceColorDark
+                            : ColorManager.surfaceColorLight,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.r),
+                          topRight: Radius.circular(20.r),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(8.w),
+                            decoration: BoxDecoration(
+                              color: ColorManager.primaryColor.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            child: Icon(
+                              dialogTitle == StringsManager.changeAppColor.tr()
+                                  ? CustomIcons.change_theme_icon
+                                  : CustomIcons.language_icon,
+                              color: ColorManager.primaryColor,
+                              size: 24.sp,
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            child: Text(
+                              dialogTitle,
+                              style: Theme.of(context).textTheme.headlineMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0.5,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    value: option,
-                    groupValue: groupValue,
-                    onChanged: (value) {
-                      setState(() {
-                        onChanged(value!);
-                        Navigator.of(context).pop();
-                      });
-                    },
-                  );
-                }).toList(),
+                    Divider(height: 1, thickness: 1),
+                    // Content
+                    Flexible(
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.symmetric(vertical: 8.h),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: options.map((option) {
+                            return RadioListTile(
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 20.w,
+                              ),
+                              title: Text(
+                                option,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              value: option,
+                              groupValue: groupValue,
+                              activeColor: ColorManager.primaryColor,
+                              onChanged: (value) {
+                                setState(() {
+                                  onChanged(value!);
+                                  Navigator.of(context).pop();
+                                });
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },

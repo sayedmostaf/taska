@@ -15,7 +15,7 @@
     <application
         android:label="taska"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
          <receiver android:name="me.carda.awesome_notifications.ScheduledNotificationReceiver" android:exported="true" />
               <receiver android:name="me.carda.awesome_notifications.ScheduledNotificationBootReceiver" android:exported="true">
                     <intent-filter>

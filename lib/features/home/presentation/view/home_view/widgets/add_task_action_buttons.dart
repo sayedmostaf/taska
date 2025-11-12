@@ -131,48 +131,107 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
   void buildChooseCategoryDialog(BuildContext context) async {
     await showDialog(
       context: context,
+      barrierColor: Colors.black54,
       builder: (context) {
         return BlocProvider(
           create: (context) =>
               GetCategoriesCubit(getIt.get<GetAllCategoriesUseCase>())
                 ..getAllCategories(),
           child: Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            elevation: 8,
             child: StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) =>
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 10.h,
-                    ),
-                    child: IntrinsicHeight(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            StringsManager.chooseCategory.tr(),
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
-                          SizedBox(height: 5.h),
-                          const Divider(),
-                          SizedBox(height: 5.h),
-                          _buildChooseCategoryGridView(setState),
-                          SizedBox(height: 16.h),
-                          SaveCancelActionButtons(
-                            cancelOnPressed: () {
-                              selectedCategoryIndex = null;
-                              categoryEntity = null;
-                              widget.onSelectCategory(null);
-                              GoRouter.of(context).pop();
-                            },
-                            saveOnPressed: () {
-                              widget.onSelectCategory(categoryEntity);
-                              GoRouter.of(context).pop();
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
+              builder: (BuildContext context, StateSetter setState) {
+                final isDark = Theme.of(context).brightness == Brightness.dark;
+                return Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.9,
+                    maxHeight: MediaQuery.of(context).size.height * 0.7,
                   ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Header
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20.w,
+                          vertical: 18.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: isDark
+                              ? ColorManager.surfaceColorDark
+                              : ColorManager.surfaceColorLight,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20.r),
+                            topRight: Radius.circular(20.r),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(8.w),
+                              decoration: BoxDecoration(
+                                color: ColorManager.primaryColor.withOpacity(
+                                  0.1,
+                                ),
+                                borderRadius: BorderRadius.circular(10.r),
+                              ),
+                              child: Icon(
+                                CustomIcons.tag_icon,
+                                color: ColorManager.primaryColor,
+                                size: 24.sp,
+                              ),
+                            ),
+                            SizedBox(width: 12.w),
+                            Expanded(
+                              child: Text(
+                                StringsManager.chooseCategory.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 0.5,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Divider(height: 1, thickness: 1),
+                      // Content
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.all(20.w),
+                          child: _buildChooseCategoryGridView(setState),
+                        ),
+                      ),
+                      // Actions
+                      Divider(height: 1, thickness: 1),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20.w,
+                          vertical: 16.h,
+                        ),
+                        child: SaveCancelActionButtons(
+                          cancelOnPressed: () {
+                            selectedCategoryIndex = null;
+                            categoryEntity = null;
+                            widget.onSelectCategory(null);
+                            GoRouter.of(context).pop();
+                          },
+                          saveOnPressed: () {
+                            widget.onSelectCategory(categoryEntity);
+                            GoRouter.of(context).pop();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         );
@@ -183,7 +242,7 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
 
   Widget _buildChooseCategoryGridView(StateSetter setState) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height * 0.35,
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -263,36 +322,94 @@ class _AddTaskActionButtonsState extends State<AddTaskActionButtons> {
   void _buildTaskPriorityDialog(BuildContext context) async {
     await showDialog(
       context: context,
+      barrierColor: Colors.black54,
       builder: (BuildContext context) {
         return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
+          ),
+          elevation: 8,
           child: StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) => Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    StringsManager.taskPriority.tr(),
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  SizedBox(height: 5.h),
-                  const Divider(),
-                  SizedBox(height: 5.h),
-                  _buildTaskPriorityGridView(setState),
-                  SizedBox(height: 16.h),
-                  SaveCancelActionButtons(
-                    cancelOnPressed: () {
-                      selectedTaskPriority = null;
-                      widget.onSelectPriority(null);
-                      GoRouter.of(context).pop();
-                    },
-                    saveOnPressed: () {
-                      GoRouter.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-            ),
+            builder: (BuildContext context, StateSetter setState) {
+              final isDark = Theme.of(context).brightness == Brightness.dark;
+              return Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.9,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Header
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 18.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isDark
+                            ? ColorManager.surfaceColorDark
+                            : ColorManager.surfaceColorLight,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.r),
+                          topRight: Radius.circular(20.r),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(8.w),
+                            decoration: BoxDecoration(
+                              color: ColorManager.primaryColor.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            child: Icon(
+                              CustomIcons.flag_icon,
+                              color: ColorManager.primaryColor,
+                              size: 24.sp,
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            child: Text(
+                              StringsManager.taskPriority.tr(),
+                              style: Theme.of(context).textTheme.headlineMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0.5,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(height: 1, thickness: 1),
+                    // Content
+                    Padding(
+                      padding: EdgeInsets.all(20.w),
+                      child: _buildTaskPriorityGridView(setState),
+                    ),
+                    // Actions
+                    Divider(height: 1, thickness: 1),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 16.h,
+                      ),
+                      child: SaveCancelActionButtons(
+                        cancelOnPressed: () {
+                          selectedTaskPriority = null;
+                          widget.onSelectPriority(null);
+                          GoRouter.of(context).pop();
+                        },
+                        saveOnPressed: () {
+                          GoRouter.of(context).pop();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         );
       },

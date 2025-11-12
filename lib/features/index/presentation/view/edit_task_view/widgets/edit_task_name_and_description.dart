@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/core/widgets/save_cancel_action_buttons.dart';
+import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/features/home/domain/entities/task.dart';
 import 'package:taska/features/home/presentation/view/home_view/widgets/add_task_form.dart';
 
@@ -75,50 +76,110 @@ class _EditTaskNameAndDescriptionState
   void _buildEditTaskTitleAndDescriptionDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => Dialog(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                StringsManager.editTitleAndDescription.tr(),
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              SizedBox(height: 5.h),
-              Divider(),
-              SizedBox(height: 5.h),
-              AddTaskForm(
-                formKey: formKey,
-                initialName: name,
-                initialDescription: description,
-                onSavedTaskDescription: (p0) {
-                  setState(() {
-                    description = p0;
-                  });
-                  widget.onSavedTaskDescription(p0);
-                },
-                onSavedTaskTitle: (p0) {
-                  setState(() {
-                    name = p0;
-                  });
-                  widget.onSavedTaskTitle(p0);
-                },
-              ),
-              SizedBox(height: 10.h),
-              SaveCancelActionButtons(
-                cancelOnPressed: () => GoRouter.of(context).pop(context),
-                saveOnPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    GoRouter.of(context).pop();
-                  }
-                },
-              ),
-            ],
+      barrierColor: Colors.black54,
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
           ),
-        ),
-      ),
+          elevation: 8,
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width * 0.9,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Header
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 18.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? ColorManager.surfaceColorDark
+                        : ColorManager.surfaceColorLight,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.r),
+                      topRight: Radius.circular(20.r),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(8.w),
+                        decoration: BoxDecoration(
+                          color: ColorManager.primaryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
+                        child: Icon(
+                          CustomIcons.edit_icon,
+                          color: ColorManager.primaryColor,
+                          size: 24.sp,
+                        ),
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: Text(
+                          StringsManager.editTitleAndDescription.tr(),
+                          style: Theme.of(context).textTheme.headlineMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.5,
+                              ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(height: 1, thickness: 1),
+                // Content
+                Flexible(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.all(20.w),
+                    child: AddTaskForm(
+                      formKey: formKey,
+                      initialName: name,
+                      initialDescription: description,
+                      onSavedTaskDescription: (p0) {
+                        setState(() {
+                          description = p0;
+                        });
+                        widget.onSavedTaskDescription(p0);
+                      },
+                      onSavedTaskTitle: (p0) {
+                        setState(() {
+                          name = p0;
+                        });
+                        widget.onSavedTaskTitle(p0);
+                      },
+                    ),
+                  ),
+                ),
+                // Actions
+                Divider(height: 1, thickness: 1),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 16.h,
+                  ),
+                  child: SaveCancelActionButtons(
+                    cancelOnPressed: () => GoRouter.of(context).pop(context),
+                    saveOnPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        GoRouter.of(context).pop();
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

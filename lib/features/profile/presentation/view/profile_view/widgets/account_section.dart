@@ -12,6 +12,7 @@ import 'package:taska/core/utils/strings_manager.dart';
 import 'package:taska/core/widgets/custom_icons/custom_icons_icons.dart';
 import 'package:taska/core/widgets/custom_loading_animation.dart';
 import 'package:taska/core/widgets/save_cancel_action_buttons.dart';
+import 'package:taska/core/utils/color_manager.dart';
 import 'package:taska/features/profile/domain/usecases/change_account_name_usecase.dart';
 import 'package:taska/features/profile/domain/usecases/change_account_password_usecase.dart';
 import 'package:taska/features/profile/domain/usecases/change_account_photo_usecase.dart';
@@ -178,153 +179,227 @@ class _AccountSectionState extends State<AccountSection> {
     bool newPasswordObsecured = true;
     showDialog(
       context: context,
+      barrierColor: Colors.black54,
       builder: (context) => BlocProvider(
         create: (context) => ChangeAccountPasswordCubit(
           getIt.get<ChangeAccountPasswordUseCase>(),
         ),
         child: Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
+          ),
+          elevation: 8,
           child: StatefulBuilder(
             builder: (context, setState) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+              final isDark = Theme.of(context).brightness == Brightness.dark;
+              return Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.9,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      StringsManager.changeAccountPassword.tr(),
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    SizedBox(height: 5.h),
-                    const Divider(),
-                    SizedBox(height: 5.h),
-                    TextFormField(
-                      key: oldPasswordKey,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              oldPasswordObsecured = !oldPasswordObsecured;
-                            });
-                          },
-                          icon: Icon(
-                            oldPasswordObsecured
-                                ? Icons.visibility_off
-                                : Icons.remove_red_eye,
-                            size: 24.sp,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.all(15),
-                        label: Text(
-                          StringsManager.oldPassword.tr(),
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                        hintText: StringsManager.oldPassword.tr(),
+                    // Header
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 18.h,
                       ),
-                      obscureText: oldPasswordObsecured,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return StringsManager.passwordValidation.tr();
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        oldPassword = value;
-                      },
-                      onSaved: (value) {
-                        oldPassword = value!;
-                      },
-                    ),
-                    SizedBox(height: 5.h),
-                    TextFormField(
-                      key: newPasswordKey,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              newPasswordObsecured = !newPasswordObsecured;
-                            });
-                          },
-                          icon: Icon(
-                            newPasswordObsecured
-                                ? Icons.visibility_off
-                                : Icons.remove_red_eye,
-                            size: 24.sp,
-                          ),
+                      decoration: BoxDecoration(
+                        color: isDark
+                            ? ColorManager.surfaceColorDark
+                            : ColorManager.surfaceColorLight,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.r),
+                          topRight: Radius.circular(20.r),
                         ),
-                        contentPadding: const EdgeInsets.all(15),
-                        label: Text(
-                          StringsManager.newPassword.tr(),
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                        hintText: StringsManager.newPassword.tr(),
                       ),
-                      obscureText: newPasswordObsecured,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return StringsManager.passwordValidation.tr();
-                        }
-                        if (value == oldPassword) {
-                          return StringsManager.oldNewPassword.tr();
-                        }
-                        String validationMessage = _validatePassword(value);
-                        if (validationMessage.isNotEmpty) {
-                          return validationMessage;
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        newPassword = value!;
-                      },
-                    ),
-                    SizedBox(height: 16.h),
-                    BlocListener<
-                      ChangeAccountPasswordCubit,
-                      ChangeAccountPasswordState
-                    >(
-                      listener: (context, state) {
-                        if (state is ChangeAccountPasswordLoading) {
-                          CustomLoadingAnimation.buildLoadingIndicator(context);
-                        } else if (state is ChangeAccountPasswordFailure) {
-                          GoRouter.of(context).pop();
-                          MotionToast.error(
-                            title: const Text('Error'),
-                            description: Text(state.errMessage),
-                            animationType: AnimationType.slideInFromTop,
-                            toastAlignment: Alignment.topCenter,
-                          ).show(context);
-                        } else if (state is ChangeAccountPasswordSuccess) {
-                          GoRouter.of(context).pop();
-                          GoRouter.of(context).pop();
-                          MotionToast.success(
-                            title: const Text('Success'),
-                            description: Text(
-                              StringsManager.passwordUpdatedSuccessfully.tr(),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(8.w),
+                            decoration: BoxDecoration(
+                              color: ColorManager.primaryColor.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
-                            animationType: AnimationType.slideInFromTop,
-                            toastAlignment: Alignment.topCenter,
-                          ).show(context);
-                        }
-                      },
-                      child: SaveCancelActionButtons(
-                        cancelOnPressed: () {
-                          GoRouter.of(context).pop();
-                        },
-                        saveOnPressed: () {
-                          if (oldPasswordKey.currentState!.validate()) {
-                            oldPasswordKey.currentState!.save();
-                            if (newPasswordKey.currentState!.validate()) {
-                              newPasswordKey.currentState!.save();
-                              BlocProvider.of<ChangeAccountPasswordCubit>(
-                                context,
-                              ).changeAccountPassword(oldPassword, newPassword);
-                            }
-                          }
-                        },
+                            child: Icon(
+                              Icons.lock_outline,
+                              color: ColorManager.primaryColor,
+                              size: 24.sp,
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            child: Text(
+                              StringsManager.changeAccountPassword.tr(),
+                              style: Theme.of(context).textTheme.headlineMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0.5,
+                                  ),
+                            ),
+                          ),
+                        ],
                       ),
+                    ),
+                    Divider(height: 1, thickness: 1),
+                    // Content
+                    Padding(
+                      padding: EdgeInsets.all(20.w),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextFormField(
+                            key: oldPasswordKey,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    oldPasswordObsecured =
+                                        !oldPasswordObsecured;
+                                  });
+                                },
+                                icon: Icon(
+                                  oldPasswordObsecured
+                                      ? Icons.visibility_off
+                                      : Icons.remove_red_eye,
+                                  size: 24.sp,
+                                ),
+                              ),
+                              contentPadding: const EdgeInsets.all(15),
+                              label: Text(
+                                StringsManager.oldPassword.tr(),
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                              hintText: StringsManager.oldPassword.tr(),
+                            ),
+                            obscureText: oldPasswordObsecured,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return StringsManager.passwordValidation.tr();
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              oldPassword = value;
+                            },
+                            onSaved: (value) {
+                              oldPassword = value!;
+                            },
+                          ),
+                          SizedBox(height: 16.h),
+                          TextFormField(
+                            key: newPasswordKey,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    newPasswordObsecured =
+                                        !newPasswordObsecured;
+                                  });
+                                },
+                                icon: Icon(
+                                  newPasswordObsecured
+                                      ? Icons.visibility_off
+                                      : Icons.remove_red_eye,
+                                  size: 24.sp,
+                                ),
+                              ),
+                              contentPadding: const EdgeInsets.all(15),
+                              label: Text(
+                                StringsManager.newPassword.tr(),
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                              hintText: StringsManager.newPassword.tr(),
+                            ),
+                            obscureText: newPasswordObsecured,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return StringsManager.passwordValidation.tr();
+                              }
+                              if (value == oldPassword) {
+                                return StringsManager.oldNewPassword.tr();
+                              }
+                              String validationMessage = _validatePassword(
+                                value,
+                              );
+                              if (validationMessage.isNotEmpty) {
+                                return validationMessage;
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              newPassword = value!;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Actions
+                    Divider(height: 1, thickness: 1),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 16.h,
+                      ),
+                      child:
+                          BlocListener<
+                            ChangeAccountPasswordCubit,
+                            ChangeAccountPasswordState
+                          >(
+                            listener: (context, state) {
+                              if (state is ChangeAccountPasswordLoading) {
+                                CustomLoadingAnimation.buildLoadingIndicator(
+                                  context,
+                                );
+                              } else if (state
+                                  is ChangeAccountPasswordFailure) {
+                                GoRouter.of(context).pop();
+                                MotionToast.error(
+                                  title: const Text('Error'),
+                                  description: Text(state.errMessage),
+                                  animationType: AnimationType.slideInFromTop,
+                                  toastAlignment: Alignment.topCenter,
+                                ).show(context);
+                              } else if (state
+                                  is ChangeAccountPasswordSuccess) {
+                                GoRouter.of(context).pop();
+                                GoRouter.of(context).pop();
+                                MotionToast.success(
+                                  title: const Text('Success'),
+                                  description: Text(
+                                    StringsManager.passwordUpdatedSuccessfully
+                                        .tr(),
+                                  ),
+                                  animationType: AnimationType.slideInFromTop,
+                                  toastAlignment: Alignment.topCenter,
+                                ).show(context);
+                              }
+                            },
+                            child: SaveCancelActionButtons(
+                              cancelOnPressed: () {
+                                GoRouter.of(context).pop();
+                              },
+                              saveOnPressed: () {
+                                if (oldPasswordKey.currentState!.validate()) {
+                                  oldPasswordKey.currentState!.save();
+                                  if (newPasswordKey.currentState!.validate()) {
+                                    newPasswordKey.currentState!.save();
+                                    BlocProvider.of<ChangeAccountPasswordCubit>(
+                                      context,
+                                    ).changeAccountPassword(
+                                      oldPassword,
+                                      newPassword,
+                                    );
+                                  }
+                                }
+                              },
+                            ),
+                          ),
                     ),
                   ],
                 ),
@@ -373,87 +448,151 @@ class _AccountSectionState extends State<AccountSection> {
 
     await showDialog(
       context: context,
+      barrierColor: Colors.black54,
       builder: (context) => BlocProvider(
         create: (context) =>
             ChangeAccountNameCubit(getIt.get<ChangeAccountNameUseCase>()),
         child: Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
+          ),
+          elevation: 8,
           child: StatefulBuilder(
             builder: (context, setState) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+              final isDark = Theme.of(context).brightness == Brightness.dark;
+              return Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.9,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      StringsManager.changeAccountName.tr(),
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    SizedBox(height: 5.h),
-                    const Divider(),
-                    SizedBox(height: 5.h),
-                    TextFormField(
-                      key: changeNameKey,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(15),
-                        label: Text(
-                          StringsManager.accountName.tr(),
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.labelMedium,
+                    // Header
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 18.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isDark
+                            ? ColorManager.surfaceColorDark
+                            : ColorManager.surfaceColorLight,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.r),
+                          topRight: Radius.circular(20.r),
                         ),
-                        hintText: StringsManager.accountName.tr(),
                       ),
-                      validator: (value) {
-                        if (value == null || value.length < 3) {
-                          return StringsManager.nameValidation.tr();
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        BlocProvider.of<ChangeAccountNameCubit>(
-                          context,
-                        ).changeAccountName(value!);
-                      },
-                    ),
-                    SizedBox(height: 16.h),
-                    BlocListener<
-                      ChangeAccountNameCubit,
-                      ChangeAccountNameState
-                    >(
-                      listener: (context, state) {
-                        if (state is ChangeAccountNameLoading) {
-                          CustomLoadingAnimation.buildLoadingIndicator(context);
-                        } else if (state is ChangeAccountNameFailure) {
-                          GoRouter.of(context).pop();
-                          MotionToast.error(
-                            title: const Text('Error'),
-                            description: Text(state.errMessage),
-                            animationType: AnimationType.slideInFromTop,
-                            toastAlignment: Alignment.topCenter,
-                          ).show(context);
-                        } else if (state is ChangeAccountNameSuccess) {
-                          GoRouter.of(context).pop();
-                          GoRouter.of(context).pop();
-                          MotionToast.success(
-                            title: const Text('Success'),
-                            description: Text(
-                              StringsManager.nameUpdatedSuccessfully.tr(),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(8.w),
+                            decoration: BoxDecoration(
+                              color: ColorManager.primaryColor.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
-                            animationType: AnimationType.slideInFromTop,
-                            toastAlignment: Alignment.topCenter,
-                          ).show(context);
-                        }
-                      },
-                      child: SaveCancelActionButtons(
-                        cancelOnPressed: () {
-                          GoRouter.of(context).pop();
-                        },
-                        saveOnPressed: () {
-                          if (changeNameKey.currentState!.validate()) {
-                            changeNameKey.currentState!.save();
-                          }
-                        },
+                            child: Icon(
+                              Icons.person_outline,
+                              color: ColorManager.primaryColor,
+                              size: 24.sp,
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            child: Text(
+                              StringsManager.changeAccountName.tr(),
+                              style: Theme.of(context).textTheme.headlineMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0.5,
+                                  ),
+                            ),
+                          ),
+                        ],
                       ),
+                    ),
+                    Divider(height: 1, thickness: 1),
+                    // Content
+                    Padding(
+                      padding: EdgeInsets.all(20.w),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextFormField(
+                            key: changeNameKey,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(15),
+                              label: Text(
+                                StringsManager.accountName.tr(),
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                              hintText: StringsManager.accountName.tr(),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.length < 3) {
+                                return StringsManager.nameValidation.tr();
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              BlocProvider.of<ChangeAccountNameCubit>(
+                                context,
+                              ).changeAccountName(value!);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Actions
+                    Divider(height: 1, thickness: 1),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 16.h,
+                      ),
+                      child:
+                          BlocListener<
+                            ChangeAccountNameCubit,
+                            ChangeAccountNameState
+                          >(
+                            listener: (context, state) {
+                              if (state is ChangeAccountNameLoading) {
+                                CustomLoadingAnimation.buildLoadingIndicator(
+                                  context,
+                                );
+                              } else if (state is ChangeAccountNameFailure) {
+                                GoRouter.of(context).pop();
+                                MotionToast.error(
+                                  title: const Text('Error'),
+                                  description: Text(state.errMessage),
+                                  animationType: AnimationType.slideInFromTop,
+                                  toastAlignment: Alignment.topCenter,
+                                ).show(context);
+                              } else if (state is ChangeAccountNameSuccess) {
+                                GoRouter.of(context).pop();
+                                GoRouter.of(context).pop();
+                                MotionToast.success(
+                                  title: const Text('Success'),
+                                  description: Text(
+                                    StringsManager.nameUpdatedSuccessfully.tr(),
+                                  ),
+                                  animationType: AnimationType.slideInFromTop,
+                                  toastAlignment: Alignment.topCenter,
+                                ).show(context);
+                              }
+                            },
+                            child: SaveCancelActionButtons(
+                              cancelOnPressed: () {
+                                GoRouter.of(context).pop();
+                              },
+                              saveOnPressed: () {
+                                if (changeNameKey.currentState!.validate()) {
+                                  changeNameKey.currentState!.save();
+                                }
+                              },
+                            ),
+                          ),
                     ),
                   ],
                 ),

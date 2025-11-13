@@ -178,7 +178,12 @@ class _SettingsListTitlesState extends State<SettingsListTitles> {
                               ),
                               title: Text(
                                 option,
-                                style: Theme.of(context).textTheme.bodyMedium,
+                                style: Theme.of(context).textTheme.bodyMedium!
+                                    .copyWith(
+                                      color: isDark
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
                               ),
                               value: option,
                               groupValue: groupValue,

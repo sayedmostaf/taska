@@ -9,19 +9,50 @@ class SocialProfile extends StatelessWidget {
     required this.text,
     required this.onTap,
   });
+
   final String image, text;
-  final Function() onTap;
+  final VoidCallback onTap;
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    final theme = Theme.of(context);
+
+    return InkWell(
       onTap: onTap,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(image),
-          SizedBox(width: 10.w),
-          Text(text, style: Theme.of(context).textTheme.titleSmall),
-        ],
+      borderRadius: BorderRadius.circular(16.r),
+      splashColor: theme.colorScheme.primary.withOpacity(0.2),
+      highlightColor: Colors.transparent,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surfaceVariant.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 36.w,
+              height: 36.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: theme.colorScheme.primary.withOpacity(0.15),
+              ),
+              child: Center(
+                child: SvgPicture.asset(image, width: 20.w, height: 20.w),
+              ),
+            ),
+            SizedBox(width: 12.w),
+            Text(
+              text,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

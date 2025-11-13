@@ -1,7 +1,7 @@
 # ✅ Taska
 
 <div align="center">
-  <img src="assets/images/logo.png" alt="Taska Logo" height="150"/>
+    <img src="images/taska-cover.png" alt="Taska Cover"/>
   
   <h3>🎯 Your Ultimate Task Management Solution 🎯</h3>
   

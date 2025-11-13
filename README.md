@@ -154,16 +154,18 @@ Built with modern Flutter architecture and best practices, Taska offers a seamle
 <summary><strong>🚀 Splash & Onboarding</strong> (Click to expand)</summary>
 <table>
   <tr>
-    <td><img src="images/splash-1.jpg" alt="Splash Screen 1" width="200"/></td>
-    <td><img src="images/splash-2.jpg" alt="Splash Screen 2" width="200"/></td>
-    <td><img src="images/onboarding-1.jpg" alt="Onboarding 1" width="200"/></td>
-    <td><img src="images/onboarding-2.jpg" alt="Onboarding 2" width="200"/></td>
+    <td><img src="images/splash1.jpg" alt="Splash Screen 1" width="200"/></td>
+    <td><img src="images/splash2.jpg" alt="Splash Screen 2" width="200"/></td>
+    <td><img src="images/onboarding3.jpg" alt="Onboarding 1" width="200"/></td>
+    <td><img src="images/onboarding2.jpg" alt="Onboarding 1" width="200"/></td>
+    <td><img src="images/onboarding1.jpg" alt="Onboarding 2" width="200"/></td>
   </tr>
   <tr>
     <td align="center"><em>Splash 1</em></td>
     <td align="center"><em>Splash 2</em></td>
     <td align="center"><em>Onboarding 1</em></td>
     <td align="center"><em>Onboarding 2</em></td>
+    <td align="center"><em>Onboarding 3</em></td>
   </tr>
 </table>
 </details>
@@ -172,14 +174,14 @@ Built with modern Flutter architecture and best practices, Taska offers a seamle
 <summary><strong>🔐 Authentication</strong> (Click to expand)</summary>
 <table>
   <tr>
-    <td><img src="images/onboarding-3.jpg" alt="Onboarding 3" width="200"/></td>
-    <td><img src="images/login.jpg" alt="Login Screen" width="200"/></td>
-    <td><img src="images/register.jpg" alt="Register Screen" width="200"/></td>
+    <td><img src="images/signin.jpg" alt="Signin Screen" width="200"/></td>
+    <td><img src="images/signup.jpg" alt="Signup Screen" width="200"/></td>
+    <td><img src="images/reset-email.jpg" alt="Reset Email Screen" width="200"/></td>
   </tr>
   <tr>
-    <td align="center"><em>Welcome</em></td>
     <td align="center"><em>Login</em></td>
     <td align="center"><em>Register</em></td>
+    <td align="center"><em>Reset Email</em></td>
   </tr>
 </table>
 </details>
@@ -188,8 +190,8 @@ Built with modern Flutter architecture and best practices, Taska offers a seamle
 <summary><strong>📋 Task Management</strong> (Click to expand)</summary>
 <table>
   <tr>
-    <td><img src="images/index.jpg" alt="Home Screen" width="200"/></td>
-    <td><img src="images/index-ar.jpg" alt="Home Screen Arabic" width="200"/></td>
+    <td><img src="images/add-task.jpg" alt="Home Screen" width="200"/></td>
+    <td><img src="images/index1.jpg" alt="Home Screen Arabic" width="200"/></td>
     <td><img src="images/edit-task.jpg" alt="Edit Task" width="200"/></td>
     <td><img src="images/new-category.jpg" alt="New Category" width="200"/></td>
   </tr>
@@ -206,9 +208,9 @@ Built with modern Flutter architecture and best practices, Taska offers a seamle
 <summary><strong>⚙️ Task Configuration</strong> (Click to expand)</summary>
 <table>
   <tr>
-    <td><img src="images/choose-time.jpg" alt="Choose Time" width="200"/></td>
-    <td><img src="images/choose-category.jpg" alt="Choose Category" width="200"/></td>
-    <td><img src="images/choose-priority.jpg" alt="Choose Priority" width="200"/></td>
+    <td><img src="images/select-time.jpg" alt="Choose Time" width="200"/></td>
+    <td><img src="images/choose-cat.jpg" alt="Choose Category" width="200"/></td>
+    <td><img src="images/priority.jpg" alt="Choose Priority" width="200"/></td>
   </tr>
   <tr>
     <td align="center"><em>Time Picker</em></td>
@@ -222,14 +224,16 @@ Built with modern Flutter architecture and best practices, Taska offers a seamle
 <summary><strong>📅 Calendar & Focus</strong> (Click to expand)</summary>
 <table>
   <tr>
-    <td><img src="images/calendar-1.jpg" alt="Calendar View 1" width="200"/></td>
-    <td><img src="images/calendar-2.jpg" alt="Calendar View 2" width="200"/></td>
-    <td><img src="images/focus-1.jpg" alt="Focus Mode 1" width="200"/></td>
-    <td><img src="images/focus-2.jpg" alt="Focus Mode 2" width="200"/></td>
+    <td><img src="images/cal1.jpg" alt="Calendar View 1" width="200"/></td>
+    <td><img src="images/cal3.jpg" alt="Calendar View 2" width="200"/></td>
+    <td><img src="images/cal2.jpg" alt="Calendar Loading" width="200"/></td>
+    <td><img src="images/focus1.jpg" alt="Focus Mode 1" width="200"/></td>
+    <td><img src="images/focus2.jpg" alt="Focus Mode 2" width="200"/></td>
   </tr>
   <tr>
     <td align="center"><em>Calendar View 1</em></td>
     <td align="center"><em>Calendar View 2</em></td>
+    <td align="center"><em>Calendar Loading View</em></td>
     <td align="center"><em>Focus Mode 1</em></td>
     <td align="center"><em>Focus Mode 2</em></td>
   </tr>
@@ -240,12 +244,18 @@ Built with modern Flutter architecture and best practices, Taska offers a seamle
 <summary><strong>👤 Profile & Settings</strong> (Click to expand)</summary>
 <table>
   <tr>
-    <td><img src="images/profile.jpg" alt="Profile Screen" width="200"/></td>
-    <td><img src="images/profile-fr.jpg" alt="Profile Screen French" width="200"/></td>
+    <td><img src="images/profile2.jpg" alt="Profile Screen Dark" width="200"/></td>
+    <td><img src="images/profile1.jpg" alt="Profile Screen Light" width="200"/></td>
+    <td><img src="images/settings.jpg" alt="Settings" width="200"/></td>
+    <td><img src="images/faq.jpg" alt="FAQ" width="200"/></td>
+    <td><img src="images/about.jpg" alt="About" width="200"/></td>
   </tr>
   <tr>
-    <td align="center"><em>Profile (English)</em></td>
-    <td align="center"><em>Profile (French)</em></td>
+    <td align="center"><em>Profile (Dark)</em></td>
+    <td align="center"><em>Profile (Light)</em></td>
+    <td align="center"><em>Settings</em></td>
+    <td align="center"><em>FAQ</em></td>
+    <td align="center"><em>About</em></td>
   </tr>
 </table>
 </details>
